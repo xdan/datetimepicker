@@ -1,0 +1,27 @@
+<html>
+<link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/>
+<body>
+	<input type="text" value="2014/03/15 05:06" id="datetimepicker"/>
+	<input type="text" id="datetimepicker1"/>
+	<input type="text" id="datetimepicker2"/>
+	<input type="text" id="datetimepicker3"/>
+</body>
+<script src="jquery.js"></script>
+<script src="jquery.datetimepicker.js"></script>
+<script>
+$('#datetimepicker').datetimepicker();
+$('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
+$('#datetimepicker1').datetimepicker({
+	datepicker:false,
+	format:'H:i',
+	value:'12:00',
+});
+$('#datetimepicker2').datetimepicker({
+	timepicker:false,
+	format:'d/m/Y',
+});
+$('#datetimepicker3').datetimepicker({
+	inline:true,
+});
+</script>
+</html>
