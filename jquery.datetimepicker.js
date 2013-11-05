@@ -54,7 +54,7 @@
 			onChangeTime:function(){},
 			onShow:function(){},
 			onClose:function(){},
-			withoutCopyright:false,
+			withoutCopyright:true,
 			inverseButton:false,
 			hours12:false,
 			next:	'xdsoft_next',
