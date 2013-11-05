@@ -1,5 +1,7 @@
 datetimepicker
 ==============
+[Documentation][doc]
+
 
 jQuery Plugin Date and Time Picker
 
@@ -15,7 +17,4 @@ TimePicker
 
 ![ScreenShot](/screen/3.png)
 
-[Documentation][doc]
 [doc]: http://xdsoft.net/jqplugins/datetimepicker/
-
-
