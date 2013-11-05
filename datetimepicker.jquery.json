@@ -1,0 +1,38 @@
+{
+    "name": "datetimepicker",
+    "title": "jQuery Date and Time picker",
+    "description": "jQuery plugin for date, time, or datetime manipulation in form",
+    "keywords": [
+        "date",
+        "time",
+        "datetime",
+        "datepicker",
+        "timepicker",
+        "datetimepicker",
+    ],
+    "version": "1.0.1",
+    "author": {
+        "name": "Chupurnov Valeriy",
+        "url": "http://xdsoft.net/contacts.html"
+    },
+    "maintainers": [
+        {
+            "name": "Corey Frang",
+            "email": "gnarf37@gmail.com",
+            "url": "http://gnarf.net"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/jquery/jquery-color/blob/2.1.2/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/jquery/jquery-color/issues",
+    "homepage": "https://github.com/jquery/jquery-color",
+    "docs": "https://github.com/jquery/jquery-color",
+    "download": "http://code.jquery.com/#color",
+    "dependencies": {
+        "jquery": ">=1.5"
+    }
+}
