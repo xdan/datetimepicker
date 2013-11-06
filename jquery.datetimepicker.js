@@ -251,7 +251,11 @@
 									(options.maxTime!==false&&xd.strtotime(options.maxTime).getTime()<now.getTime())||
 									(options.minTime!==false&&xd.strtotime(options.minTime).getTime()>now.getTime())
 								?'xdsoft_disabled ':' ')+
-								((parseInt(xd.currentTime.getHours())==parseInt(h)&&parseInt(xd.currentTime.getMinutes())==parseInt(m))?' xdsoft_current ':'')+
+								(
+									(parseInt(xd.currentTime.getHours())==parseInt(h)
+								&&
+									parseInt(xd.currentTime.getMinutes()/options.step)*options.step==parseInt(m)
+								)?' xdsoft_current ':'')+
 								((parseInt(today.getHours())==parseInt(h)&&parseInt(today.getMinutes())==parseInt(m))?' xdsoft_today ':'')+
 								'" data-hour="'+h+'" data-minute="'+m+'">'+now.dateFormat(options.formatTime)+'</div>';
 				};
