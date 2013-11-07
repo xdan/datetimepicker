@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.0.1
+ * @preserve jQuery DateTimePicker plugin v1.0.3
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
@@ -62,7 +62,7 @@
 			dayOfWeekStart:0,
 			timeHeightInTimePicker:25,
 		};
-		var options = $.extend({},default_options,opt);
+		var options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options);
 		var createDateTimePicker = function( input ){
 			var datetimepicker = $('<div class="xdsoft_datetimepicker"></div>'),
 				xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
@@ -395,8 +395,21 @@
 			
 		};
 		return this.each(function(){
-			if( $(this).data('xdsoft_datetimepicker') ){
-				$(this).data('xdsoft_datetimepicker').setOptions(options);
+			var datetimepicker;
+			if( datetimepicker = $(this).data('xdsoft_datetimepicker') ){
+				//$(this).data('xdsoft_datetimepicker').setOptions(options);
+				if( $.type(opt) === 'string' ){
+					switch(opt){
+						case 'show':
+							datetimepicker.open();
+						break;
+						case 'hide':
+							datetimepicker.close();
+						break;
+					}
+				}else{
+					$(this).data('xdsoft_datetimepicker').setOptions(options);
+				}
 				return 0;
 			}
 			createDateTimePicker($(this));
