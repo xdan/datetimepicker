@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.0.3
+ * @preserve jQuery DateTimePicker plugin v1.0.4
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
@@ -356,6 +356,12 @@
 						left:offset.left,
 						top:offset.top+datetimepicker.data('input')[0].offsetHeight,
 					}).show();
+					if( options.closeOnWithoutClick ){
+						$(window).on('mousedown keydown',function(){
+							datetimepicker.close();
+							$(this).off('mousedown',arguments.callee);
+						});
+					}
 					datetimepicker.trigger('open.doksoft');
 				}
 			}; 
@@ -382,12 +388,6 @@
 						return;
 					_xdsoft_datetime.setCurrentTime((input&&input.val&&input.val())?input.val():new Date);
 					datetimepicker.open();
-					if( options.closeOnWithoutClick ){
-						$(window).on('mousedown keydown',function(){
-							datetimepicker.close();
-							$(this).off('mousedown',arguments.callee);
-						});
-					}
 				},100);
 				//event.stopPropagation();
 			});
