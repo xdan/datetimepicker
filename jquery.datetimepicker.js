@@ -30,6 +30,14 @@
 						"So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa.",
 					],
 				},
+				nl:{
+					months:[
+						"januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"
+					],
+					dayOfWeek:[
+						"zo", "ma", "di", "wo", "do", "vr", "za",
+					],
+				},
 			},
 			value:'',
 			lang:'en',
