@@ -28,8 +28,11 @@
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
+	-o-user-select: none;
 	user-select: none;
 }
+.xdsoft_noselect::selection { background: transparent; }
+.xdsoft_noselect::-moz-selection { background: transparent; }
 .xdsoft_datetimepicker.xdsoft_inline{
 	display: inline-block;
 	position: static;

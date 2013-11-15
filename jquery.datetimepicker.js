@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.0.4
+ * @preserve jQuery DateTimePicker plugin v1.0.5
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
