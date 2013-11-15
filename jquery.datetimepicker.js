@@ -69,6 +69,7 @@
 			prev : 'xdsoft_prev',
 			dayOfWeekStart:0,
 			timeHeightInTimePicker:25,
+			timepickerScrollbar:true,
 		};
 		var options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options);
 		var createDateTimePicker = function( input ){
@@ -78,7 +79,12 @@
 				mounth_picker = $('<div class="xdsoft_mounthpicker"><button class="xdsoft_prev"></button><div class="xdsoft_label xdsoft_month"></div><div class="xdsoft_label xdsoft_year"></div><button class="xdsoft_next"></button></div>'),
 				calendar = $('<div class="xdsoft_calendar"></div>'),
 				timepicker = $('<div class="xdsoft_timepicker active"><button class="xdsoft_prev"></button><div class="xdsoft_time_box"></div><button class="xdsoft_next"></button></div>'),
-				timebox = $('<div class="xdsoft_time_variant"></div>');
+				timeboxparent = timepicker.find('.xdsoft_time_box').eq(0),
+				timebox = $('<div class="xdsoft_time_variant"></div>'),
+				scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
+				scroller = $('<div class="xdsoft_scroller"></div>');
+			
+			
 			datetimepicker.setOptions = function( _options ){
 				options = $.extend({},options,_options);
 				if( options.inline ){
@@ -102,11 +108,72 @@
 					options.dayOfWeekStart = 0;
 				else 
 					options.dayOfWeekStart = parseInt(options.dayOfWeekStart);
+				if( !options.timepickerScrollbar )
+					scrollbar.hide();
 				options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
 			};
 			datetimepicker.data('options',options);
 			datetimepicker.on('mousedown',function( event ){
 				event.stopPropagation();
+			});
+			// scrollbar for timepicker
+			scrollbar.append(scroller);
+			timepicker.find('.xdsoft_time_box').append(scrollbar);
+			(function(){
+				var move = 0;
+				scroller.on('mousedown',function( event ){
+					var pageY = event.pageY,
+						top = parseInt(scroller.css('margin-top')),
+						h1 = scrollbar[0].offsetHeight;
+					$('body').addClass('xdsoft_noselect');
+					$(window).on('mouseup',function(){
+						$(window).off('mouseup',arguments.callee);
+						$(window).off('mousemove',move);
+						$('body').removeClass('xdsoft_noselect');
+					})
+					.on('mousemove',move = function(event){
+						var offset = event.pageY-pageY+top;
+						if( offset<0 )
+							offset = 0;
+						if( offset+scroller[0].offsetHeight>h1 )
+							offset = h1-scroller[0].offsetHeight;
+						
+						scroller.css('margin-top',offset);
+						datetimepicker.trigger('scroll.scrollbar',[offset]);
+					});
+				});
+				datetimepicker.on('scroll.timebox',function( event,offset ){
+					if( !options.timepickerScrollbar )
+						return;
+					var sbh 	= scrollbar.height()-scroller[0].offsetHeight,
+						pheight = timeboxparent[0].offsetHeight,
+						height 	= timebox[0].offsetHeight,
+						percent = offset/(height-pheight);
+					scroller.css('margin-top',sbh*percent);
+				})
+				.on( 'open.xdsoft',function( event ){
+					if( !options.timepickerScrollbar )
+						return;
+					var pheight = timeboxparent[0].offsetHeight;
+						height 	= timebox[0].offsetHeight,
+						percent = pheight/height,
+						sh = percent*scrollbar[0].offsetHeight;
+					if( percent>1 )
+						scroller.hide();
+					else{
+						scroller.show();
+						scroller.css('height',parseInt(sh>10?sh:10));
+					}
+				});
+				
+			})();
+			
+			datetimepicker.on('scroll.scrollbar',function(event,offset){
+				var sbh = scrollbar[0].offsetHeight-scroller[0].offsetHeight,
+					percent = offset/sbh;
+					pheight = timeboxparent[0].offsetHeight,
+					height = timebox[0].offsetHeight;
+				timebox.css('marginTop',-parseInt((height-pheight)*percent))
 			});
 			timepicker.find('.xdsoft_time_box').append(timebox);
 			datetimepicker.append(datepicker).append(timepicker);
@@ -198,13 +265,14 @@
 				var $this = $(this), timer = 0, stop = false, period = 110;
 				(function(v){
 					var pheight = timebox.parent()[0].offsetHeight,
-					height = timebox[0].offsetHeight,
-					top = Math.abs(parseInt(timebox.css('marginTop')));
+						height = timebox[0].offsetHeight,
+						top = Math.abs(parseInt(timebox.css('marginTop')));
 					if( $this.hasClass(options.next) && (height-pheight)- options.timeHeightInTimePicker>=top ){
 						timebox.css('marginTop','-'+(top+options.timeHeightInTimePicker)+'px')
 					}else if( $this.hasClass(options.prev) && top-options.timeHeightInTimePicker>=0  ){
 						timebox.css('marginTop','-'+(top-options.timeHeightInTimePicker)+'px')
 					}
+					datetimepicker.trigger('scroll.timebox',[Math.abs(parseInt(timebox.css('marginTop')))]);
 					options.onChangeTime&&options.onChangeTime.call&&options.onChangeTime.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
 					period= ( period>10 )?10:period-10;
 					!stop&&(timer = setTimeout(arguments.callee,v?v:period));
@@ -285,7 +353,7 @@
 				timebox.html(time);
 				//timebox.find('.xdsoft_current').length&&timebox.css('marginTop','-'+parseInt(timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker)+'px');
 			});
-			datetimepicker.on( 'open.doksoft',function(){
+			datetimepicker.on( 'open.xdsoft',function(){
 				if( timebox.find('.xdsoft_current').length ){
 					var pheight = timebox.parent()[0].offsetHeight,
 						height = timebox[0].offsetHeight,
@@ -331,15 +399,18 @@
 			datetimepicker.mousewheel&&timepicker.mousewheel(function(event, delta, deltaX, deltaY) {
 				var pheight = timebox.parent()[0].offsetHeight,
 					height = timebox[0].offsetHeight,
-					top = Math.abs(parseInt(timebox.css('marginTop')));
+					top = Math.abs(parseInt(timebox.css('marginTop'))),
+					fl = true;
 				if( delta<0 && (height-pheight)-options.timeHeightInTimePicker>=top ){
 					timebox.css('marginTop','-'+(top+options.timeHeightInTimePicker)+'px');
-					return false;
+					fl = false;
 				}else if( delta>0&&top-options.timeHeightInTimePicker>=0 ){
 					timebox.css('marginTop','-'+(top-options.timeHeightInTimePicker)+'px');
-					return false;
+					fl = false;
 				}
+				datetimepicker.trigger('scroll.timebox',[Math.abs(parseInt(timebox.css('marginTop')))]);
 				options.onChangeTime&&options.onChangeTime.call&&options.onChangeTime.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
+				return fl;
 			});
 			var current_time_index = 0;
 			input.mousewheel&&input.mousewheel(function( event, delta, deltaX, deltaY ){
@@ -370,7 +441,7 @@
 							$(this).off('mousedown',arguments.callee);
 						});
 					}
-					datetimepicker.trigger('open.doksoft');
+					datetimepicker.trigger( 'open.xdsoft' );
 				}
 			}; 
 			datetimepicker.close = function(){
