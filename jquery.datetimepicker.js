@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.0.5
+ * @preserve jQuery DateTimePicker plugin v1.0.6
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
@@ -70,6 +70,9 @@
 			dayOfWeekStart:0,
 			timeHeightInTimePicker:25,
 			timepickerScrollbar:true,
+			scrollMonth:true,
+			scrollTime:true,
+			scrollInput:true,
 		};
 		var options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options);
 		var createDateTimePicker = function( input ){
@@ -390,6 +393,8 @@
 				datetimepicker.trigger('change.xdsoft');
 			});
 			datetimepicker.mousewheel&&datepicker.mousewheel(function(event, delta, deltaX, deltaY) {
+				if( !options.scrollMonth )
+					return true;
 				if( delta<0 )
 					datetimepicker.data('xdsoft_datetime').nextMonth();
 				else
@@ -397,6 +402,8 @@
 				return false;
 			});		
 			datetimepicker.mousewheel&&timepicker.mousewheel(function(event, delta, deltaX, deltaY) {
+				if( !options.scrollTime )
+					return true;
 				var pheight = timebox.parent()[0].offsetHeight,
 					height = timebox[0].offsetHeight,
 					top = Math.abs(parseInt(timebox.css('marginTop'))),
@@ -414,6 +421,8 @@
 			});
 			var current_time_index = 0;
 			input.mousewheel&&input.mousewheel(function( event, delta, deltaX, deltaY ){
+				if( !options.scrollInput )
+					return true;
 				if( !options.datepicker && options.timepicker ){
 					current_time_index = timebox.find('.xdsoft_current').length?timebox.find('.xdsoft_current').eq(0).index():0;
 					if( current_time_index+delta>=0&&current_time_index+delta<timebox.children().length )
