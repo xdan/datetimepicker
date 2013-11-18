@@ -300,8 +300,8 @@
 					table+='<td data-date="'+start.getDate()+'" data-month="'+start.getMonth()+'" data-year="'+start.getFullYear()+'"'+
 						' class="'+
 							(
-								(options.maxDate!==false&&xd.strtodate(options.maxDate).getTime()<start.getTime())||
-								(options.minDate!==false&&xd.strtodate(options.minDate).getTime()>start.getTime())
+								(options.maxDate!==false&&Math.round(xd.strtodate(options.maxDate).getTime()/86400000)<Math.round(start.getTime()/86400000))||
+								(options.minDate!==false&&Math.round(xd.strtodate(options.minDate).getTime()/86400000)>Math.round(start.getTime()/86400000))
 							?'xdsoft_disabled ':' ')+
 							(xd.currentTime.getMonth()!=start.getMonth()?' xdsoft_other_month ':' ')+
 							(xd.currentTime.dateFormat('d.m.Y')==start.dateFormat('d.m.Y')?' xdsoft_current ':' ')+
