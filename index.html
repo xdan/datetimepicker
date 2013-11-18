@@ -1,10 +1,18 @@
 <html>
 <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/>
 <body>
-	<input type="text" value="2014/03/15 05:06" id="datetimepicker"/>
-	<input type="text" id="datetimepicker1"/>
-	<input type="text" id="datetimepicker2"/>
-	<input type="text" id="datetimepicker3"/>
+	<h3>DateTimePicker</h3>
+	<input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br><br>
+	<h3>TimePicker</h3>
+	<input type="text" id="datetimepicker1"/><br><br>
+	<h3>DatePicker</h3>
+	<input type="text" id="datetimepicker2"/><br><br>
+	<h3>Inline DateTimePicker</h3>
+	<input type="text" id="datetimepicker3"/><br><br>
+	<h3>Button Trigger</h3>
+	<input type="text" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/>
+	<h3>TimePicker allows time</h3>
+	<input type="text" id="datetimepicker5"/><br><br>
 </body>
 <script src="jquery.js"></script>
 <script src="jquery.datetimepicker.js"></script>
@@ -14,14 +22,26 @@ $('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
-	value:'12:00',
+	step:5,
 });
 $('#datetimepicker2').datetimepicker({
 	timepicker:false,
 	format:'d/m/Y',
+	minDate:0,
 });
 $('#datetimepicker3').datetimepicker({
 	inline:true,
+});
+$('#datetimepicker4').datetimepicker();
+$('#open').click(function(){
+	$('#datetimepicker4').datetimepicker('show');
+});
+$('#close').click(function(){
+	$('#datetimepicker4').datetimepicker('hide');
+});
+$('#datetimepicker5').datetimepicker({
+	datepicker:false,
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
 });
 </script>
 </html>

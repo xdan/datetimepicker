@@ -22,6 +22,17 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+.xdsoft_noselect{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+.xdsoft_noselect::selection { background: transparent; }
+.xdsoft_noselect::-moz-selection { background: transparent; }
 .xdsoft_datetimepicker.xdsoft_inline{
 	display: inline-block;
 	position: static;
@@ -209,3 +220,22 @@
 .xdsoft_datetimepicker  .xdsoft_copyright{ color:#ccc !important; font-size:10px;clear:both;float:none;margin-left:8px;}
 .xdsoft_datetimepicker  .xdsoft_copyright a{ color:#eee !important;}
 .xdsoft_datetimepicker  .xdsoft_copyright a:hover{ color:#aaa !important;}
+
+
+.xdsoft_time_box{
+	position:relative;
+}
+.xdsoft_time_box > .xdsoft_scrollbar >.xdsoft_scroller{
+	background:#ccc !important;
+	height:20px;
+	border-radius:3px;
+}
+.xdsoft_time_box > .xdsoft_scrollbar{
+	position:absolute;
+	width:7px;
+	width:7px;
+	right:0px;
+	top:0px;
+	bottom:0px;
+	cursor:pointer;
+}
