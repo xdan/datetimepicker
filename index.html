@@ -13,6 +13,8 @@
 	<input type="text" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/>
 	<h3>TimePicker allows time</h3>
 	<input type="text" id="datetimepicker5"/><br><br>
+	<h3>Destroy DateTimePicker</h3>
+	<input type="text" id="datetimepicker6"/><input id="destroy" type="button" value="destroy"/>
 </body>
 <script src="jquery.js"></script>
 <script src="jquery.datetimepicker.js"></script>
@@ -42,6 +44,16 @@ $('#close').click(function(){
 $('#datetimepicker5').datetimepicker({
 	datepicker:false,
 	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+});
+$('#datetimepicker6').datetimepicker();
+$('#destroy').click(function(){
+	if( $('#datetimepicker6').data('xdsoft_datetimepicker') ){
+		$('#datetimepicker6').datetimepicker('destroy');
+		this.value = 'create';
+	}else{
+		$('#datetimepicker6').datetimepicker();
+		this.value = 'destroy';
+	}
 });
 </script>
 </html>
