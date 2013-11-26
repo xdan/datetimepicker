@@ -60,10 +60,10 @@
 	float:left;
 	text-align:center;
 	margin-left:8px;
-	margin-top:5px;
+	margin-top:0px;
 }
 .xdsoft_datetimepicker  .xdsoft_datepicker.active+.xdsoft_timepicker{
-	margin-top:15px;
+	margin-top:10px;
 }
 .xdsoft_datetimepicker  .xdsoft_mounthpicker{
 	position: relative;
@@ -106,19 +106,23 @@
 	background-position:-40px -15px;
 	height: 15px;
 	width: 30px;
-	display: inline-block;
+	display: block;
+	margin-left:14px;
+	margin-top:5px;
 }
 .xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_prev{
 	background-position:-40px 0px;
+	margin-bottom:5px;
+	margin-top:0px;
 }
 .xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box{
-	height:150px;
+	height:151px;
 	overflow:hidden;
 	border-bottom:1px solid #DDDDDD;
 }
 .xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div{
 	background: #F5F5F5;
-	border:1px solid #DDDDDD;
+	border-top:1px solid #DDDDDD;
 	color: #666666;
 	font-size: 12px;
 	text-align: center;
@@ -128,8 +132,9 @@
 	height:25px;
 	line-height:25px;
 }
-.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div:last-child{
- border-bottom-width:1px;
+
+.xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div > div:first-child{
+ border-top-width:0px;
 }
 .xdsoft_datetimepicker  .xdsoft_next:hover,
 .xdsoft_datetimepicker  .xdsoft_prev:hover {
@@ -224,6 +229,7 @@
 
 .xdsoft_time_box{
 	position:relative;
+	border:1px solid #ccc;
 }
 .xdsoft_time_box > .xdsoft_scrollbar >.xdsoft_scroller{
 	background:#ccc !important;

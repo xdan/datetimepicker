@@ -157,7 +157,7 @@
 					if( !options.timepickerScrollbar )
 						return;
 					var sbh 	= scrollbar.height()-scroller[0].offsetHeight,
-						pheight = timeboxparent[0].offsetHeight,
+						pheight = timeboxparent[0].offsetHeight-2,
 						height 	= timebox[0].offsetHeight,
 						percent = offset/(height-pheight);
 					scroller.css('margin-top',sbh*percent);
@@ -165,7 +165,7 @@
 				.on( 'open.xdsoft',function( event ){
 					if( !options.timepickerScrollbar )
 						return;
-					var pheight = timeboxparent[0].offsetHeight;
+					var pheight = timeboxparent[0].offsetHeight-2;
 						height 	= timebox[0].offsetHeight,
 						percent = pheight/height,
 						sh = percent*scrollbar[0].offsetHeight;
@@ -182,7 +182,7 @@
 			datetimepicker.on('scroll.scrollbar',function(event,offset){
 				var sbh = scrollbar[0].offsetHeight-scroller[0].offsetHeight,
 					percent = offset/sbh;
-					pheight = timeboxparent[0].offsetHeight,
+					pheight = timeboxparent[0].offsetHeight-2,
 					height = timebox[0].offsetHeight;
 				timebox.css('marginTop',-parseInt((height-pheight)*percent))
 			});
@@ -275,7 +275,7 @@
 			timepicker.find('.xdsoft_prev,.xdsoft_next').mousedown(function(){
 				var $this = $(this), timer = 0, stop = false, period = 110;
 				(function(v){
-					var pheight = timebox.parent()[0].offsetHeight,
+					var pheight = timeboxparent[0].offsetHeight-2,
 						height = timebox[0].offsetHeight,
 						top = Math.abs(parseInt(timebox.css('marginTop')));
 					if( $this.hasClass(options.next) && (height-pheight)- options.timeHeightInTimePicker>=top ){
@@ -366,9 +366,9 @@
 			});
 			datetimepicker.on( 'open.xdsoft',function(){
 				if( timebox.find('.xdsoft_current').length ){
-					var pheight = timebox.parent()[0].offsetHeight,
+					var pheight = timeboxparent[0].offsetHeight-2,
 						height = timebox[0].offsetHeight,
-						top = timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker;
+						top = timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker+1;
 					if( (height-pheight)<top )
 						top = height-pheight;
 					timebox.css('marginTop','-'+parseInt(top)+'px');
@@ -414,7 +414,7 @@
 			datetimepicker.mousewheel&&timepicker.mousewheel(function(event, delta, deltaX, deltaY) {
 				if( !options.scrollTime )
 					return true;
-				var pheight = timebox.parent()[0].offsetHeight,
+				var pheight = timeboxparent[0].offsetHeight-2,
 					height = timebox[0].offsetHeight,
 					top = Math.abs(parseInt(timebox.css('marginTop'))),
 					fl = true;
