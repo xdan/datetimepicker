@@ -11,7 +11,7 @@
         "timepicker",
         "datetimepicker"
     ],
-    "version": "1.0.8",
+    "version": "1.0.9",
     "author": {
         "name": "Chupurnov Valeriy",
         "url": "http://xdsoft.net/contacts.html"
@@ -27,6 +27,6 @@
     "docs": "http://xdsoft.net/jqplugins/datetimepicker/",
     "download": "https://github.com/xdan/datetimepicker/archive/master.zip",
     "dependencies": {
-        "jquery": ">=1.5"
+        "jquery": ">=1.7"
     }
 }

@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.0.8
+ * @preserve jQuery DateTimePicker plugin v1.0.9
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -114,6 +114,13 @@
 					options.dayOfWeekStart = parseInt(options.dayOfWeekStart);
 				if( !options.timepickerScrollbar )
 					scrollbar.hide();
+				var tmpDate = [];
+				if( options.minDate && ( tmpDate = /^-(.*)$/.exec(options.minDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ){
+					options.minDate = new Date((new Date).getTime()-tmpDate.getTime()).dateFormat( options.formatDate );
+				}
+				if( options.maxDate && ( tmpDate = /^\+(.*)$/.exec(options.maxDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ){
+					options.maxDate = new Date((new Date).getTime()+tmpDate.getTime()).dateFormat( options.formatDate );
+				}
 				options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
 			};
 			datetimepicker.data('options',options);
@@ -446,9 +453,9 @@
 				options.onShow&&options.onShow.call&&(onShow=options.onShow.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input')));
 				if( onShow!==false ){
 					var setPos = function(){
-						var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight;
+						var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1;
 						if( top+datetimepicker[0].offsetHeight>$('body').height() )
-							top = offset.top-datetimepicker[0].offsetHeight;
+							top = offset.top-datetimepicker[0].offsetHeight+1;
 						datetimepicker.css({
 							left:offset.left,
 							top:top,
