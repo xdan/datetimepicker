@@ -182,6 +182,26 @@ $('#_datetimepicker6').datetimepicker({
 });
 });
 </script>
+
+<h4>minDate and maxDate Example</h4>
+<p>JavaScript</p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker7&#39;).datetimepicker({
+	timepicker:false,
+	formatDate:&#39;Y/m/d&#39;,
+	minDate:&#39;-1970/01/02&#39;,//yesterday is minimum date(for today use 0 or -1970/01/01)
+	maxDate:&#39;+1970/01/02&#39;,//and tommorow is maximum date calendar,
+});</code></pre>
+<p>Result</p>
+<p><input id="_datetimepicker7" type="text" value="" /></p>
+<script>$(function(){
+$('#_datetimepicker7').datetimepicker({
+	timepicker:false,
+	formatDate:'Y/m/d',
+	minDate:'-1970/01/02', // yesterday is minimum date
+	maxDate:'+1970/01/02', // and tommorow is maximum date calendar
+});
+});
+</script>
 <h2>Full options list</h2>
 <table class="table table-condensed table-bordered table-striped">
 	<thead>
@@ -271,6 +291,7 @@ $('#_datetimepicker6').datetimepicker({
 			<td></td>
 			<td><pre><code data-language="javascript">{minDate:0,} // today
 {minDate:&#39;2013/12/03&#39;}
+{minDate:&#39;-1970/01/02&#39;} // yesterday
 {minDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
 		<tr>
@@ -279,6 +300,7 @@ $('#_datetimepicker6').datetimepicker({
 			<td></td>
 			<td><pre><code data-language="javascript">{maxDate:0,}
 {maxDate:&#39;2013/12/03&#39;}
+{maxDate:&#39;+1970/01/02&#39;} // tommorrow
 {maxDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
 		<tr>
