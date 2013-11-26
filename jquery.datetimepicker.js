@@ -488,7 +488,7 @@
 			datetimepicker.setOptions(options);
 			_xdsoft_datetime.setCurrentTime( options.value?options.value:(input&&input.val&&input.val())?input.val():new Date );
 			input.data( 'xdsoft_datetimepicker',datetimepicker )
-				.on('enter.xdsoft keyup.xdsoft mousedown.xdsoft open.xdsoft',function(event){
+				.on('enter.xdsoft keyup.xdsoft mousedown.xdsoft open.xdsoft focus.xdsoft',function(event){
 				if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible') )
 					return;
 				clearTimeout(timer);
