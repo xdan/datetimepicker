@@ -511,7 +511,7 @@
 				datetimepicker.remove();
 				delete datetimepicker;
 				input.data( 'xdsoft_datetimepicker',null );
-				input.off( 'enter.xdsoft keyup.xdsoft mousedown.xdsoft open.xdsoft' );
+				input.off( 'enter.xdsoft keyup.xdsoft mousedown.xdsoft open.xdsoft focus.xdsoft' );
 				$(window).off('resize.xdsoft');
 				$(window).off('mousedown.xdsoft keydown.xdsoft');
 				input.unmousewheel&&input.unmousewheel();
