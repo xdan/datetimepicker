@@ -5,7 +5,6 @@
 Use this plugin to unobtrusively add a datetimepicker, datepicker or timepicker dropdown to your forms. It's easy to customize options. <a href="https://github.com/xdan/datetimepicker">Source code on GitHub</a> or <a href="https://github.com/xdan/datetimepicker/archive/master.zip">download (zip)</a>.
 </p>
 <?php echo $this->parse('adsense5')?>
-<?php echo $this->parse('donate')?>
 <h3>DateTimepicker</h3>
 <input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br/>
 <h3>TimePicker</h3>
