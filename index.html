@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/>
+<link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
 </head>
 <body>
 	<h3>DateTimePicker</h3>
@@ -19,25 +19,25 @@
 	<h3>Destroy DateTimePicker</h3>
 	<input type="text" id="datetimepicker6"/><input id="destroy" type="button" value="destroy"/>
 </body>
-<script src="jquery.js"></script>
-<script src="jquery.datetimepicker.js"></script>
+<script src="./jquery.js"></script>
+<script src="./jquery.datetimepicker.js"></script>
 <script>
 $('#datetimepicker').datetimepicker();
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
-	step:5,
+	step:5
 });
 $('#datetimepicker2').datetimepicker({
 	timepicker:false,
 	format:'d/m/Y',
 	formatDate:'Y/m/d',
 	minDate:'-1970/01/02', // yesterday is minimum date
-	maxDate:'+1970/01/02', // and tommorow is maximum date calendar
+	maxDate:'+1970/01/02' // and tommorow is maximum date calendar
 });
 $('#datetimepicker3').datetimepicker({
-	inline:true,
+	inline:true
 });
 $('#datetimepicker4').datetimepicker();
 $('#open').click(function(){
@@ -48,7 +48,7 @@ $('#close').click(function(){
 });
 $('#datetimepicker5').datetimepicker({
 	datepicker:false,
-	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00']
 });
 $('#datetimepicker6').datetimepicker();
 $('#destroy').click(function(){
