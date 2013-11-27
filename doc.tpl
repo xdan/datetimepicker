@@ -21,14 +21,14 @@ $('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
-	value:'12:00',
+	value:'12:00'
 });
 $('#datetimepicker2').datetimepicker({
 	timepicker:false,
-	format:'d/m/Y',
+	format:'d/m/Y'
 });
 $('#datetimepicker3').datetimepicker({
-	inline:true,
+	inline:true
 });
 });
 </script>
@@ -66,7 +66,7 @@ $(function(){$('#_datetimepicker').datetimepicker();});
     dayOfWeek:[&quot;So.&quot;, &quot;Mo&quot;, &quot;Di&quot;, &quot;Mi&quot;, &quot;Do&quot;, &quot;Fr&quot;, &quot;Sa.&quot;,],
  }},
 timepicker:false,
-format:&#39;d.m.Y&#39;,
+format:&#39;d.m.Y&#39;
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker1" type="text" value="15.08.2013" /></p>
@@ -75,11 +75,11 @@ $('#_datetimepicker1').datetimepicker({
  lang:'de',
  i18n:{de:{
    months:[
-       'Januar','Februar','Marz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember',],
-    dayOfWeek:["So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa.",],
+       'Januar','Februar','Marz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+    dayOfWeek:["So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa."]
  }},
 timepicker:false,
-format:'d.m.Y',
+format:'d.m.Y'
 });
 });
 </script>
@@ -87,14 +87,14 @@ format:'d.m.Y',
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker2&#39;).datetimepicker({
 	datepicker:false,
-	format:&#39;H:i&#39;,
+	format:&#39;H:i&#39;
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker2" type="text" value="23:16" /></p>
 <script>$(function(){
 $('#_datetimepicker2').datetimepicker({
   datepicker:false,
-  format:'H:i',
+  format:'H:i'
 });
 });
 </script>
@@ -103,7 +103,7 @@ $('#_datetimepicker2').datetimepicker({
 <pre><code data-language="javascript">$(&#39;#datetimepicker3&#39;).datetimepicker({
   format:&#39;d.m.Y H:i&#39;,
   inline:true,
-  lang:&#39;ru&#39;,
+  lang:&#39;ru&#39;
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker3" type="text" value="10.12.2013 23:45" /></p>
@@ -111,7 +111,7 @@ $('#_datetimepicker2').datetimepicker({
 $('#_datetimepicker3').datetimepicker({
   format:'d.m.Y H:i',
   inline:true,
-  lang:'en',
+  lang:'en'
 });
 });
 </script>
@@ -120,7 +120,7 @@ $('#_datetimepicker3').datetimepicker({
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker4&#39;).datetimepicker({
   format:&#39;d.m.Y H:i&#39;,
-  lang:&#39;ru&#39;,
+  lang:&#39;ru&#39;
 });</code></pre>
 and handler onclick event
 <pre><code data-language="javascript">$(&#39;#image_button&#39;).click(function(){
@@ -140,7 +140,7 @@ and handler onclick event
 <script>$(function(){
 $('#_datetimepicker4').datetimepicker({
   format:'d.m.Y H:i',
-  lang:'en',
+  lang:'en'
 });
 $('#image_button').click(function(){
 	$('#_datetimepicker4').datetimepicker('show'); 
@@ -152,14 +152,14 @@ $('#image_button').click(function(){
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker5&#39;).datetimepicker({
 	datepicker:false,
-	allowTimes:[&#39;12:00&#39;, &#39;13:00&#39;, &#39;15:00&#39;, &#39;17:00&#39;, &#39;17:05&#39;, &#39;17:20&#39;, &#39;19:00&#39;, &#39;20:00&#39;],
+	allowTimes:[&#39;12:00&#39;, &#39;13:00&#39;, &#39;15:00&#39;, &#39;17:00&#39;, &#39;17:05&#39;, &#39;17:20&#39;, &#39;19:00&#39;, &#39;20:00&#39;]
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker5" type="text" value="23:45" /></p>
 <script>$(function(){
 $('#_datetimepicker5').datetimepicker({
 	datepicker:false,
-	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00']
 });
 });
 </script>
@@ -169,7 +169,7 @@ $('#_datetimepicker5').datetimepicker({
 	timepicker:false,
 	onChangeDateTime:function(dp,$input){
 		alert($input.val())
-	},
+	}
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker6" type="text" value="" /></p>
@@ -178,7 +178,7 @@ $('#_datetimepicker6').datetimepicker({
 	timepicker:false,
 	onChangeDateTime:function(current_time,$input){
 		alert($input.val())
-	},
+	}
 });
 });
 </script>
@@ -189,7 +189,7 @@ $('#_datetimepicker6').datetimepicker({
 	timepicker:false,
 	formatDate:&#39;Y/m/d&#39;,
 	minDate:&#39;-1970/01/02&#39;,//yesterday is minimum date(for today use 0 or -1970/01/01)
-	maxDate:&#39;+1970/01/02&#39;,//and tommorow is maximum date calendar,
+	maxDate:&#39;+1970/01/02&#39;//and tommorow is maximum date calendar
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker7" type="text" value="" /></p>
@@ -198,7 +198,7 @@ $('#_datetimepicker7').datetimepicker({
 	timepicker:false,
 	formatDate:'Y/m/d',
 	minDate:'-1970/01/02', // yesterday is minimum date
-	maxDate:'+1970/01/02', // and tommorow is maximum date calendar
+	maxDate:'+1970/01/02' // and tommorow is maximum date calendar
 });
 });
 </script>
@@ -219,7 +219,7 @@ $('#_datetimepicker7').datetimepicker({
 			<td>Current value datetimepicker. If it is set, ignored input.value</td>
 			<td>
 			<pre><code data-language="javascript">{value:&#39;12.03.2013&#39;,
- format:&#39;d.m.Y&#39;,}</code></pre>
+ format:&#39;d.m.Y&#39;}</code></pre>
 			</td>
 		</tr>
 		<tr>
@@ -289,7 +289,7 @@ $('#_datetimepicker7').datetimepicker({
 			<td>minDate</td>
 			<td>false</td>
 			<td></td>
-			<td><pre><code data-language="javascript">{minDate:0,} // today
+			<td><pre><code data-language="javascript">{minDate:0} // today
 {minDate:&#39;2013/12/03&#39;}
 {minDate:&#39;-1970/01/02&#39;} // yesterday
 {minDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
