@@ -59,14 +59,21 @@ $(function(){$('#_datetimepicker').datetimepicker();});
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker1&#39;).datetimepicker({
  lang:&#39;de&#39;,
- i18n:{de:{
+ i18n:{
+  de:{
    months:[
-       &#39;Januar&#39;,&#39;Februar&#39;,&#39;M&auml;rz&#39;,&#39;April&#39;,&#39;Mai&#39;,&#39;Juni&#39;,&#39;Juli&#39;,&#39;August&#39;,
-       &#39;September&#39;,&#39;Oktober&#39;,&#39;November&#39;,&#39;Dezember&#39;,],
-    dayOfWeek:[&quot;So.&quot;, &quot;Mo&quot;, &quot;Di&quot;, &quot;Mi&quot;, &quot;Do&quot;, &quot;Fr&quot;, &quot;Sa.&quot;,],
- }},
-timepicker:false,
-format:&#39;d.m.Y&#39;
+    &#39;Januar&#39;,&#39;Februar&#39;,&#39;M&auml;rz&#39;,&#39;April&#39;,
+    &#39;Mai&#39;,&#39;Juni&#39;,&#39;Juli&#39;,&#39;August&#39;,
+    &#39;September&#39;,&#39;Oktober&#39;,&#39;November&#39;,&#39;Dezember&#39;,
+   ],
+   dayOfWeek:[
+    &quot;So.&quot;, &quot;Mo&quot;, &quot;Di&quot;, &quot;Mi&quot;, 
+    &quot;Do&quot;, &quot;Fr&quot;, &quot;Sa.&quot;,
+   ]
+  }
+ },
+ timepicker:false,
+ format:&#39;d.m.Y&#39;
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker1" type="text" value="15.08.2013" /></p>
@@ -74,9 +81,10 @@ format:&#39;d.m.Y&#39;
 $('#_datetimepicker1').datetimepicker({
  lang:'de',
  i18n:{de:{
-   months:[
-       'Januar','Februar','Marz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-    dayOfWeek:["So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa."]
+  months:[
+   'Januar','Februar','Marz','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'
+  ],
+  dayOfWeek:["So.", "Mo", "Di", "Mi", "Do", "Fr", "Sa."]
  }},
 timepicker:false,
 format:'d.m.Y'
@@ -109,9 +117,9 @@ $('#_datetimepicker2').datetimepicker({
 <p><input id="_datetimepicker3" type="text" value="10.12.2013 23:45" /></p>
 <script>$(function(){
 $('#_datetimepicker3').datetimepicker({
-  format:'d.m.Y H:i',
-  inline:true,
-  lang:'en'
+ format:'d.m.Y H:i',
+ inline:true,
+ lang:'en'
 });
 });
 </script>
@@ -151,8 +159,11 @@ $('#image_button').click(function(){
 <h4>allowTimes options TimePicker Example</h4>
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker5&#39;).datetimepicker({
-	datepicker:false,
-	allowTimes:[&#39;12:00&#39;, &#39;13:00&#39;, &#39;15:00&#39;, &#39;17:00&#39;, &#39;17:05&#39;, &#39;17:20&#39;, &#39;19:00&#39;, &#39;20:00&#39;]
+ datepicker:false,
+ allowTimes:[
+  &#39;12:00&#39;, &#39;13:00&#39;, &#39;15:00&#39;, 
+  &#39;17:00&#39;, &#39;17:05&#39;, &#39;17:20&#39;, &#39;19:00&#39;, &#39;20:00&#39;
+ ]
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker5" type="text" value="23:45" /></p>
@@ -175,10 +186,10 @@ $('#_datetimepicker5').datetimepicker({
 <p><input id="_datetimepicker6" type="text" value="" /></p>
 <script>$(function(){
 $('#_datetimepicker6').datetimepicker({
-	timepicker:false,
-	onChangeDateTime:function(current_time,$input){
-		alert($input.val())
-	}
+ timepicker:false,
+ onChangeDateTime:function(current_time,$input){
+	alert($input.val())
+ }
 });
 });
 </script>
@@ -186,10 +197,10 @@ $('#_datetimepicker6').datetimepicker({
 <h4>minDate and maxDate Example</h4>
 <p>JavaScript</p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker7&#39;).datetimepicker({
-	timepicker:false,
-	formatDate:&#39;Y/m/d&#39;,
-	minDate:&#39;-1970/01/02&#39;,//yesterday is minimum date(for today use 0 or -1970/01/01)
-	maxDate:&#39;+1970/01/02&#39;//and tommorow is maximum date calendar
+ timepicker:false,
+ formatDate:&#39;Y/m/d&#39;,
+ minDate:&#39;-1970/01/02&#39;,//yesterday is minimum date(for today use 0 or -1970/01/01)
+ maxDate:&#39;+1970/01/02&#39;//tommorow is maximum date calendar
 });</code></pre>
 <p>Result</p>
 <p><input id="_datetimepicker7" type="text" value="" /></p>
