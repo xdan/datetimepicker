@@ -7,6 +7,8 @@ Use this plugin to unobtrusively add a datetimepicker, datepicker or timepicker 
 <?php echo $this->parse('adsense5')?>
 <h3>DateTimepicker</h3>
 <input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br/>
+<h3>Use mask DateTimepicker</h3>
+<input type="text" value="" id="datetimepicker_mask"/><br/>
 <h3>TimePicker</h3>
 <input type="text" id="datetimepicker1"/><br/>
 <h3>DatePicker</h3>
@@ -15,6 +17,9 @@ Use this plugin to unobtrusively add a datetimepicker, datepicker or timepicker 
 <input type="text" id="datetimepicker3"/><br/>
 <script>
 $(function(){
+$('#datetimepicker_mask').datetimepicker({
+	mask:'9999/19/39 29:59',
+});
 $('#datetimepicker').datetimepicker();
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
 $('#datetimepicker1').datetimepicker({
@@ -212,6 +217,22 @@ $('#_datetimepicker7').datetimepicker({
 });
 });
 </script>
+<h4>Use mask input Example</h4>
+<p>JavaScript</p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker_mask&#39;).datetimepicker({
+ timepicker:false,
+ mask:true, // &#39;9999/19/39 29:59&#39; - digit is the maximum possible for a cell
+});</code></pre>
+<p>Result</p>
+<p><input id="_datetimepicker_mask" type="text" value="" /></p>
+<script>$(function(){
+$('#_datetimepicker_mask').datetimepicker({
+	timepicker:false,
+	mask:'9999/19/39'
+	format:'Y/m/d'
+});
+});
+</script>
 <h2>Full options list</h2>
 <table class="table table-condensed table-bordered table-striped">
 	<thead>
@@ -339,6 +360,17 @@ $('#_datetimepicker7').datetimepicker({
 	&#39;12:00&#39;,
 	&#39;21:00&#39;
 ]}</code></pre></td>
+		</tr>
+		<tr>
+			<td>mask</td>
+			<td>false</td>
+			<td>Use mask for input. true - automatically generates a mask on the field &#39;format&#39;, Digit from 0 to 9, set the highest possible digit for the value. For example: the first digit of hours can not be greater than 2, and the first digit of the minutes can not be greater than 5</td>
+			<td><pre><code data-language="javascript">
+				{mask:'9999/19/39',format:'Y/m/d'}
+				{mask:true,format:'Y/m/d'} // automatically generate a mask 9999/99/99
+				{mask:'29:59',format:'H:i'} //
+				{mask:true,format:'H:i'} //automatically generate a mask 99:99
+			</code></pre></td>
 		</tr>
 		<tr>
 			<td>opened</td>

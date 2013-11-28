@@ -7,6 +7,8 @@
 	<p><a href="http://xdsoft.net/jqplugins/datetimepicker/">Homepage</a></p>
 	<h3>DateTimePicker</h3>
 	<input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br><br>
+	<h3>Mask DateTimePicker</h3>
+	<input type="text" value="" id="datetimepicker_mask"/><br><br>
 	<h3>TimePicker</h3>
 	<input type="text" id="datetimepicker1"/><br><br>
 	<h3>DatePicker</h3>
@@ -23,6 +25,9 @@
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
 <script>
+$('#datetimepicker_mask').datetimepicker({
+	mask:'9999/19/39 29:59',
+});
 $('#datetimepicker').datetimepicker();
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:06'});
 $('#datetimepicker1').datetimepicker({
