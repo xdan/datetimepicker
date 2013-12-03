@@ -228,7 +228,7 @@ $('#_datetimepicker7').datetimepicker({
 <script>$(function(){
 $('#_datetimepicker_mask').datetimepicker({
 	timepicker:false,
-	mask:'9999/19/39'
+	mask:'9999/19/39',
 	format:'Y/m/d'
 });
 });
@@ -240,7 +240,7 @@ $('#_datetimepicker_mask').datetimepicker({
 			<th style="text-align: center;"><strong>Name</strong></th>
 			<th style="text-align: center;"><strong>&nbsp;default</strong></th>
 			<th style="text-align: center;"><strong>Descr</strong></th>
-			<th style="text-align: center;"><strong>Ex.</strong></th>
+			<th style="width:200px;text-align: center;"><strong>Ex.</strong></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -365,12 +365,10 @@ $('#_datetimepicker_mask').datetimepicker({
 			<td>mask</td>
 			<td>false</td>
 			<td>Use mask for input. true - automatically generates a mask on the field &#39;format&#39;, Digit from 0 to 9, set the highest possible digit for the value. For example: the first digit of hours can not be greater than 2, and the first digit of the minutes can not be greater than 5</td>
-			<td><pre><code data-language="javascript">
-				{mask:'9999/19/39',format:'Y/m/d'}
-				{mask:true,format:'Y/m/d'} // automatically generate a mask 9999/99/99
-				{mask:'29:59',format:'H:i'} //
-				{mask:true,format:'H:i'} //automatically generate a mask 99:99
-			</code></pre></td>
+			<td><pre>{mask:&#39;9999/19/39&#39;,format:&#39;Y/m/d&#39;}
+{mask:true,format:&#39;Y/m/d&#39;} // automatically generate a mask 9999/99/99
+{mask:&#39;29:59&#39;,format:&#39;H:i&#39;} //
+{mask:true,format:&#39;H:i&#39;} //automatically generate a mask 99:99</pre></td>
 		</tr>
 		<tr>
 			<td>opened</td>

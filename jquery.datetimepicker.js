@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.1.0
+ * @preserve jQuery DateTimePicker plugin v1.1.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -91,7 +91,8 @@
 			scrollMonth:true,
 			scrollTime:true,
 			scrollInput:true,
-			mask:false
+			mask:false,
+			validateOnBlur:true
 		};
 		var options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options);
 		var createDateTimePicker = function( input ){
@@ -227,16 +228,24 @@
 										case (([AKEY,CKEY,VKEY,ZKEY,YKEY].indexOf(key)!==-1)&&(ctrlDown)):
 										 case [ESC,ARROWUP,ARROWDOWN,ARROWLEFT,ARROWRIGHT,F5,CTRLKEY].indexOf(key)!==-1:
 											return true;
-										case [ENTER,TAB].indexOf(options.mask,key)!==-1:
+										case [ENTER].indexOf(key)!==-1:
 											var elementSelector = "input:visible,textarea:visible";
 											$(elementSelector ).eq($(elementSelector ).index(this) + 1).focus();
 										return false;
+										case [TAB].indexOf(key)!==-1:return true;
 									}
 									event.preventDefault();
 									return false;
 								});
 						break;
 					}
+				}
+				if( options.validateOnBlur ){
+					input.off('blur.xdsoft')
+						.on('blur.xdsoft',function(){
+							if( !Date.parseDate( $(this).val(), options.format ) )
+								$(this).val((new Date()).dateFormat( options.format ));
+					});
 				}
 				options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
 			};
@@ -281,7 +290,7 @@
 						percent = offset/(height-pheight);
 					scroller.css('margin-top',sbh*percent);
 				})
-				.on('open.xdsoft',function( event ){
+				.on('afterOpen.xdsoft',function( event ){
 					if( !options.timepickerScrollbar )
 						return;
 					var pheight = timeboxparent[0].offsetHeight-2;
@@ -412,6 +421,8 @@
 					$([document.body,window]).off('mouseup.xdsoft',arguments.callee);
 				});
 			});	
+			
+			// generating a calendar and timepicker
 			datetimepicker.on('change.xdsoft',function(){
 				var xd 		=	$(this).data('xdsoft_datetime'),
 					table 	=	'';
@@ -469,27 +480,28 @@
 						for(var j=0;j<60;j+=options.step){
 							h = (i<10?'0':'')+i;
 							m = (j<10?'0':'')+j;
-							line_time(h,m);
+							line_time( h,m );
 						}
 					}
 				}else{
 					for(var i=0;i<options.allowTimes.length;i++){
 						h = xd.strtotime(options.allowTimes[i]).getHours();
 						m = xd.strtotime(options.allowTimes[i]).getMinutes();
-						line_time(h,m);
+						line_time( h,m );
 					}
 				}
 				timebox.html(time);
 				//timebox.find('.xdsoft_current').length&&timebox.css('marginTop','-'+parseInt(timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker)+'px');
 			});
-			datetimepicker.on('open.xdsoft',function(){
-				if( timebox.find('.xdsoft_current').length ){
+			datetimepicker.on('afterOpen.xdsoft',function(){
+				if( options.timepicker && timebox.find('.xdsoft_current').length ){
 					var pheight = timeboxparent[0].offsetHeight-2,
 						height = timebox[0].offsetHeight,
 						top = timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker+1;
 					if( (height-pheight)<top )
 						top = height-pheight;
 					timebox.css('marginTop','-'+parseInt(top)+'px');
+					datetimepicker.trigger('scroll.timebox',[parseInt(top)]);
 				}
 			});
 			calendar.on('mousedown.xdsoft','td',function(){
@@ -580,6 +592,7 @@
 						});
 					};
 					datetimepicker.show();
+					datetimepicker.trigger('afterOpen.xdsoft');
 					setPos();
 					$(window).on('resize.xdsoft',setPos);
 					
@@ -631,7 +644,7 @@
 				datetimepicker.remove();
 				delete datetimepicker;
 				input.data( 'xdsoft_datetimepicker',null );
-				input.off( 'open.xdsoft focusin.xdsoft focusout.xdsoft mousedown.xdsoft' );
+				input.off( 'open.xdsoft focusin.xdsoft focusout.xdsoft mousedown.xdsoft blur.xdsoft' );
 				$(window).off('resize.xdsoft');
 				$([window,document.body]).off('mousedown.xdsoft');
 				input.unmousewheel&&input.unmousewheel();
