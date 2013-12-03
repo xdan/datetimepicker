@@ -303,6 +303,12 @@ $('#_datetimepicker_mask').datetimepicker({
 			<td>true</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{ closeOnWithoutClick :false}</code></pre></td>
+		</tr>		
+		<tr>
+			<td>validateOnBlur</td>
+			<td>true</td>
+			<td>Verify datetime value from input, when losing focus. If value is not valid datetime, then to value inserts the current datetime</td>
+			<td><pre><code data-language="javascript">{ validateOnBlur:false}</code></pre></td>
 		</tr>
 		<tr>
 			<td>timepicker</td>
