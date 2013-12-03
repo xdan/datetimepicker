@@ -3,13 +3,20 @@
     "title": "jQuery Date and Time picker",
     "description": "jQuery plugin for date, time, or datetime manipulation in form",
     "keywords": [
+        "calendar",
         "date",
         "time",
 		"form",
         "datetime",
         "datepicker",
         "timepicker",
-        "datetimepicker"
+        "datetimepicker",
+        "validation",
+        "ui",
+        "scroller",
+        "picker",
+        "i18n",
+        "input"
     ],
     "version": "1.1.1",
     "author": {
