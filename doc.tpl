@@ -451,6 +451,18 @@ $('#_datetimepicker_mask').datetimepicker({
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
+			<td>yearStart/td>
+			<td>1950</td>
+			<td>Start value for fast Year selector</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>yearEnd/td>
+			<td>2050</td>
+			<td>End value for fast Year selector</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
 			<td>dayOfWeekStart</td>
 			<td>0</td>
 			<td>
