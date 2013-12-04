@@ -81,7 +81,7 @@
 				timeboxparent.on('touchmove',function( event ){
 					if( start ){
 						var coord = pointerEventToXY(event), top = Math.abs(parseInt(timebox.css('marginTop')));
-						timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top+(coord.y-start.y)/10)/(height-parentHeight)]);
+						timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top-(coord.y-start.y))/(height-parentHeight)]);
 						event.stopPropagation();
 						event.preventDefault();
 					};
