@@ -583,9 +583,12 @@
 				options.onShow&&options.onShow.call&&(onShow=options.onShow.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input')));
 				if( onShow!==false ){
 					var setPos = function(){
-						var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1;
+						var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
 						if( top+datetimepicker[0].offsetHeight>$('body').height() )
 							top = offset.top-datetimepicker[0].offsetHeight+1;
+              if( left+datetimepicker[0].offsetWidth>$('body').width() )
+                left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
+              
 						datetimepicker.css({
 							left:offset.left,
 							top:top	
