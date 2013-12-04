@@ -1,9 +1,98 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v1.1.1
+ * @preserve jQuery DateTimePicker plugin v2.0.0
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
+	$.fn.xdsoftScroller = function( _percent ){
+		return this.each(function(){
+			var timeboxparent = $(this);
+			if( !$(this).hasClass('xdsoft_scroller_box') ){
+				var pointerEventToXY = function( e ){
+					var out = {x:0, y:0};
+					if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
+						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+						out.x = touch.pageX;
+						out.y = touch.pageY;
+					}else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
+						out.x = e.pageX;
+						out.y = e.pageY;
+					}
+					return out;
+				};
+				var move = 0,
+					timebox = timeboxparent.children().eq(0),
+					parentHeight = timeboxparent[0].offsetHeight-2,
+					height = timebox[0].offsetHeight,
+					scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
+					scroller = $('<div class="xdsoft_scroller"></div>'),
+					maximumOffset = 100,
+					start = false;
+				scrollbar.append(scroller);
+				timeboxparent.addClass('xdsoft_scroller_box').append(scrollbar);
+				scroller.on('mousedown.xdsoft_scroller',function( event ){
+					var pageY = event.pageY,
+						top = parseInt(scroller.css('margin-top')),
+						h1 = scrollbar[0].offsetHeight;
+					$(document.body).addClass('xdsoft_noselect');
+					$([document.body,window]).on('mouseup.xdsoft_scroller',function(){
+						$([document.body,window]).off('mouseup.xdsoft_scroller',arguments.callee)
+							.off('mousemove.xdsoft_scroller',move)
+							.removeClass('xdsoft_noselect');
+					});
+					$(document.body).on('mousemove.xdsoft_scroller',move = function(event){
+						var offset = event.pageY-pageY+top;
+						if( offset<0 )
+							offset = 0;
+						if( offset+scroller[0].offsetHeight>h1 )
+							offset = h1-scroller[0].offsetHeight;
+						timeboxparent.trigger('scroll_element.xdsoft_scroller',[maximumOffset?offset/maximumOffset:0]);
+					});
+				});
+				timeboxparent
+				 .on('scroll_element.xdsoft_scroller',function( event,percent ){
+					percent = percent>1?1:(percent<0||isNaN(percent))?0:percent;
+					scroller.css('margin-top',maximumOffset*percent);
+					timebox.css('marginTop',-parseInt((height-parentHeight)*percent))
+				 })
+				 .on('resize_scroll.xdsoft_scroller',function( event,_percent ){
+					parentHeight = timeboxparent[0].offsetHeight-2;
+					height = timebox[0].offsetHeight;
+					var percent = parentHeight/height,
+						sh = percent*scrollbar[0].offsetHeight;
+					if( percent>1 )
+						scroller.hide();
+					else{
+						scroller.show();
+						scroller.css('height',parseInt(sh>10?sh:10));
+						maximumOffset = scrollbar[0].offsetHeight-scroller[0].offsetHeight;
+						timeboxparent.trigger('scroll_element.xdsoft_scroller',[_percent?_percent:Math.abs(parseInt(timebox.css('marginTop')))/(height-parentHeight)]);
+					}
+				 })
+				timeboxparent.mousewheel&&timeboxparent.mousewheel(function(event, delta, deltaX, deltaY) {
+					var top = Math.abs(parseInt(timebox.css('marginTop')));
+					timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top-delta*20)/(height-parentHeight)]);
+					event.stopPropagation();
+					return false;
+				});
+				timeboxparent.on('touchstart',function( event ){
+					start = pointerEventToXY(event);
+				});
+				timeboxparent.on('touchmove',function( event ){
+					if( start ){
+						var coord = pointerEventToXY(event), top = Math.abs(parseInt(timebox.css('marginTop')));
+						timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top+(coord.y-start.y)/10)/(height-parentHeight)]);
+						event.stopPropagation();
+						event.preventDefault();
+					};
+				});
+				timeboxparent.on('touchend touchcancel',function( event ){
+					start = false;
+				});
+			}
+			timeboxparent.trigger('resize_scroll.xdsoft_scroller',[_percent]);
+		});
+	};
 	$.fn.datetimepicker = function( opt ){
 		var 
 			CTRLKEY = 17,
@@ -92,29 +181,73 @@
 			scrollTime:true,
 			scrollInput:true,
 			mask:false,
-			validateOnBlur:true
+			validateOnBlur:true,
+			yearStart:1950,
+			yearEnd:2050
 		};
 		var options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options);
 		var createDateTimePicker = function( input ){
 			var datetimepicker = $('<div class="xdsoft_datetimepicker"></div>'),
 				xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 				datepicker = $('<div class="xdsoft_datepicker active"></div>'),
-				mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_label xdsoft_month"></div><div class="xdsoft_label xdsoft_year"></div><button type="button" class="xdsoft_next"></button></div>'),
+				mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_label xdsoft_month"><span></span></div><div class="xdsoft_label xdsoft_year"><span></span></div><button type="button" class="xdsoft_next"></button></div>'),
 				calendar = $('<div class="xdsoft_calendar"></div>'),
 				timepicker = $('<div class="xdsoft_timepicker active"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_time_box"></div><button type="button" class="xdsoft_next"></button></div>'),
 				timeboxparent = timepicker.find('.xdsoft_time_box').eq(0),
 				timebox = $('<div class="xdsoft_time_variant"></div>'),
 				scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
-				scroller = $('<div class="xdsoft_scroller"></div>');
+				scroller = $('<div class="xdsoft_scroller"></div>'),
+				monthselect =$('<div class="xdsoft_select xdsoft_monthselect"><div></div></div>'),
+				yearselect =$('<div class="xdsoft_select xdsoft_yearselect"><div></div></div>');
+			
+			mounth_picker.find('.xdsoft_month span').after(monthselect);
+			mounth_picker.find('.xdsoft_year span').after(yearselect);
+			
+			mounth_picker.find('.xdsoft_month,.xdsoft_year').on('mousedown.xdsoft',function(){
+				mounth_picker.find('.xdsoft_select').hide();
+				var select = $(this).find('.xdsoft_select').eq(0),xd = datetimepicker.data('xdsoft_datetime'),val = 0,top = 0;
+				
+				if( xd&&xd.currentTime )
+					val = xd.currentTime[$(this).hasClass('xdsoft_month')?'getMonth':'getFullYear']();
+				
+				select.show();
+				for(var items = select.find('div.xdsoft_option'),i = 0;i<items.length;i++)
+					if( items.eq(i).data('value')==val )
+						break;
+					else top+=items[0].offsetHeight;
+				select.xdsoftScroller(top/(select.children()[0].offsetHeight-(select[0].offsetHeight-2)));
+				
+				//select.val(val);
+				event.stopPropagation();
+				return false;
+			});
+			
+			var selects = mounth_picker.find('.xdsoft_select');
+			selects
+				.xdsoftScroller()
+				.on('mousedown.xdsoft',function( event ){
+					event.stopPropagation();
+					event.preventDefault();
+				})
+				.on('mousedown.xdsoft','.xdsoft_option',function( event ){
+					var xd = datetimepicker.data('xdsoft_datetime');
+					if( xd&&xd.currentTime )
+						xd.currentTime[$(this).parent().parent().hasClass('xdsoft_monthselect')?'setMonth':'setFullYear']($(this).data('value'));
+					$(this).parent().parent().hide();
+					datetimepicker.trigger('xchange.xdsoft');
+				});
+			
+			
 			
 			datetimepicker.setOptions = function( _options ){
 				options = $.extend({},options,_options);
+				if( (options.open||options.opened)&&(!options.inline) ){
+					input.trigger('open.xdsoft');
+				}
 				if( options.inline ){
 					datetimepicker.addClass('xdsoft_inline');
 					input.after(datetimepicker).hide();
-				}
-				if( options.open||options.opened||options.inline ){
-					input.trigger('open.xdsoft');
+					datetimepicker.trigger('afterOpen.xdsoft');
 				}
 				if( options.inverseButton ){
 					options.next = 'xdsoft_prev';
@@ -253,10 +386,12 @@
 			datetimepicker.on('mousedown.xdsoft',function( event ){
 				event.stopPropagation();
 				event.preventDefault();
+				yearselect.hide();
+				monthselect.hide();
 				return false;
 			});
 			// scrollbar for timepicker
-			scrollbar.append(scroller);
+			/*scrollbar.append(scroller);
 			timepicker.find('.xdsoft_time_box').append(scrollbar);
 			(function(){
 				var move = 0;
@@ -314,7 +449,14 @@
 					height = timebox[0].offsetHeight;
 				timebox.css('marginTop',-parseInt((height-pheight)*percent))
 			});
-			timepicker.find('.xdsoft_time_box').append(timebox);
+			*/
+			
+			var scroll_element = timepicker.find('.xdsoft_time_box');
+			scroll_element.append(timebox);
+			scroll_element.xdsoftScroller();
+			datetimepicker.on('afterOpen.xdsoft',function(){
+				scroll_element.xdsoftScroller();
+			});
 			datetimepicker.append(datepicker).append(timepicker);
 			if( options.withoutCopyright!==true )
 				datetimepicker.append(xdsoft_copyright);
@@ -333,7 +475,7 @@
 				};
 				self.setCurrentTime = function( dTime){
 					self.currentTime = (typeof dTime == 'string')? self.strtodatetime(dTime) : self.isValidDate(dTime) ? dTime: self.now();
-					datetimepicker.trigger('change.xdsoft');
+					datetimepicker.trigger('xchange.xdsoft');
 				};
 				self.getCurrentTime = function( dTime){
 					return self.currentTime;
@@ -346,7 +488,7 @@
 					}
 					self.currentTime.setMonth(month);
 					options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
-					datetimepicker.trigger('change.xdsoft');
+					datetimepicker.trigger('xchange.xdsoft');
 					return month;
 				};
 				self.prevMonth = function(){
@@ -357,7 +499,7 @@
 					}
 					self.currentTime.setMonth(month);
 					options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
-					datetimepicker.trigger('change.xdsoft');
+					datetimepicker.trigger('xchange.xdsoft');
 					return month;
 				};
 				
@@ -411,7 +553,7 @@
 					}else if( $this.hasClass(options.prev) && top-options.timeHeightInTimePicker>=0  ){
 						timebox.css('marginTop','-'+(top-options.timeHeightInTimePicker)+'px')
 					}
-					datetimepicker.trigger('scroll.timebox',[Math.abs(parseInt(timebox.css('marginTop')))]);
+					timeboxparent.trigger('scroll_element.xdsoft_scroller',[Math.abs(parseInt(timebox.css('marginTop'))/(height-pheight))]);
 					period= ( period>10 )?10:period-10;
 					!stop&&(timer = setTimeout(arguments.callee,v?v:period));
 				})(500);
@@ -420,10 +562,9 @@
 					stop = true;
 					$([document.body,window]).off('mouseup.xdsoft',arguments.callee);
 				});
-			});	
-			
-			// generating a calendar and timepicker
-			datetimepicker.on('change.xdsoft',function(){
+			});
+			// base handler - generating a calendar and timepicker
+			datetimepicker.on('xchange.xdsoft',function(event){
 				var xd 		=	$(this).data('xdsoft_datetime'),
 					table 	=	'';
 				var start = new Date(xd.currentTime.getFullYear(),xd.currentTime.getMonth(),1);
@@ -453,8 +594,8 @@
 				}
 				table+='</tbody></table>';
 				calendar.html(table);
-				mounth_picker.find('.xdsoft_label').eq(0).text(options.i18n[options.lang].months[xd.currentTime.getMonth()]);
-				mounth_picker.find('.xdsoft_label').eq(1).text(xd.currentTime.getFullYear());
+				mounth_picker.find('.xdsoft_label span').eq(0).text(options.i18n[options.lang].months[xd.currentTime.getMonth()]);
+				mounth_picker.find('.xdsoft_label span').eq(1).text(xd.currentTime.getFullYear());
 				var time = '',h = '',m ='';
 				var line_time = function (h,m){
 					var now = new Date();
@@ -491,6 +632,16 @@
 					}
 				}
 				timebox.html(time);
+				var opt = '',i = 0;
+				for( i = parseInt(options.yearStart);i<= parseInt(options.yearEnd);i++ ){
+					opt+='<div class="xdsoft_option '+(xd.currentTime.getFullYear()==i?'xdsoft_current':'')+'" data-value="'+i+'">'+i+'</div>';
+				}
+				yearselect.children().eq(0).html(opt);
+				for( i = 0,opt = '';i<= 11;i++ ){
+					opt+='<div class="xdsoft_option '+(xd.currentTime.getMonth()==i?'xdsoft_current':'')+'" data-value="'+i+'">'+options.i18n[options.lang].months[i]+'</div>';
+				}
+				monthselect.children().eq(0).html(opt);
+				event.stopPropagation();
 				//timebox.find('.xdsoft_current').length&&timebox.css('marginTop','-'+parseInt(timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker)+'px');
 			});
 			datetimepicker.on('afterOpen.xdsoft',function(){
@@ -501,7 +652,7 @@
 					if( (height-pheight)<top )
 						top = height-pheight;
 					timebox.css('marginTop','-'+parseInt(top)+'px');
-					datetimepicker.trigger('scroll.timebox',[parseInt(top)]);
+					timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
 				}
 			});
 			calendar.on('mousedown.xdsoft','td',function(){
@@ -516,7 +667,7 @@
 				if( (options.closeOnDateSelect===true||( options.closeOnDateSelect===0&&!options.timepicker ))&&!options.inline )
 					datetimepicker.trigger('close.xdsoft');
 				options.onSelectDate&&options.onSelectDate.call&&options.onSelectDate.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
-				datetimepicker.trigger('change.xdsoft');
+				datetimepicker.trigger('xchange.xdsoft');
 				datetimepicker.trigger('changedatetime.xdsoft');
 			});		
 			timebox.on('mousedown.xdsoft','div',function(){
@@ -529,7 +680,7 @@
 				datetimepicker.data('input').val( datetimepicker.data('xdsoft_datetime').str() );
 				!options.inline&&datetimepicker.trigger('close.xdsoft');
 				options.onSelectTime&&options.onSelectTime.call&&options.onSelectTime.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
-				datetimepicker.trigger('change.xdsoft');
+				datetimepicker.trigger('xchange.xdsoft');
 				datetimepicker.trigger('changedatetime.xdsoft');
 			});
 			datetimepicker.mousewheel&&datepicker.mousewheel(function(event, delta, deltaX, deltaY) {
@@ -541,7 +692,7 @@
 					datetimepicker.data('xdsoft_datetime').prevMonth();
 				return false;
 			});		
-			datetimepicker.mousewheel&&timepicker.mousewheel(function(event, delta, deltaX, deltaY) {
+			datetimepicker.mousewheel&&timeboxparent.unmousewheel().mousewheel(function(event, delta, deltaX, deltaY) {
 				if( !options.scrollTime )
 					return true;
 				var pheight = timeboxparent[0].offsetHeight-2,
@@ -555,7 +706,8 @@
 					timebox.css('marginTop','-'+(top-options.timeHeightInTimePicker)+'px');
 					fl = false;
 				}
-				datetimepicker.trigger('scroll.timebox',[Math.abs(parseInt(timebox.css('marginTop')))]);
+				timeboxparent.trigger('scroll_element.xdsoft_scroller',[Math.abs(parseInt(timebox.css('marginTop'))/(height-pheight))]);
+				event.stopPropagation();
 				return fl;
 			});
 			datetimepicker.on('changedatetime.xdsoft',function(){
@@ -604,12 +756,13 @@
 					}
 				}
 			}); 
-			datetimepicker.on( 'close.xdsoft',function(){
+			datetimepicker.on( 'close.xdsoft',function( event ){
 				var onClose = true;
 				options.onClose&&options.onClose.call&&(onClose=options.onClose.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input')));
 				if( onClose!==false&&!options.opened&&!options.inline ){
 					datetimepicker.hide();
 				}
+				event.stopPropagation();
 			} );
 			datetimepicker.data('input',input);
 			
@@ -617,6 +770,7 @@
 			datetimepicker.data('xdsoft_datetime',_xdsoft_datetime);
 			datetimepicker.setOptions(options);
 			_xdsoft_datetime.setCurrentTime( options.value?options.value:(input&&input.val&&input.val())?input.val():new Date );
+			datetimepicker.trigger('afterOpen.xdsoft');
 			input.data( 'xdsoft_datetimepicker',datetimepicker )
 			 .on('open.xdsoft focusin.xdsoft mousedown.xdsoft',function(event){
 				if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible') )
