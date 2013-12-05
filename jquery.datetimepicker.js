@@ -9,18 +9,18 @@
 			var timeboxparent = $(this);
 			if( !$(this).hasClass('xdsoft_scroller_box') ){
 				var pointerEventToXY = function( e ){
-					var out = {x:0, y:0};
-					if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
-						var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-						out.x = touch.pageX;
-						out.y = touch.pageY;
-					}else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
-						out.x = e.pageX;
-						out.y = e.pageY;
-					}
-					return out;
-				};
-				var move = 0,
+						var out = {x:0, y:0};
+						if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
+							var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+							out.x = touch.pageX;
+							out.y = touch.pageY;
+						}else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
+							out.x = e.pageX;
+							out.y = e.pageY;
+						}
+						return out;
+					},
+					move = 0,
 					timebox = timeboxparent.children().eq(0),
 					parentHeight = timeboxparent[0].offsetHeight-2,
 					height = timebox[0].offsetHeight,
@@ -28,7 +28,9 @@
 					scroller = $('<div class="xdsoft_scroller"></div>'),
 					maximumOffset = 100,
 					start = false;
+	
 				scrollbar.append(scroller);
+				
 				timeboxparent.addClass('xdsoft_scroller_box').append(scrollbar);
 				scroller.on('mousedown.xdsoft_scroller',function( event ){
 					var pageY = event.pageY,
@@ -49,26 +51,27 @@
 						timeboxparent.trigger('scroll_element.xdsoft_scroller',[maximumOffset?offset/maximumOffset:0]);
 					});
 				});
+				
 				timeboxparent
-				 .on('scroll_element.xdsoft_scroller',function( event,percent ){
-					percent = percent>1?1:(percent<0||isNaN(percent))?0:percent;
-					scroller.css('margin-top',maximumOffset*percent);
-					timebox.css('marginTop',-parseInt((height-parentHeight)*percent))
-				 })
-				 .on('resize_scroll.xdsoft_scroller',function( event,_percent ){
-					parentHeight = timeboxparent[0].offsetHeight-2;
-					height = timebox[0].offsetHeight;
-					var percent = parentHeight/height,
-						sh = percent*scrollbar[0].offsetHeight;
-					if( percent>1 )
-						scroller.hide();
-					else{
-						scroller.show();
-						scroller.css('height',parseInt(sh>10?sh:10));
-						maximumOffset = scrollbar[0].offsetHeight-scroller[0].offsetHeight;
-						timeboxparent.trigger('scroll_element.xdsoft_scroller',[_percent?_percent:Math.abs(parseInt(timebox.css('marginTop')))/(height-parentHeight)]);
-					}
-				 })
+					.on('scroll_element.xdsoft_scroller',function( event,percent ){
+						percent = percent>1?1:(percent<0||isNaN(percent))?0:percent;
+						scroller.css('margin-top',maximumOffset*percent);
+						timebox.css('marginTop',-parseInt((height-parentHeight)*percent))
+					})
+					.on('resize_scroll.xdsoft_scroller',function( event,_percent ){
+						parentHeight = timeboxparent[0].offsetHeight-2;
+						height = timebox[0].offsetHeight;
+						var percent = parentHeight/height,
+							sh = percent*scrollbar[0].offsetHeight;
+						if( percent>1 )
+							scroller.hide();
+						else{
+							scroller.show();
+							scroller.css('height',parseInt(sh>10?sh:10));
+							maximumOffset = scrollbar[0].offsetHeight-scroller[0].offsetHeight;
+							timeboxparent.trigger('scroll_element.xdsoft_scroller',[_percent?_percent:Math.abs(parseInt(timebox.css('marginTop')))/(height-parentHeight)]);
+						}
+					})
 				timeboxparent.mousewheel&&timeboxparent.mousewheel(function(event, delta, deltaX, deltaY) {
 					var top = Math.abs(parseInt(timebox.css('marginTop')));
 					timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top-delta*20)/(height-parentHeight)]);
@@ -287,6 +290,7 @@
 						
 					if( !options.timepickerScrollbar )
 						scrollbar.hide();
+						
 					var tmpDate = [];
 					if( options.minDate && ( tmpDate = /^-(.*)$/.exec(options.minDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ){
 						options.minDate = new Date((new Date).getTime()-tmpDate.getTime()).dateFormat( options.formatDate );
@@ -769,7 +773,17 @@
 						return false;
 					}
 				});
-				
+				var setPos = function(){
+					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
+					if( top+datetimepicker[0].offsetHeight>$('body').height() )
+						top = offset.top-datetimepicker[0].offsetHeight+1;
+					if( left+datetimepicker[0].offsetWidth>$('body').width() )
+						left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
+					datetimepicker.css({
+						left:offset.left,
+						top:top	
+					});
+				};
 				datetimepicker
 					.on('open.xdsoft', function(){
 						var onShow = true;
@@ -777,22 +791,12 @@
 							onShow = options.onShow.call(datetimepicker,datetimepicker.data('xdsoft_datetime').currentTime,datetimepicker.data('input'));
 						}
 						if( onShow!==false ){
-							var setPos = function(){
-								var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
-								if( top+datetimepicker[0].offsetHeight>$('body').height() )
-									top = offset.top-datetimepicker[0].offsetHeight+1;
-								if( left+datetimepicker[0].offsetWidth>$('body').width() )
-									left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
-								datetimepicker.css({
-									left:offset.left,
-									top:top	
-								});
-							};
-							
 							datetimepicker.show();
 							datetimepicker.trigger('afterOpen.xdsoft');
 							setPos();
-							$(window).on('resize.xdsoft',setPos);
+							$(window)
+								.off('resize.xdsoft',setPos)
+								.on('resize.xdsoft',setPos);
 							
 							if( options.closeOnWithoutClick ){
 								$([document.body,window]).on('mousedown.xdsoft',function(){
@@ -861,11 +865,12 @@
 				}
 			};
 		$(document)
-			.off('keydown.xdsoft keyup.xdsoft')
-			.on('keydown.xdsoft',function(e){
+			.off('keydown.xdsoftctrl keyup.xdsoftctrl')
+			.on('keydown.xdsoftctrl',function(e){
 				if ( e.keyCode == CTRLKEY ) 
 					ctrlDown = true;
-			}).on('keyup.xdsoft',function(e){
+			})
+			.on('keyup.xdsoftctrl',function(e){
 				if ( e.keyCode == CTRLKEY )
 					ctrlDown = false;
 			});
