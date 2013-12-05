@@ -22,6 +22,9 @@
 	<input type="text" id="datetimepicker5"/><br><br>
 	<h3>Destroy DateTimePicker</h3>
 	<input type="text" id="datetimepicker6"/><input id="destroy" type="button" value="destroy"/>
+	<h3>Set options runtime DateTimePicker</h3>
+	<input type="text" id="datetimepicker7"/>
+	<p>If select day is Saturday, the minimum set 11:00, otherwise 8:00</p>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -66,6 +69,20 @@ $('#destroy').click(function(){
 		$('#datetimepicker6').datetimepicker();
 		this.value = 'destroy';
 	}
+});
+var logic = function( currentDateTime ){
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:'11:00'
+		});
+	}else
+		this.setOptions({
+			minTime:'8:00'
+		});
+};
+$('#datetimepicker7').datetimepicker({
+	onChangeDateTime:logic,
+	onShow:logic
 });
 </script>
 </html>

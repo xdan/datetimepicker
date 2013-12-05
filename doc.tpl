@@ -4,7 +4,6 @@
 <p>
 Use this plugin to unobtrusively add a datetimepicker, datepicker or timepicker dropdown to your forms. It's easy to customize options. <a href="https://github.com/xdan/datetimepicker">Source code on GitHub</a> or <a href="https://github.com/xdan/datetimepicker/archive/master.zip">download (zip)</a>.
 </p>
-<?php echo $this->parse('adsense5')?>
 <h3>DateTimepicker</h3>
 <input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br/>
 <h3>Use mask DateTimepicker</h3>
@@ -39,7 +38,7 @@ $('#datetimepicker3').datetimepicker({
 </p>
 <p>
 <a class="btn btn-large btn-primary" href="https://github.com/xdan/datetimepicker/archive/master.zip">Download (zip)</a>
-</p>
+</p><?php echo $this->parse('adsense5')?>
 <h2>How do I use it?</h2>
 <p>
 First include to page css and js files
@@ -49,18 +48,22 @@ First include to page css and js files
 &lt;script src=&quot;jquery.datetimepicker.js&quot;&gt;&lt;/script&gt;</code></pre>
 </p>
 <h2>Examples</h2>
-<h4>Simple init DateTimePicker Example</h4>
+
+<hr id="Simple"/>
+<h4>Simple init DateTimePicker Example <a href="#Simple">#</a></h4>
 <p>HTML</p>
 <pre><code data-language="html">&lt;input id=&quot;datetimepicker&quot; type=&quot;text&quot; &gt;</code></pre>
-<p>JavaScript</p>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$('#datetimepicker').datetimepicker();</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker" type="text" value="2014/03/15 05:06" /></p>
 <script>
 $(function(){$('#_datetimepicker').datetimepicker();});
 </script>
-<h4>i18n DatePicker Example</h4>
-<p>JavaScript</p>
+
+<hr id="i18n"/>
+<h4>i18n DatePicker Example  <a href="#i18n">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker1&#39;).datetimepicker({
  lang:&#39;de&#39;,
  i18n:{
@@ -79,7 +82,7 @@ $(function(){$('#_datetimepicker').datetimepicker();});
  timepicker:false,
  format:&#39;d.m.Y&#39;
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker1" type="text" value="15.08.2013" /></p>
 <script>$(function(){
 $('#_datetimepicker1').datetimepicker({
@@ -95,13 +98,15 @@ format:'d.m.Y'
 });
 });
 </script>
-<h4>Only TimePicker Example</h4>
-<p>JavaScript</p>
+
+<hr id="TimePicker"/>
+<h4>Only TimePicker Example <a href="#TimePicker">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker2&#39;).datetimepicker({
 	datepicker:false,
 	format:&#39;H:i&#39;
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker2" type="text" value="23:16" /></p>
 <script>$(function(){
 $('#_datetimepicker2').datetimepicker({
@@ -110,14 +115,16 @@ $('#_datetimepicker2').datetimepicker({
 });
 });
 </script>
-<h4>Inline DateTimePicker Example</h4>
-<p>JavaScript</p>
+
+<hr id="Inline"/>
+<h4>Inline DateTimePicker Example <a href="#Inline">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker3&#39;).datetimepicker({
   format:&#39;d.m.Y H:i&#39;,
   inline:true,
   lang:&#39;ru&#39;
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker3" type="text" value="10.12.2013 23:45" /></p>
 <script>$(function(){
 $('#_datetimepicker3').datetimepicker({
@@ -127,9 +134,11 @@ $('#_datetimepicker3').datetimepicker({
 });
 });
 </script>
-<h4>Icon trigger</h4>
+
+<hr id="trigger"/>
+<h4>Icon trigger <a href="#trigger">#</a></h4>
 <p>Click the icon next to the input field to show the datetimepicker</p>
-<p>JavaScript</p>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker4&#39;).datetimepicker({
   format:&#39;d.m.Y H:i&#39;,
   lang:&#39;ru&#39;
@@ -138,7 +147,7 @@ and handler onclick event
 <pre><code data-language="javascript">$(&#39;#image_button&#39;).click(function(){
   $(&#39;#datetimepicker4&#39;).datetimepicker(&#39;show&#39;); //support hide,show and destroy command
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
@@ -160,8 +169,10 @@ $('#image_button').click(function(){
 });
 
 </script>
-<h4>allowTimes options TimePicker Example</h4>
-<p>JavaScript</p>
+
+<hr id="allowTimes"/>
+<h4>allowTimes options TimePicker Example <a href="#allowTimes">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker5&#39;).datetimepicker({
  datepicker:false,
  allowTimes:[
@@ -169,7 +180,7 @@ $('#image_button').click(function(){
   &#39;17:00&#39;, &#39;17:05&#39;, &#39;17:20&#39;, &#39;19:00&#39;, &#39;20:00&#39;
  ]
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker5" type="text" value="23:45" /></p>
 <script>$(function(){
 $('#_datetimepicker5').datetimepicker({
@@ -178,15 +189,17 @@ $('#_datetimepicker5').datetimepicker({
 });
 });
 </script>
-<h4>handler changeDateTime Example</h4>
-<p>JavaScript</p>
+
+<hr id="onChangeDateTime"/>
+<h4>handler onChangeDateTime Example <a href="#onChangeDateTime">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker6&#39;).datetimepicker({
 	timepicker:false,
 	onChangeDateTime:function(dp,$input){
 		alert($input.val())
 	}
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker6" type="text" value="" /></p>
 <script>$(function(){
 $('#_datetimepicker6').datetimepicker({
@@ -198,15 +211,16 @@ $('#_datetimepicker6').datetimepicker({
 });
 </script>
 
-<h4>minDate and maxDate Example</h4>
-<p>JavaScript</p>
+<hr id="mindate"/>
+<h4>minDate and maxDate Example <a href="#mindate">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker7&#39;).datetimepicker({
  timepicker:false,
  formatDate:&#39;Y/m/d&#39;,
  minDate:&#39;-1970/01/02&#39;,//yesterday is minimum date(for today use 0 or -1970/01/01)
  maxDate:&#39;+1970/01/02&#39;//tommorow is maximum date calendar
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker7" type="text" value="" /></p>
 <script>$(function(){
 $('#_datetimepicker7').datetimepicker({
@@ -217,19 +231,60 @@ $('#_datetimepicker7').datetimepicker({
 });
 });
 </script>
-<h4>Use mask input Example</h4>
-<p>JavaScript</p>
+
+<hr id="mask"/>
+<h4>Use mask input Example <a href="#mask">#</a></h4>
+<p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker_mask&#39;).datetimepicker({
  timepicker:false,
  mask:true, // &#39;9999/19/39 29:59&#39; - digit is the maximum possible for a cell
 });</code></pre>
-<p>Result</p>
+<p><strong>Result</strong></p>
 <p><input id="_datetimepicker_mask" type="text" value="" /></p>
 <script>$(function(){
 $('#_datetimepicker_mask').datetimepicker({
 	timepicker:false,
 	mask:'9999/19/39',
 	format:'Y/m/d'
+});
+});
+</script>
+
+<hr id="runtime_options"/>
+<h4>Set options runtime DateTimePicker <a href="#runtime_options">#</a></h4>
+<p>If select day is Saturday, the minimum set 11:00, otherwise 8:00</p>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">var logic = function( currentDateTime ){
+	// &#39;this&#39; is jquery object datetimepicker
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:&#39;11:00&#39;
+		});
+	}else
+		this.setOptions({
+			minTime:&#39;8:00&#39;
+		});
+};
+$(&#39;#datetimepicker_rantime&#39;).datetimepicker({
+	onChangeDateTime:logic,
+	onShow:logic
+});</code></pre>
+<p><strong>Result</strong></p>
+<p><input id="_datetimepicker_runtime" type="text" value="" /></p>
+<script>$(function(){
+var logic = function( currentDateTime ){
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:'11:00'
+		});
+	}else
+		this.setOptions({
+			minTime:'8:00'
+		});
+};
+$('#_datetimepicker_runtime').datetimepicker({
+	onChangeDateTime:logic,
+	onShow:logic
 });
 });
 </script>
@@ -451,13 +506,13 @@ $('#_datetimepicker_mask').datetimepicker({
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>yearStart/td>
+			<td>yearStart</td>
 			<td>1950</td>
 			<td>Start value for fast Year selector</td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td>yearEnd/td>
+			<td>yearEnd</td>
 			<td>2050</td>
 			<td>End value for fast Year selector</td>
 			<td>&nbsp;</td>
@@ -472,5 +527,8 @@ $('#_datetimepicker_mask').datetimepicker({
 			</td>
 			<td>&nbsp;</td>
 		</tr>
+		<tr><td>className</td><td></td><td></td><td></td></tr>
+		<tr><td>id</td><td></td><td></td><td></td></tr>
+		<tr><td>style</td><td></td><td></td><td></td></tr>
 	</tbody>
 </table>
