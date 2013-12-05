@@ -19,9 +19,10 @@
         "input",
         "touch"
     ],
-    "version": "2.0.0",
+    "version": "2.0.1",
     "author": {
         "name": "Chupurnov Valeriy",
+		"email" : "chupurnov@gmail.com",
         "url": "http://xdsoft.net/contacts.html"
     },
     "licenses": [

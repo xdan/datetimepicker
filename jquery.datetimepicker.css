@@ -12,7 +12,7 @@
 	padding-left: 0px;
 	padding-top: 2px;
 	position: absolute;
-	z-index: 99;
+	z-index: 9999;
 	box-sizing: border-box;
 	display:none;
 	-webkit-touch-callout: none;
@@ -144,7 +144,7 @@
 .xdsoft_datetimepicker  .xdsoft_label{
 	display: inline;
     position: relative;
-    z-index: 99;
+    z-index: 9999;
     margin: 0;
     padding: 5px 3px;
     font-size: 14px;
@@ -250,7 +250,7 @@
 .xdsoft_datetimepicker  .xdsoft_calendar th{
 	font-weight: 700;
 	text-align: center;
-	color: #9999;
+	color: #999;
 	cursor:default;
 }
 .xdsoft_datetimepicker  .xdsoft_copyright{ color:#ccc !important; font-size:10px;clear:both;float:none;margin-left:8px;}

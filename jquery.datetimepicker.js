@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.0.0
+ * @preserve jQuery DateTimePicker plugin v2.0.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -203,7 +203,7 @@
 			mounth_picker.find('.xdsoft_month span').after(monthselect);
 			mounth_picker.find('.xdsoft_year span').after(yearselect);
 			
-			mounth_picker.find('.xdsoft_month,.xdsoft_year').on('mousedown.xdsoft',function(){
+			mounth_picker.find('.xdsoft_month,.xdsoft_year').on('mousedown.xdsoft',function(event){
 				mounth_picker.find('.xdsoft_select').hide();
 				var select = $(this).find('.xdsoft_select').eq(0),xd = datetimepicker.data('xdsoft_datetime'),val = 0,top = 0;
 				
