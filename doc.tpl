@@ -297,7 +297,7 @@ $('#_datetimepicker_runtime').datetimepicker({
 		$(this).find(&#39;.xdsoft_date&#39;)
 			.toggleClass('xdsoft_disabled');
 	},
-	minDate:&#39;+1970/01/2&#39;,
+	minDate:&#39;-1970/01/2&#39;,
 	maxDate:&#39;+1970/01/2&#39;,
 	timepicker:false
 });</code></pre>
@@ -309,7 +309,7 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 		$(this).find('.xdsoft_date')
 			.toggleClass('xdsoft_disabled');
 	},
-	minDate:'+1970/01/2',
+	minDate:'-1970/01/2',
 	maxDate:'+1970/01/2',
 	timepicker:false
 });
