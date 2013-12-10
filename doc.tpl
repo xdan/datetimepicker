@@ -288,6 +288,33 @@ $('#_datetimepicker_runtime').datetimepicker({
 });
 });
 </script>
+<hr id="ongenerate"/>
+<h4>After generating a calendar called the event onGenerate <a href="#ongenerate">#</a></h4>
+<p>Invert settings minDate and maxDate</p>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker8&#39;).datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find(&#39;.xdsoft_date&#39;)
+			.toggleClass('xdsoft_disabled');
+	},
+	minDate:&#39;+1970/01/2&#39;,
+	maxDate:&#39;+1970/01/2&#39;,
+	timepicker:false
+});</code></pre>
+<p><strong>Result</strong></p>
+<p><input id="_datetimepicker_ongenerate" type="text" value="" /></p>
+<script>$(function(){
+$('#_datetimepicker_ongenerate').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date')
+			.toggleClass('xdsoft_disabled');
+	},
+	minDate:'+1970/01/2',
+	maxDate:'+1970/01/2',
+	timepicker:false
+});
+});
+</script>
 <h2>Full options list</h2>
 <table class="table table-condensed table-bordered table-striped">
 	<thead>
@@ -483,6 +510,12 @@ $('#_datetimepicker_runtime').datetimepicker({
 		</tr>
 		<tr>
 			<td>onClose</td>
+			<td>function(){}</td>
+			<td></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>onGenerate</td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>

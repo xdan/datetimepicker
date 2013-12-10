@@ -25,6 +25,8 @@
 	<h3>Set options runtime DateTimePicker</h3>
 	<input type="text" id="datetimepicker7"/>
 	<p>If select day is Saturday, the minimum set 11:00, otherwise 8:00</p>
+	<h3>onGenerate</h3>
+	<input type="text" id="datetimepicker8"/>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -83,6 +85,15 @@ var logic = function( currentDateTime ){
 $('#datetimepicker7').datetimepicker({
 	onChangeDateTime:logic,
 	onShow:logic
+});
+$('#datetimepicker8').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date')
+			.toggleClass('xdsoft_disabled');
+	},
+	minDate:'+1970/01/2',
+	maxDate:'+1970/01/2',
+	timepicker:false
 });
 </script>
 </html>
