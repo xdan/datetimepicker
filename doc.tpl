@@ -38,7 +38,7 @@ $('#datetimepicker3').datetimepicker({
 </p>
 <p>
 <a class="btn btn-large btn-primary" href="https://github.com/xdan/datetimepicker/archive/master.zip">Download (zip)</a>
-</p><?php echo $this->parse('adsense5')?>
+</p>
 <h2>How do I use it?</h2>
 <p>
 First include to page css and js files
