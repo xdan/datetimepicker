@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.0.4
+ * @preserve jQuery DateTimePicker plugin v2.0.5
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -188,7 +188,7 @@
 				scrollMonth:true,
 				scrollTime:true,
 				scrollInput:true,
-				mask:false,
+				mask:true,
 				validateOnBlur:true,
 				yearStart:1950,
 				yearEnd:2050,
@@ -346,16 +346,16 @@
 						input.off('keydown.xdsoft');
 						switch(true){
 							case ( options.mask===true ):
-								options.mask = (new Date()).dateFormat( options.format );
-								options.mask = options.mask.replace(/[0-9]/g,'_');
-								/*options.mask = options.format
+								//options.mask = (new Date()).dateFormat( options.format );
+								//options.mask = options.mask.replace(/[0-9]/g,'_');
+								options.mask = options.format
 									.replace(/Y/g,'9999')
 									.replace(/F/g,'9999')
 									.replace(/m/g,'19')
 									.replace(/d/g,'39')
 									.replace(/H/g,'29')
 									.replace(/i/g,'59')
-									.replace(/s/g,'59');*/
+									.replace(/s/g,'59');
 							case ( $.type(options.mask) == 'string' ):
 								if( !isValidValue( options.mask,input.val() ) )
 									input.val(options.mask.replace(/[0-9]/g,'_'));
@@ -883,7 +883,7 @@
 					delete datetimepicker;
 					input
 						.data( 'xdsoft_datetimepicker',null )
-						.off( 'open.xdsoft focusin.xdsoft focusout.xdsoft mousedown.xdsoft blur.xdsoft' );
+						.off( 'open.xdsoft focusin.xdsoft focusout.xdsoft mousedown.xdsoft blur.xdsoft keydown.xdsoft' );
 					$(window).off('resize.xdsoft');
 					$([window,document.body]).off('mousedown.xdsoft');
 					input.unmousewheel&&input.unmousewheel();
