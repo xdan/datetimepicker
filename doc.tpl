@@ -517,7 +517,7 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 		<tr>
 			<td>onGenerate</td>
 			<td>function(){}</td>
-			<td></td>
+			<td>trigger after construct calendar and timepicker</td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
