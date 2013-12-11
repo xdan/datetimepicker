@@ -188,7 +188,7 @@
 				scrollMonth:true,
 				scrollTime:true,
 				scrollInput:true,
-				mask:true,
+				mask:false,
 				validateOnBlur:true,
 				yearStart:1950,
 				yearEnd:2050,
