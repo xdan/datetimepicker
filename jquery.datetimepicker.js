@@ -649,7 +649,7 @@
 								var now = new Date(),
                   currentHours = _xdsoft_datetime.currentTime.getHours(),
                   currentMinutes = _xdsoft_datetime.currentTime.getMinutes(),
-                  roundMinutes = Math.ceil(_xdsoft_datetime.closestTime.getMinutes()/options.step)*options.step,
+                  roundMinutes = currentMinutes >= 50 ? 0 : Math.ceil(_xdsoft_datetime.closestTime.getMinutes()/options.step)*options.step,
                   roundHours = roundMinutes === 0 ? (currentHours == 23 ? 0 : currentHours + 1) : currentHours;
                   
 								now.setHours(h);
