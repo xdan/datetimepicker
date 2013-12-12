@@ -807,7 +807,7 @@
 					if( left+datetimepicker[0].offsetWidth>$('body').width() )
 						left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
 					datetimepicker.css({
-						left:offset.left,
+						left:left,
 						top:top	
 					});
 				};
