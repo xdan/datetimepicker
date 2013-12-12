@@ -653,7 +653,7 @@
 											(
 												(parseInt(_xdsoft_datetime.currentTime.getHours())==parseInt(h)
 											&&
-												parseInt(_xdsoft_datetime.currentTime.getMinutes()/options.step)*options.step==parseInt(m)
+												Math.round(_xdsoft_datetime.currentTime.getMinutes()/options.step)*options.step==parseInt(m)
 											)?' xdsoft_current ':'')+
 											((parseInt(today.getHours())==parseInt(h)&&parseInt(today.getMinutes())==parseInt(m))?' xdsoft_today ':'')+
 											'" data-hour="'+h+'" data-minute="'+m+'">'+now.dateFormat(options.formatTime)+'</div>';
