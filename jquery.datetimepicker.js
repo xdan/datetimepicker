@@ -461,8 +461,17 @@
 					_this.now = function(){
 						return new Date();
 					};
+          _this.closest = function(){
+            var now = _this.now();
+            if(!options.steps) {
+              return now;
+            }
+            now.setTime(now.getTime + (60 * 10000 * options.step));
+            return now;
+          }
 					
 					_this.currentTime = this.now();
+          _this.closestTime = this.closest();
 					_this.isValidDate = function (d) {
 						if ( Object.prototype.toString.call(d) !== "[object Date]" )
 							return false;
@@ -621,8 +630,8 @@
 										(( maxDate!==false && start > maxDate )||
 										(  minDate!==false && start < minDate ))
 									?'xdsoft_disabled ':' ')+
-									(_xdsoft_datetime.currentTime.getMonth()!=m?' xdsoft_other_month ':'')+
-									(_xdsoft_datetime.currentTime.dateFormat('d.m.Y')==start.dateFormat('d.m.Y')?' xdsoft_current ':'')+
+									(_xdsoft_datetime.closestTime.getMonth()!=m?' xdsoft_other_month ':'')+
+									(_xdsoft_datetime.closestTime.dateFormat('d.m.Y')==start.dateFormat('d.m.Y')?' xdsoft_current ':'')+
 									(today.dateFormat('d.m.Y')==start.dateFormat('d.m.Y')?' xdsoft_today ':'')
 								+'"><div>'+d+'</div></td>';
 							if( start.getDay()==options.dayOfWeekStartPrev )
@@ -641,7 +650,12 @@
 							h = '',
 							m ='',
 							line_time = function line_time( h,m ){
-								var now = new Date();
+								var now = new Date(),
+                  currentHours = _xdsoft_datetime.currentTime.getHours(),
+                  currentMinutes = _xdsoft_datetime.currentTime.getMinutes(),
+                  roundMinutes = currentMinutes >= 50 ? 0 : Math.ceil(_xdsoft_datetime.closestTime.getMinutes()/options.step)*options.step,
+                  roundHours = roundMinutes === 0 ? (currentHours == 23 ? 0 : currentHours + 1) : currentHours;
+                  
 								now.setHours(h);
 								h = parseInt(now.getHours());
 								now.setMinutes(m);
@@ -651,9 +665,9 @@
 												(options.minTime!==false&&_xdsoft_datetime.strtotime(options.minTime).getTime()>now.getTime())
 											?'xdsoft_disabled ':' ')+
 											(
-												(parseInt(_xdsoft_datetime.currentTime.getHours())==parseInt(h)
+												(parseInt(roundHours)==parseInt(h)
 											&&
-												parseInt(_xdsoft_datetime.currentTime.getMinutes()/options.step)*options.step==parseInt(m)
+												parseInt(roundMinutes)==parseInt(m)
 											)?' xdsoft_current ':'')+
 											((parseInt(today.getHours())==parseInt(h)&&parseInt(today.getMinutes())==parseInt(m))?' xdsoft_today ':'')+
 											'" data-hour="'+h+'" data-minute="'+m+'">'+now.dateFormat(options.formatTime)+'</div>';
