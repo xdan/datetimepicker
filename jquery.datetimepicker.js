@@ -1,9 +1,18 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.0.5
+ * @preserve jQuery DateTimePicker plugin v2.0.6
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ){
+	// fix for ie8
+	if (!Array.prototype.indexOf) { 
+		Array.prototype.indexOf = function(obj, start) {
+			 for (var i = (start || 0), j = this.length; i < j; i++) {
+				 if (this[i] === obj) { return i; }
+			 }
+			 return -1;
+		}
+	}
 	$.fn.xdsoftScroller = function( _percent ){
 		return this.each(function(){
 			var timeboxparent = $(this);
@@ -393,14 +402,17 @@
 												input.trigger('error_input.xdsoft');
 											}
 										break;
-										case ( ~[AKEY,CKEY,VKEY,ZKEY,YKEY].indexOf(key)&&ctrlDown ):
-										 case ~[ESC,ARROWUP,ARROWDOWN,ARROWLEFT,ARROWRIGHT,F5,CTRLKEY].indexOf(key):
-											return true;
-										case ~[ENTER].indexOf(key):
+										case ( !!~([AKEY,CKEY,VKEY,ZKEY,YKEY].indexOf(key))&&ctrlDown ):
+										 case !!~([ESC,ARROWUP,ARROWDOWN,ARROWLEFT,ARROWRIGHT,F5,CTRLKEY].indexOf(key)):
+										return true;
+										case !!~([ENTER].indexOf(key)):
 											var elementSelector = "input:visible,textarea:visible";
+											datetimepicker.trigger('close.xdsoft');
 											$(elementSelector ).eq($(elementSelector ).index(this) + 1).focus();
-											return false;
-										case ~[TAB].indexOf(key):return true;
+										return false;
+										case !!~[TAB].indexOf(key):
+											datetimepicker.trigger('close.xdsoft');
+										return true;
 									}
 									event.preventDefault();
 									return false;
@@ -867,12 +879,26 @@
 							datetimepicker.trigger('open.xdsoft');
 						},100);
 					})
-					.on('focusout.xdsoft',function(event){
+					.on('keydown.xdsoft',function( event ){
+						var val = this.value, 
+							key = event.which;
+						switch(true){
+							case !!~([ENTER].indexOf(key)):
+								var elementSelector = $("input:visible,textarea:visible");
+								datetimepicker.trigger('close.xdsoft');
+								elementSelector.eq(elementSelector.index(this) + 1).focus();
+							return false;
+							case !!~[TAB].indexOf(key):
+								datetimepicker.trigger('close.xdsoft');
+							return true;
+						}
+					});
+					/*.on('focusout.xdsoft',function(event){
 						clearTimeout(timer1);
 						timer1 = setTimeout(function(){
-							datetimepicker.trigger('close.xdsoft');
+							//datetimepicker.trigger('close.xdsoft');
 						},100);
-					});
+					});*/
 			},
 			destroyDateTimePicker = function( input ){
 				var datetimepicker = input.data('xdsoft_datetimepicker');
