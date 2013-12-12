@@ -405,14 +405,6 @@
 										case ( !!~([AKEY,CKEY,VKEY,ZKEY,YKEY].indexOf(key))&&ctrlDown ):
 										 case !!~([ESC,ARROWUP,ARROWDOWN,ARROWLEFT,ARROWRIGHT,F5,CTRLKEY].indexOf(key)):
 										return true;
-										case !!~([ENTER].indexOf(key)):
-											var elementSelector = "input:visible,textarea:visible";
-											datetimepicker.trigger('close.xdsoft');
-											$(elementSelector ).eq($(elementSelector ).index(this) + 1).focus();
-										return false;
-										case !!~[TAB].indexOf(key):
-											datetimepicker.trigger('close.xdsoft');
-										return true;
 									}
 									event.preventDefault();
 									return false;
