@@ -326,8 +326,8 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td>value</td>
+		<tr id="value">
+			<td><a href="#value">value</a></td>
 			<td>null</td>
 			<td>Current value datetimepicker. If it is set, ignored input.value</td>
 			<td>
@@ -335,16 +335,16 @@ $('#_datetimepicker_ongenerate').datetimepicker({
  format:&#39;d.m.Y&#39;}</code></pre>
 			</td>
 		</tr>
-		<tr>
-			<td>lang</td>
+		<tr id="lang">
+			<td><a href="#lang">lang</a></td>
 			<td>en</td>
 			<td>Language i18n (en,ru,de,nl)</td>
 			<td>
 			<pre><code data-language="javascript">{lang:&#39;ru&#39;}</code></pre>
 			</td>
 		</tr>
-		<tr>
-			<td>format</td>
+		<tr id="format">
+			<td><a href="#format">format</a></td>
 			<td>Y/m/d H:i</td>
 			<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>&nbsp;</td>
 			<td>
@@ -352,60 +352,60 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 {format:&#39;Y&#39;}</code></pre>
 			</td>
 		</tr>
-		<tr>
-			<td>formatDate</td>
+		<tr id="formatDate">
+			<td><a href="#formatDate">formatDate</a></td>
 			<td>Y/m/d</td>
 			<td>Format date for minDate and maxDate</td>
 			<td><pre><code data-language="javascript">{formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>formatTime</td>
+		<tr id="formatTime">
+			<td><a href="#formatTime">formatTime</a></td>
 			<td>H:i</td>
 			<td>&nbsp;Similarly, formatDate . But for minTime and maxTime</td>
 			<td><pre><code data-language="javascript">{formatTime:&#39;H&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>step</td>
+		<tr id="step">
+			<td><a href="#step">step</a></td>
 			<td>60</td>
 			<td>Step time</td>
 			<td>
 			<pre><code data-language="javascript">{step:5}</code></pre>
 			</td>
 		</tr>
-		<tr>
-			<td>closeOnDateSelect</td>
+		<tr id="closeOnDateSelect">
+			<td><a href="#closeOnDateSelect">closeOnDateSelect</a></td>
 			<td>0</td>
 			<td>
 			
 			</td>
 			<td><pre><code data-language="javascript">{closeOnDateSelect:true}</code></pre></td>
 		</tr>
-		<tr>
-			<td>closeOnWithoutClick</td>
+		<tr id="closeOnWithoutClick">
+			<td><a href="#closeOnWithoutClick">closeOnWithoutClick</a></td>
 			<td>true</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{ closeOnWithoutClick :false}</code></pre></td>
 		</tr>		
-		<tr>
-			<td>validateOnBlur</td>
+		<tr id="validateOnBlur">
+			<td><a href="#validateOnBlur">validateOnBlur</a></td>
 			<td>true</td>
 			<td>Verify datetime value from input, when losing focus. If value is not valid datetime, then to value inserts the current datetime</td>
 			<td><pre><code data-language="javascript">{ validateOnBlur:false}</code></pre></td>
 		</tr>
-		<tr>
-			<td>timepicker</td>
+		<tr id="timepicker">
+			<td><a href="#timepicker">timepicker</a></td>
 			<td>true</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{timepicker:false}</code></pre></td>
 		</tr>
-		<tr>
-			<td>datepicker</td>
+		<tr id="datepicker">
+			<td><a href="#datepicker">datepicker</a></td>
 			<td>true</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{datepicker:false}</code></pre></td>
 		</tr>
-		<tr>
-			<td>minDate</td>
+		<tr id="minDate">
+			<td><a href="#minDate">minDate</a></td>
 			<td>false</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{minDate:0} // today
@@ -413,8 +413,8 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 {minDate:&#39;-1970/01/02&#39;} // yesterday
 {minDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>maxDate</td>
+		<tr id="maxDate">
+			<td><a href="#maxDate">maxDate</a></td>
 			<td>false</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{maxDate:0,}
@@ -422,24 +422,24 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 {maxDate:&#39;+1970/01/02&#39;} // tommorrow
 {maxDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>minTime</td>
+		<tr id="minTime">
+			<td><a href="#minTime">minTime</a></td>
 			<td>false</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{minTime:0,}// now
 {minTime:&#39;12:00&#39;}
 {minTime:&#39;13:45:34&#39;,formatTime:&#39;H:i:s&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>maxTime</td>
+		<tr id="maxTime">
+			<td><a href="#maxTime">maxTime</a></td>
 			<td>false</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{maxTime:0,}
 {maxTime:&#39;12:00&#39;}
 {maxTime:&#39;13:45:34&#39;,formatTime:&#39;H:i:s&#39;}</code></pre></td>
 		</tr>
-		<tr>
-			<td>allowTimes</td>
+		<tr id="allowTimes">
+			<td><a href="#allowTimes">allowTimes</a></td>
 			<td>[]</td>
 			<td></td>
 			<td><pre><code data-language="javascript">{allowTimes:[
@@ -449,8 +449,8 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 	&#39;21:00&#39;
 ]}</code></pre></td>
 		</tr>
-		<tr>
-			<td>mask</td>
+		<tr id="mask">
+			<td><a href="#mask">mask</a></td>
 			<td>false</td>
 			<td>Use mask for input. true - automatically generates a mask on the field &#39;format&#39;, Digit from 0 to 9, set the highest possible digit for the value. For example: the first digit of hours can not be greater than 2, and the first digit of the minutes can not be greater than 5</td>
 			<td><pre>{mask:&#39;9999/19/39&#39;,format:&#39;Y/m/d&#39;}
@@ -458,100 +458,106 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 {mask:&#39;29:59&#39;,format:&#39;H:i&#39;} //
 {mask:true,format:&#39;H:i&#39;} //automatically generate a mask 99:99</pre></td>
 		</tr>
-		<tr>
-			<td>opened</td>
+		<tr id="opened">
+			<td><a href="#opened">opened</a></td>
 			<td>false</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>inline</td>
+		<tr id="inline">
+			<td><a href="#inline">inline</a></td>
 			<td>false</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>timepickerScrollbar</td>
+		<tr id="timepickerScrollbar">
+			<td><a href="#timepickerScrollbar">timepickerScrollbar</a></td>
 			<td>true</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onSelectDate</td>
+		<tr id="onSelectDate">
+			<td><a href="#onSelectDate">onSelectDate</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td><pre><code data-language="javascript">onSelectDate:function(current_time,$input){
   alert(current.dateFormat(&#39;d/m/Y&#39;))
 }</code></pre></td>
 		</tr>
-		<tr>
-			<td>onSelectTime</td>
+		<tr id="onSelectTime">
+			<td><a href="#onSelectTime">onSelectTime</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onChangeMonth</td>
+		<tr id="onChangeMonth">
+			<td><a href="#onChangeMonth">onChangeMonth</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onChangeDateTime</td>
+		<tr id="onChangeDateTime">
+			<td><a href="#onChangeDateTime">onChangeDateTime</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onShow</td>
+		<tr id="onShow">
+			<td><a href="#onShow">onShow</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onClose</td>
+		<tr id="onClose">
+			<td><a href="#onClose">onClose</a></td>
 			<td>function(){}</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>onGenerate</td>
+		<tr id="onGenerate">
+			<td><a href="#onGenerate">onGenerate</a></td>
 			<td>function(){}</td>
 			<td>trigger after construct calendar and timepicker</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
+		<tr ="withoutCopyright">
 			<td>withoutCopyright</td>
 			<td>true</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>inverseButton</td>
+		<tr id="inverseButton">
+			<td><a href="#inverseButton">inverseButton</a></td>
 			<td>false</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>hours12</td>
+		<tr id="hours12">
+			<td><a href="#hours12">hours12</a></td>
 			<td>false</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>yearStart</td>
+		<tr id="yearStart">
+			<td><a href="#yearStart">yearStart</a></td>
 			<td>1950</td>
 			<td>Start value for fast Year selector</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>yearEnd</td>
+		<tr id="yearEnd">
+			<td><a href="#yearEnd">yearEnd</a></td>
 			<td>2050</td>
 			<td>End value for fast Year selector</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr>
-			<td>dayOfWeekStart</td>
+		<tr id="roundTime">
+			<td><a href="#roundTime">roundTime</a></td>
+			<td>round</td>
+			<td>Round time in timepicker, possible values: round, ceil, floor</td>
+			<td><pre><code data-language="javascript">{roundTime:&#39;floor&#39;}</code></pre></td>
+		</tr>
+		<tr id="dayOfWeekStart">
+			<td><a href="#dayOfWeekStart">dayOfWeekStart</a></td>
 			<td>0</td>
 			<td>
 			<p>Star week DatePicker. Default Sunday - 0.</p>
@@ -560,8 +566,8 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 			</td>
 			<td>&nbsp;</td>
 		</tr>
-		<tr><td>className</td><td></td><td></td><td></td></tr>
-		<tr><td>id</td><td></td><td></td><td></td></tr>
-		<tr><td>style</td><td></td><td></td><td></td></tr>
+		<tr id="className"><td>className</td><td></td><td></td><td></td></tr>
+		<tr id="id"><td>id</td><td></td><td></td><td></td></tr>
+		<tr id="style"><td>style</td><td></td><td></td><td></td></tr>
 	</tbody>
 </table>
