@@ -199,6 +199,7 @@
 				scrollInput:true,
 				mask:false,
 				validateOnBlur:true,
+				allowBlank:false,
 				yearStart:1950,
 				yearEnd:2050,
 				style:'',
@@ -417,8 +418,12 @@
 						input
 							.off('blur.xdsoft')
 							.on('blur.xdsoft', function(){
-								if( !Date.parseDate( $(this).val(), options.format ) )
+								if( options.allowBlank && !$.trim($(this).val()).length ){
+									return true;
+								}
+								else if( !Date.parseDate( $(this).val(), options.format ) ){
 									$(this).val((new Date()).dateFormat( options.format ));
+								}
 							});
 					}
 					options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
