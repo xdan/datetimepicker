@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.0.6
+ * @preserve jQuery DateTimePicker plugin v2.0.7
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -373,9 +373,9 @@
 									var val = this.value, 
 										key = event.which;
 									switch(true){
-										case (( key>=KEY0&&key<=KEY9 )||( key>=_KEY0&&key<=_KEY ))||(key==BACKSPACE||key==DEL):
+										case (( key>=KEY0&&key<=KEY9 )||( key>=_KEY0&&key<=_KEY9 ))||(key==BACKSPACE||key==DEL):
 											var pos = getCaretPos(this),
-												digit = ( key!=BACKSPACE&&key!=DEL )?String.fromCharCode(key):'_';
+												digit = ( key!=BACKSPACE&&key!=DEL )?String.fromCharCode((_KEY0 <= key && key <= _KEY9)? key-KEY0 : key):'_';
 											if( (key==BACKSPACE||key==DEL)&&pos ){
 												pos--;
 												digit='_';
