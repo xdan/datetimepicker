@@ -27,6 +27,8 @@
 	<p>If select day is Saturday, the minimum set 11:00, otherwise 8:00</p>
 	<h3>onGenerate</h3>
 	<input type="text" id="datetimepicker8"/>
+	<h3>disable all weekend</h3>
+	<input type="text" id="datetimepicker9"/>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -93,6 +95,14 @@ $('#datetimepicker8').datetimepicker({
 	},
 	minDate:'-1970/01/2',
 	maxDate:'+1970/01/2',
+	timepicker:false
+});
+$('#datetimepicker9').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date.xdsoft_weekend')
+			.addClass('xdsoft_disabled');
+	},
+	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
 	timepicker:false
 });
 </script>
