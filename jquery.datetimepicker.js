@@ -1,5 +1,5 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.0.8
+ * @preserve jQuery DateTimePicker plugin v2.0.9
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -730,19 +730,22 @@
 							timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
 						}
 					});
+				var timerclick = 0;
 				calendar
-					.on('mousedown.xdsoft','td',function() {
+					.on('click.xdsoft','td',function() {
+						timerclick++;
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
 						if( $this.hasClass('xdsoft_disabled') )
 							return false;
+	
 						currentTime.setFullYear( $this.data('year') );
 						currentTime.setMonth( $this.data('month') );
 						currentTime.setDate( $this.data('date') );
 						datetimepicker.trigger('select.xdsoft',[currentTime]);
 						
 						input.val( _xdsoft_datetime.str() );
-						if( (options.closeOnDateSelect===true||( options.closeOnDateSelect===0&&!options.timepicker ))&&!options.inline ) {
+						if( (timerclick>1||(options.closeOnDateSelect===true||( options.closeOnDateSelect===0&&!options.timepicker )))&&!options.inline ) {
 							datetimepicker.trigger('close.xdsoft');
 						}
 						
@@ -752,10 +755,13 @@
 						
 						datetimepicker.trigger('xchange.xdsoft');
 						datetimepicker.trigger('changedatetime.xdsoft');
-					});		
+						setTimeout(function(){
+							timerclick = 0;
+						},200);
+					});	
 
 				timebox
-					.on('mousedown.xdsoft','div',function() {
+					.on('click.xdsoft','div',function() {
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
 						if( $this.hasClass('xdsoft_disabled') )

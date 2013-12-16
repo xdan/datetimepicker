@@ -59,6 +59,7 @@
 }
 .xdsoft_datetimepicker  .xdsoft_datepicker.active+.xdsoft_timepicker{
 	margin-top:8px;
+	margin-bottom:3px
 }
 .xdsoft_datetimepicker  .xdsoft_mounthpicker{
 	position: relative;
@@ -213,6 +214,9 @@
 	border-collapse:collapse;
 	cursor:pointer;
 	height: 25px;
+}
+.xdsoft_datetimepicker  .xdsoft_calendar th{
+	background: #F1F1F1;
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_today{
 	color:#33AAFF;

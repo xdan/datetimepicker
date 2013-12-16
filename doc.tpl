@@ -315,6 +315,30 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 });
 });
 </script>
+<hr id="weekends_disable"/>
+<h4>disable all weekend <a href="#weekends_disable">#</a></h4>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker9&#39;).datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find(&#39;.xdsoft_date.xdsoft_weekend&#39;)
+			.addClass('xdsoft_disabled');
+	},
+	weekends:[&#39;01.01.2014&#39;,&#39;02.01.2014&#39;,&#39;03.01.2014&#39;,&#39;04.01.2014&#39;,&#39;05.01.2014&#39;,&#39;06.01.2014&#39;],
+	timepicker:false
+});</code></pre>
+<p><strong>Result</strong></p>
+<p><input id="_datetimepicker_weekends_disable" type="text" value="" /></p>
+<script>$(function(){
+$('#_datetimepicker_weekends_disable').datetimepicker({
+	onGenerate:function( ct ){
+		$(this).find('.xdsoft_date.xdsoft_weekend')
+			.addClass('xdsoft_disabled');
+	},
+	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
+	timepicker:false
+});
+});
+</script>
 <h2>Full options list</h2>
 <table class="table table-condensed table-bordered table-striped">
 	<thead>
@@ -567,6 +591,7 @@ $('#_datetimepicker_ongenerate').datetimepicker({
 			<td>&nbsp;</td>
 		</tr>
 		<tr id="className"><td>className</td><td></td><td></td><td></td></tr>
+		<tr id="weekends"><td><a href="#weekends">weekends</a></td><td>[]</td><td></td><td><pre><code data-language="javascript">[&#39;01.01.2014&#39;,&#39;02.01.2014&#39;,&#39;03.01.2014&#39;,&#39;04.01.2014&#39;,&#39;05.01.2014&#39;,&#39;06.01.2014&#39;]</code></pre></td></tr>
 		<tr id="id"><td>id</td><td></td><td></td><td></td></tr>
 		<tr id="style"><td>style</td><td></td><td></td><td></td></tr>
 	</tbody>
