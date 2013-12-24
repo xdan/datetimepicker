@@ -548,6 +548,9 @@
 							datetimepicker.data('changed',true);
 							_xdsoft_datetime.setCurrentTime(new Date);
 							datetimepicker.trigger('afterOpen.xdsoft');
+						}).on('dblclick.xdsoft',function(){
+							input.val( _xdsoft_datetime.str() );
+							datetimepicker.trigger('close.xdsoft');
 						});
 				mounth_picker
 					.find('.xdsoft_prev,.xdsoft_next')
