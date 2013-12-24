@@ -17,7 +17,7 @@
 	<h3>Inline DateTimePicker</h3>
 	<input type="text" id="datetimepicker3"/><br><br>
 	<h3>Button Trigger</h3>
-	<input type="text" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/>
+	<input type="text" value="2013/12/03 18:00" id="datetimepicker4"/><input id="open" type="button" value="open"/><input id="close" type="button" value="close"/><input id="reset" type="button" value="reset"/>
 	<h3>TimePicker allows time</h3>
 	<input type="text" id="datetimepicker5"/><br><br>
 	<h3>Destroy DateTimePicker</h3>
@@ -59,6 +59,9 @@ $('#open').click(function(){
 });
 $('#close').click(function(){
 	$('#datetimepicker4').datetimepicker('hide');
+});
+$('#reset').click(function(){
+	$('#datetimepicker4').datetimepicker('reset');
 });
 $('#datetimepicker5').datetimepicker({
 	datepicker:false,

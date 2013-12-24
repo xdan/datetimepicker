@@ -494,6 +494,18 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
+		<tr id="todayButton">
+			<td><a href="#todayButton">todayButton</a></td>
+			<td>true</td>
+			<td>Show button "Go To Today"</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr id="defaultSelect">
+			<td><a href="#defaultSelect">defaultSelect</a></td>
+			<td>true</td>
+			<td>Highlight the current date even if the input is empty</td>
+			<td>&nbsp;</td>
+		</tr>			
 		<tr id="timepickerScrollbar">
 			<td><a href="#timepickerScrollbar">timepickerScrollbar</a></td>
 			<td>true</td>
@@ -553,6 +565,24 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 		<tr id="inverseButton">
 			<td><a href="#inverseButton">inverseButton</a></td>
 			<td>false</td>
+			<td></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr id="scrollMonth">
+			<td><a href="#scrollMonth">scrollMonth</a></td>
+			<td>true</td>
+			<td></td>
+			<td>&nbsp;</td>
+		</tr>		
+		<tr id="scrollTime">
+			<td><a href="#scrollTime">scrollTime</a></td>
+			<td>true</td>
+			<td></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr id="scrollInput">
+			<td><a href="#scrollInput">scrollInput</a></td>
+			<td>true</td>
 			<td></td>
 			<td>&nbsp;</td>
 		</tr>
