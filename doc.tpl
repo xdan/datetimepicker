@@ -505,7 +505,13 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<td>true</td>
 			<td>Highlight the current date even if the input is empty</td>
 			<td>&nbsp;</td>
-		</tr>			
+		</tr>
+		<tr id="allowBlank">
+			<td><a href="#allowBlank">allowBlank</a></td>
+			<td>false</td>
+			<td>Allow field to be empty even with the option <a href="#validateOnBlur">validateOnBlur</a> in true</td>
+			<td>&nbsp;</td>
+		</tr>		
 		<tr id="timepickerScrollbar">
 			<td><a href="#timepickerScrollbar">timepickerScrollbar</a></td>
 			<td>true</td>
