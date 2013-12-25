@@ -1,9 +1,10 @@
 /** 
- * @preserve jQuery DateTimePicker plugin v2.1.0
+ * @preserve jQuery DateTimePicker plugin v2.1.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
 (function( $ ) {
+	'use strict'
 	var default_options  = {
 		i18n:{
 			ru:{
@@ -124,13 +125,13 @@
 				scrollbar.append(scroller);
 				
 				timeboxparent.addClass('xdsoft_scroller_box').append(scrollbar);
-				scroller.on('mousedown.xdsoft_scroller',function( event ) {
+				scroller.on('mousedown.xdsoft_scroller',function ( event ) {
 					var pageY = event.pageY,
 						top = parseInt(scroller.css('margin-top')),
 						h1 = scrollbar[0].offsetHeight;
 					$(document.body).addClass('xdsoft_noselect');
-					$([document.body,window]).on('mouseup.xdsoft_scroller',function() {
-						$([document.body,window]).off('mouseup.xdsoft_scroller',arguments.callee)
+					$([document.body,window]).on('mouseup.xdsoft_scroller',function arguments_callee() {
+						$([document.body,window]).off('mouseup.xdsoft_scroller',arguments_callee)
 							.off('mousemove.xdsoft_scroller',move)
 							.removeClass('xdsoft_noselect');
 					});
@@ -559,20 +560,20 @@
 								timer = 0,
 								stop = false;
 
-							(function(v) {
+							(function arguments_callee1(v) {
 								var month =  _xdsoft_datetime.currentTime.getMonth();
 								if( $this.hasClass( options.next ) ) {
 									_xdsoft_datetime.nextMonth();
 								}else if( $this.hasClass( options.prev ) ) {
 									_xdsoft_datetime.prevMonth();
 								}
-								!stop&&(timer = setTimeout(arguments.callee,v?v:100));
+								!stop&&(timer = setTimeout(arguments_callee1,v?v:100));
 							})(500);
 							
-							$([document.body,window]).on('mouseup.xdsoft',function() {
+							$([document.body,window]).on('mouseup.xdsoft',function arguments_callee2() {
 								clearTimeout(timer);
 								stop = true;
-								$([document.body,window]).off('mouseup.xdsoft',arguments.callee);
+								$([document.body,window]).off('mouseup.xdsoft',arguments_callee2);
 							});
 						});
 
@@ -583,7 +584,7 @@
 								timer = 0,
 								stop = false,
 								period = 110;
-							(function(v) {
+							(function arguments_callee4(v) {
 								var pheight = timeboxparent[0].offsetHeight-2,
 									height = timebox[0].offsetHeight,
 									top = Math.abs(parseInt(timebox.css('marginTop')));
@@ -594,13 +595,13 @@
 								}
 								timeboxparent.trigger('scroll_element.xdsoft_scroller',[Math.abs(parseInt(timebox.css('marginTop'))/(height-pheight))]);
 								period= ( period>10 )?10:period-10;
-								!stop&&(timer = setTimeout(arguments.callee,v?v:period));
+								!stop&&(timer = setTimeout(arguments_callee4,v?v:period));
 							})(500);
-							$([document.body,window]).on('mouseup.xdsoft',function() {
+							$([document.body,window]).on('mouseup.xdsoft',function arguments_callee5() {
 								clearTimeout(timer);
 								stop = true;
 								$([document.body,window])
-									.off('mouseup.xdsoft',arguments.callee);
+									.off('mouseup.xdsoft',arguments_callee5);
 							});
 						});
 		
@@ -878,9 +879,9 @@
 								.on('resize.xdsoft',setPos);
 							
 							if( options.closeOnWithoutClick ) {
-								$([document.body,window]).on('mousedown.xdsoft',function() {
+								$([document.body,window]).on('mousedown.xdsoft',function arguments_callee6() {
 									datetimepicker.trigger('close.xdsoft');
-									$([document.body,window]).off('mousedown.xdsoft',arguments.callee);
+									$([document.body,window]).off('mousedown.xdsoft',arguments_callee6);
 								});
 							}
 						}
@@ -950,17 +951,14 @@
 			destroyDateTimePicker = function( input ) {
 				var datetimepicker = input.data('xdsoft_datetimepicker');
 				if( datetimepicker ) {
-					var _xdsoft_datetime = datetimepicker.data('xdsoft_datetime');
-					delete _xdsoft_datetime;
+					datetimepicker.data('xdsoft_datetime',null);
 					datetimepicker.remove();
-					delete datetimepicker;
 					input
 						.data( 'xdsoft_datetimepicker',null )
 						.off( 'open.xdsoft focusin.xdsoft focusout.xdsoft mousedown.xdsoft blur.xdsoft keydown.xdsoft' );
 					$(window).off('resize.xdsoft');
 					$([window,document.body]).off('mousedown.xdsoft');
 					input.unmousewheel&&input.unmousewheel();
-					delete options;
 				}
 			};
 		$(document)
