@@ -428,11 +428,13 @@
 							.off('blur.xdsoft')
 							.on('blur.xdsoft', function() {
 								if( options.allowBlank && !$.trim($(this).val()).length ) {
-									return true;
+									$(this).val(null);
 								}
 								else if( !Date.parseDate( $(this).val(), options.format ) ) {
 									$(this).val((new Date()).dateFormat( options.format ));
 								}
+								datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+								datetimepicker.trigger('changedatetime.xdsoft');
 							});
 					}
 					options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
