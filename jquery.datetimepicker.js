@@ -271,6 +271,7 @@
 								_xdsoft_datetime.currentTime[$(this).parent().parent().hasClass('xdsoft_monthselect')?'setMonth':'setFullYear']($(this).data('value'));
 							$(this).parent().parent().hide();
 							datetimepicker.trigger('xchange.xdsoft');
+							options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						});
 
 
