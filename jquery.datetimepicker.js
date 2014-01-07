@@ -44,7 +44,7 @@
 					"Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
 				],
 				dayOfWeek:[
-					"Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pa"
+					"Paz", "Pts", "Sal", "Çar", "Per", "Cum", "Cts"
 				]
 			}
 		},
