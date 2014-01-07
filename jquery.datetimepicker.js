@@ -38,6 +38,14 @@
 				dayOfWeek:[
 					"zo", "ma", "di", "wo", "do", "vr", "za"
 				]
+			},
+			tr:{
+				months:[
+					"Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+				],
+				dayOfWeek:[
+					"Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pa"
+				]
 			}
 		},
 		value:'',
