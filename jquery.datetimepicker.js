@@ -446,11 +446,16 @@
 							.on('blur.xdsoft', function() {
 								if( options.allowBlank && !$.trim($(this).val()).length ) {
 									$(this).val(null);
+									datetimepicker.data('xdsoft_datetime').empty();
 								}
 								else if( !Date.parseDate( $(this).val(), options.format ) ) {
 									$(this).val((new Date()).dateFormat( options.format ));
+									datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 								}
-								datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+								else
++								{
++									datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+ 								}
 								datetimepicker.trigger('changedatetime.xdsoft');
 							});
 					}
@@ -507,6 +512,10 @@
 						_this.currentTime = (typeof dTime == 'string')? _this.strtodatetime(dTime) : _this.isValidDate(dTime) ? dTime: _this.now();
 						datetimepicker.trigger('xchange.xdsoft');
 					};
+
+					_this.empty = function() {
++						_this.currentTime = null;
++					};
 
 					_this.getCurrentTime = function( dTime) {
 						return _this.currentTime;
