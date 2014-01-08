@@ -46,6 +46,14 @@
 				dayOfWeek:[
 					"Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pa"
 				]
+			},
+			fr:{
+				months:[
+			        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+				],
+				dayOfWeek:[
+					"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
+				]
 			}
 		},
 		value:'',
