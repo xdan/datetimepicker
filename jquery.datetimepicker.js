@@ -38,14 +38,6 @@
 				dayOfWeek:[
 					"zo", "ma", "di", "wo", "do", "vr", "za"
 				]
-			},
-			tr:{
-				months:[
-					"Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
-				],
-				dayOfWeek:[
-					"Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pa"
-				]
 			}
 		},
 		value:'',
@@ -319,13 +311,22 @@
 						scrollbar.hide();
 
 					var tmpDate = [],timeOffset;
-					if( options.minDate && ( tmpDate = /^-(.*)$/.exec(options.minDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ) {
+					var baseTime = new Date('1970/01/01').getTime();
+					if( options.minDate && ( tmpDate = /^-|\+(.*)$/.exec(options.minDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ) {
 						timeOffset = tmpDate.getTime()+-1*(tmpDate.getTimezoneOffset())*60000;
-						options.minDate = new Date((new Date).getTime()-timeOffset).dateFormat( options.formatDate );
+						if(timeOffset > baseTime) {
+							options.minDate = new Date((new Date).getTime()+timeOffset).dateFormat( options.formatDate );
+						} else {
+							options.minDate = new Date((new Date).getTime()-timeOffset).dateFormat( options.formatDate );
+						}
 					}
-					if( options.maxDate && ( tmpDate = /^\+(.*)$/.exec(options.maxDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ) {
+					if( options.maxDate && ( tmpDate = /^-|\+(.*)$/.exec(options.maxDate) ) && (tmpDate=Date.parseDate(tmpDate[1], options.formatDate)) ) {
 						timeOffset = tmpDate.getTime()+-1*(tmpDate.getTimezoneOffset())*60000;
-						options.maxDate = new Date((new Date).getTime()+timeOffset).dateFormat( options.formatDate );
+						if(timeOffset > baseTime) {
+							options.maxDate = new Date((new Date).getTime()+timeOffset).dateFormat( options.formatDate );
+						} else {
+							options.maxDate = new Date((new Date).getTime()-timeOffset).dateFormat( options.formatDate );
+						}
 					}
 
 					mounth_picker
