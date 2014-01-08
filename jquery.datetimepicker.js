@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.1.1
+ * @preserve jQuery DateTimePicker plugin v2.1.2
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -49,7 +49,7 @@
 			},
 			fr:{
 				months:[
-			        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+			    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
 				],
 				dayOfWeek:[
 					"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
@@ -447,14 +447,12 @@
 								if( options.allowBlank && !$.trim($(this).val()).length ) {
 									$(this).val(null);
 									datetimepicker.data('xdsoft_datetime').empty();
-								}
-								else if( !Date.parseDate( $(this).val(), options.format ) ) {
+								}else if( !Date.parseDate( $(this).val(), options.format ) ) {
 									$(this).val((new Date()).dateFormat( options.format ));
 									datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 								}
-								else
-+								{
-+									datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+								else{
+									datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
  								}
 								datetimepicker.trigger('changedatetime.xdsoft');
 							});
@@ -514,8 +512,8 @@
 					};
 
 					_this.empty = function() {
-+						_this.currentTime = null;
-+					};
+						_this.currentTime = null;
+					};
 
 					_this.getCurrentTime = function( dTime) {
 						return _this.currentTime;
