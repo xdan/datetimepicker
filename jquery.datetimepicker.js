@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.1.3
+ * @preserve jQuery DateTimePicker plugin v2.1.4
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2013, Chupurnov Valeriy.
  */
@@ -323,8 +323,10 @@
 					if( options.datepicker && !options.timepicker )
 						timepicker.removeClass('active');
 
-					if( options.value )
+					if( options.value ){
 						input&&input.val&&input.val(options.value);
+						_xdsoft_datetime.setCurrentTime(options.value);
+					}
 
 					if( isNaN(options.dayOfWeekStart)||parseInt(options.dayOfWeekStart)<0||parseInt(options.dayOfWeekStart)>6 )
 						options.dayOfWeekStart = 0;
@@ -501,7 +503,7 @@
 
 				$('body').append(datetimepicker);
 
-				var XDSoftDateTime = function() {
+				var _xdsoft_datetime = new function() {
 					var _this = this;
 					_this.now = function() {
 						return new Date();
@@ -575,8 +577,7 @@
 					_this.str = function() {
 						return _this.currentTime.dateFormat(options.format);
 					};
-				},
-				_xdsoft_datetime = new XDSoftDateTime;
+				};
 				mounth_picker
 					.find('.xdsoft_today_button')
 						.on('mousedown.xdsoft',function() {

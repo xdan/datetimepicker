@@ -339,6 +339,55 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 });
 });
 </script>
+<hr id="range"/>
+<h4>Range between date<a href="#range">#</a></h4>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">$(function(){
+ $(&#39;#date_timepicker_start&#39;).datetimepicker({
+  format:&#39;Y/m/d&#39;,
+  onShow:function( ct ){
+   this.setOptions({
+    maxDate:$(&#39;#date_timepicker_end&#39;).val()?$(&#39;#date_timepicker_end&#39;).val():false
+   })
+  },
+  timepicker:false
+ });
+ $(&#39;#date_timepicker_end&#39;).datetimepicker({
+  format:&#39;Y/m/d&#39;,
+  onShow:function( ct ){
+   this.setOptions({
+    minDate:$(&#39;#date_timepicker_start&#39;).val()?$(&#39;#date_timepicker_start&#39;).val():false
+   })
+  },
+  timepicker:false
+ });
+});</code></pre>
+<p><strong>Result</strong></p>
+<p>
+	Start <input id="date_timepicker_start" type="text" value="" placeholder="start" />&nbsp;
+	End <input id="date_timepicker_end" type="text" value="" placeholder="end" />
+</p>
+<script>$(function(){
+	$('#date_timepicker_start').datetimepicker({
+		format:'Y/m/d',
+		onShow:function( ct ){
+			this.setOptions({
+				maxDate:$('#date_timepicker_end').val()?$('#date_timepicker_end').val():false
+			})
+		},
+		timepicker:false
+	});
+	$('#date_timepicker_end').datetimepicker({
+		format:'Y/m/d',
+		onShow:function( ct ){
+			this.setOptions({
+				minDate:$('#date_timepicker_start').val()?$('#date_timepicker_start').val():false
+			})
+		},
+		timepicker:false
+	});
+});
+</script>
 <h2>Full options list</h2>
 <table class="table table-condensed table-bordered table-striped">
 	<thead>
