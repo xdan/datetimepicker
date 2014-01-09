@@ -411,7 +411,15 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 		<tr id="lang">
 			<td><a href="#lang">lang</a></td>
 			<td>en</td>
-			<td>Language i18n (en,ru,de,nl,tr,fr,es)</td>
+			<td>Language i18n<br>
+			<strong>en</strong> - English<br>
+			<strong>ru</strong> - Russian<br>
+			<strong>de</strong> - German<br>
+			<strong>nl</strong> - Dutch<br>
+			<strong>tr</strong> - Turkish<br>
+			<strong>fr</strong> - French<br>
+			<strong>es</strong> - Spanish<br>
+			<strong>th</strong> - Thai</td>
 			<td>
 			<pre><code data-language="javascript">{lang:&#39;ru&#39;}</code></pre>
 			</td>
@@ -535,6 +543,12 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<td><a href="#opened">opened</a></td>
 			<td>false</td>
 			<td></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr id="yearoffset">
+			<td><a href="#yearoffset">yearOffset</a></td>
+			<td>0</td>
+			<td>Year offset for Buddhist era</td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr id="inline">
