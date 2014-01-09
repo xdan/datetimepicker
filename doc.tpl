@@ -362,7 +362,7 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 		<tr id="lang">
 			<td><a href="#lang">lang</a></td>
 			<td>en</td>
-			<td>Language i18n (en,ru,de,nl)</td>
+			<td>Language i18n (en,ru,de,nl,tr,fr,es)</td>
 			<td>
 			<pre><code data-language="javascript">{lang:&#39;ru&#39;}</code></pre>
 			</td>
