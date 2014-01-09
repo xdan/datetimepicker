@@ -54,6 +54,14 @@
 				dayOfWeek:[
 					"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"
 				]
+			},
+			es:{
+				months: [
+					"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+				],
+				dayOfWeek: [
+					"Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"
+				]
 			}
 		},
 		value:'',
