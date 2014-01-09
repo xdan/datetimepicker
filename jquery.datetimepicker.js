@@ -902,9 +902,9 @@
 				});
 				var setPos = function() {
 					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
-					if( top+datetimepicker[0].offsetHeight>$('body').height() )
+					if( top+datetimepicker[0].offsetHeight>$(window).height() )
 						top = offset.top-datetimepicker[0].offsetHeight+1;
-					if( left+datetimepicker[0].offsetWidth>$('body').width() )
+					if( left+datetimepicker[0].offsetWidth>$(window).width() )
 						left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
 					datetimepicker.css({
 						left:left,
