@@ -6,12 +6,14 @@
 		"jquery.datetimepicker.css"
 	],
 	"ignore": [
-    "**/*.png",
-    "**/*.txt",
-    "**/*.md",
-    "**/*.html",
-    "**/*.tpl"
-  ],
+		"**/screen",
+		"**/datetimepicker.jquery.json",
+		"**/*.png",
+		"**/*.txt",
+		"**/*.md",
+		"**/*.html",
+		"**/*.tpl"
+	  ],
 	"keywords": [
 		"calendar",
 		"date",
