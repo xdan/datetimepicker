@@ -70,6 +70,14 @@
 				dayOfWeek:[
 					'อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'
 				]
+			},
+			pl:{ // Polish
+				months: [
+					"styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień"
+				],
+				dayOfWeek: [
+					"nd", "pn", "wt", "śr", "cz", "pt", "sb"
+				]
 			}
 		},
 		value:'',
