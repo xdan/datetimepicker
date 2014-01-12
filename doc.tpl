@@ -1,9 +1,11 @@
 <div class="page-header">
 	<h1>DateTimePicker <small>jQuery plugin select date and time</small></h1>
 </div>
+<?php echo $this->parse('right250x250',array('link'=>"https://github.com/xdan/datetimepicker/archive/master.zip"))?>
 <p>
 Use this plugin to unobtrusively add a datetimepicker, datepicker or timepicker dropdown to your forms. It's easy to customize options. <a href="https://github.com/xdan/datetimepicker">Source code on GitHub</a> or <a href="https://github.com/xdan/datetimepicker/archive/master.zip">download (zip)</a>.
 </p>
+
 <h3>DateTimepicker</h3>
 <input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br/>
 <h3>Use mask DateTimepicker</h3>
@@ -36,9 +38,6 @@ $('#datetimepicker3').datetimepicker({
 });
 </script>
 </p>
-<p>
-<a class="btn btn-large btn-primary" href="https://github.com/xdan/datetimepicker/archive/master.zip">Download (zip)</a>
-</p>
 <h2>How do I use it?</h2>
 <p>
 First include to page css and js files
@@ -63,6 +62,7 @@ $(function(){$('#_datetimepicker').datetimepicker();});
 
 <hr id="i18n"/>
 <h4>i18n DatePicker Example  <a href="#i18n">#</a></h4>
+<p>All supported languages <a href="#lang">here</a></p>
 <p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker1&#39;).datetimepicker({
  lang:&#39;de&#39;,
@@ -420,6 +420,7 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<strong>fr</strong> - French<br>
 			<strong>es</strong> - Spanish<br>
 			<strong>th</strong> - Thai</td>
+			<strong>pl</strong> - Polish</td>
 			<td>
 			<pre><code data-language="javascript">{lang:&#39;ru&#39;}</code></pre>
 			</td>

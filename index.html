@@ -29,11 +29,20 @@
 	<input type="text" id="datetimepicker8"/>
 	<h3>disable all weekend</h3>
 	<input type="text" id="datetimepicker9"/>
+	<h3>Show inline</h3>
+	<a href="javascript:var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
+	<div id="show_inline" style="display:none">
+		<input type="text" id="datetimepicker10"/>
+	</div>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
 <script>
-$('#datetimepicker_mask').datetimepicker({
+
+$('#datetimepicker10').datetimepicker({
+	step:5,
+	inline:true
+});/*$('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59',
 });
 $('#datetimepicker').datetimepicker();
@@ -109,6 +118,6 @@ $('#datetimepicker9').datetimepicker({
 	},
 	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
 	timepicker:false
-});
+});*/
 </script>
 </html>

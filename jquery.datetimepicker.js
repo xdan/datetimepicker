@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.1.5
+ * @preserve jQuery DateTimePicker plugin v2.1.6
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -156,7 +156,7 @@
 					},
 					move = 0,
 					timebox = timeboxparent.children().eq(0),
-					parentHeight = timeboxparent[0].offsetHeight-2,
+					parentHeight = timeboxparent[0].clientHeight,
 					height = timebox[0].offsetHeight,
 					scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
 					scroller = $('<div class="xdsoft_scroller"></div>'),
@@ -167,6 +167,8 @@
 
 				timeboxparent.addClass('xdsoft_scroller_box').append(scrollbar);
 				scroller.on('mousedown.xdsoft_scroller',function ( event ) {
+					if( !parentHeight )
+						timeboxparent.trigger('resize_scroll.xdsoft_scroller',[_percent]);
 					var pageY = event.pageY,
 						top = parseInt(scroller.css('margin-top')),
 						h1 = scrollbar[0].offsetHeight;
@@ -188,12 +190,14 @@
 
 				timeboxparent
 					.on('scroll_element.xdsoft_scroller',function( event,percent ) {
+						if( !parentHeight )
+							timeboxparent.trigger('resize_scroll.xdsoft_scroller',[percent,true]);
 						percent = percent>1?1:(percent<0||isNaN(percent))?0:percent;
 						scroller.css('margin-top',maximumOffset*percent);
 						timebox.css('marginTop',-parseInt((height-parentHeight)*percent))
 					})
-					.on('resize_scroll.xdsoft_scroller',function( event,_percent ) {
-						parentHeight = timeboxparent[0].offsetHeight-2;
+					.on('resize_scroll.xdsoft_scroller',function( event,_percent,noTriggerScroll ) {
+						parentHeight = timeboxparent[0].clientHeight;
 						height = timebox[0].offsetHeight;
 						var percent = parentHeight/height,
 							sh = percent*scrollbar[0].offsetHeight;
@@ -203,7 +207,8 @@
 							scroller.show();
 							scroller.css('height',parseInt(sh>10?sh:10));
 							maximumOffset = scrollbar[0].offsetHeight-scroller[0].offsetHeight;
-							timeboxparent.trigger('scroll_element.xdsoft_scroller',[_percent?_percent:Math.abs(parseInt(timebox.css('marginTop')))/(height-parentHeight)]);
+							if( noTriggerScroll!==true )
+								timeboxparent.trigger('scroll_element.xdsoft_scroller',[_percent?_percent:Math.abs(parseInt(timebox.css('marginTop')))/(height-parentHeight)]);
 						}
 					});
 				timeboxparent.mousewheel&&timeboxparent.mousewheel(function(event, delta, deltaX, deltaY) {
@@ -295,7 +300,7 @@
 								}else top+=items[0].offsetHeight;
 							}
 
-							select.xdsoftScroller(top/(select.children()[0].offsetHeight-(select[0].offsetHeight-2)));
+							select.xdsoftScroller(top/(select.children()[0].offsetHeight-(select[0].clientHeight)));
 							event.stopPropagation();
 							return false;
 						});
@@ -640,7 +645,7 @@
 								stop = false,
 								period = 110;
 							(function arguments_callee4(v) {
-								var pheight = timeboxparent[0].offsetHeight-2,
+								var pheight = timeboxparent[0].clientHeight,
 									height = timebox[0].offsetHeight,
 									top = Math.abs(parseInt(timebox.css('marginTop')));
 								if( $this.hasClass(options.next) && (height-pheight)- options.timeHeightInTimePicker>=top ) {
@@ -790,7 +795,7 @@
 					})
 					.on('afterOpen.xdsoft',function() {
 						if( options.timepicker && timebox.find('.xdsoft_current').length ) {
-							var pheight = timeboxparent[0].offsetHeight-2,
+							var pheight = timeboxparent[0].clientHeight,
 								height = timebox[0].offsetHeight,
 								top = timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker+1;
 							if( (height-pheight)<top )
@@ -865,7 +870,7 @@
 				datetimepicker.mousewheel&&timeboxparent.unmousewheel().mousewheel(function(event, delta, deltaX, deltaY) {
 					if( !options.scrollTime )
 						return true;
-					var pheight = timeboxparent[0].offsetHeight-2,
+					var pheight = timeboxparent[0].clientHeight,
 						height = timebox[0].offsetHeight,
 						top = Math.abs(parseInt(timebox.css('marginTop'))),
 						fl = true;
@@ -996,12 +1001,6 @@
 							return true;
 						}
 					});
-					/*.on('focusout.xdsoft',function(event) {
-						clearTimeout(timer1);
-						timer1 = setTimeout(function() {
-							//datetimepicker.trigger('close.xdsoft');
-						},100);
-					});*/
 			},
 			destroyDateTimePicker = function( input ) {
 				var datetimepicker = input.data('xdsoft_datetimepicker');
