@@ -18,6 +18,20 @@
 	display:none;
 }
 
+.xdsoft_datetimepicker iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 75px;
+    height: 210px;
+    background: transparent;
+    border:none;
+}
+/*For IE8 or lower*/
+.xdsoft_datetimepicker button {
+    border:none !important;
+}
+
 .xdsoft_noselect{
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
