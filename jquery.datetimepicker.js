@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.1.7
+ * @preserve jQuery DateTimePicker plugin v2.1.8
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -721,7 +721,7 @@
 								classes.push('xdsoft_weekend');
 							}
 
-							table+='<td data-date="'+d+'" data-month="'+m+'" data-year="'+y+'"'+' class="xdsoft_date '+ classes.join(' ')+'">'+
+							table+='<td data-date="'+d+'" data-month="'+m+'" data-year="'+y+'"'+' class="xdsoft_date xdsoft_day_of_week'+start.getDay()+' '+ classes.join(' ')+'">'+
 										'<div>'+d+'</div>'+
 									'</td>';
 
