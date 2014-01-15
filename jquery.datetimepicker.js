@@ -78,6 +78,14 @@
 				dayOfWeek: [
 					"nd", "pn", "wt", "śr", "cz", "pt", "sb"
 				]
+			},
+			pt:{ // Portuguese
+				months: [
+					"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+				],
+				dayOfWeek: [
+					"Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"
+				]
 			}
 		},
 		value:'',
