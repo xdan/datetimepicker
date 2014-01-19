@@ -419,8 +419,10 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<strong>tr</strong> - Turkish<br>
 			<strong>fr</strong> - French<br>
 			<strong>es</strong> - Spanish<br>
-			<strong>th</strong> - Thai</td>
-			<strong>pl</strong> - Polish</td>
+			<strong>th</strong> - Thai<br>
+			<strong>pl</strong> - Polish<br>
+			<strong>pl</strong> - Polish<br>
+			<strong>ch</strong> - Simplified Chinese<br>
 			<td>
 			<pre><code data-language="javascript">{lang:&#39;ru&#39;}</code></pre>
 			</td>
