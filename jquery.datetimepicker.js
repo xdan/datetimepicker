@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.1.8
+ * @preserve jQuery DateTimePicker plugin v2.1.9
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -93,6 +93,14 @@
 				],
 				dayOfWeek: [
 					"日", "一","二","三","四","五","六"
+				]
+			},
+			se:{ // Swedish
+				months: [
+					"Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September","Oktober", "November", "December"
+				],
+				dayOfWeek: [
+					"Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
 				]
 			}
 		},
@@ -273,7 +281,7 @@
 			ZKEY = 90,
 			YKEY = 89,
 			ctrlDown	=	false,
-			options = ($.isPlainObject(opt)||!opt)?$.extend({},default_options,opt):$.extend({},default_options),
+			options = ($.isPlainObject(opt)||!opt)?$.extend(true,{},default_options,opt):$.extend({},default_options),
 			createDateTimePicker = function( input ) {
 				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+options.className+'"></div>'),
 					xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
@@ -339,7 +347,7 @@
 
 				// set options
 				datetimepicker.setOptions = function( _options ) {
-					options = $.extend({},options,_options);
+					options = $.extend(true,{},options,_options);
 					if( (options.open||options.opened)&&(!options.inline) ) {
 						input.trigger('open.xdsoft');
 					}
@@ -943,7 +951,7 @@
 				});
 				var setPos = function() {
 					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
-					if( top+datetimepicker[0].offsetHeight>$(window).height() )
+					if( top+datetimepicker[0].offsetHeight>$(window).height()+$(window).scrollTop() )
 						top = offset.top-datetimepicker[0].offsetHeight+1;
 					if( left+datetimepicker[0].offsetWidth>$(window).width() )
 						left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
