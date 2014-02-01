@@ -576,6 +576,12 @@
 							_this.currentTime.setFullYear(_this.currentTime.getFullYear()+1);
 							month = 0;
 						}
+						_this.currentTime.setDate(
+							Math.min(
+								Date.daysInMonth[month],
+								_this.currentTime.getDate()
+							)
+						)
 						_this.currentTime.setMonth(month);
 						options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						datetimepicker.trigger('xchange.xdsoft');
@@ -588,6 +594,12 @@
 							_this.currentTime.setFullYear(_this.currentTime.getFullYear()-1);
 							month = 11;
 						}
+						_this.currentTime.setDate(
+							Math.min(
+								Date.daysInMonth[month],
+								_this.currentTime.getDate()
+							)
+						)
 						_this.currentTime.setMonth(month);
 						options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						datetimepicker.trigger('xchange.xdsoft');
@@ -830,8 +842,8 @@
 							return false;
 
 						currentTime.setFullYear( $this.data('year') );
-						currentTime.setMonth( $this.data('month') );
 						currentTime.setDate( $this.data('date') );
+						currentTime.setMonth( $this.data('month') );
 						datetimepicker.trigger('select.xdsoft',[currentTime]);
 
 						input.val( _xdsoft_datetime.str() );
