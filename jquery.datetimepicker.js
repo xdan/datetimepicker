@@ -363,7 +363,7 @@
 						options.prev = 'xdsoft_next';
 					}
 
-					if( options.timepicker )
+					if( options.datepicker )
 						datepicker.addClass('active');
 					else
 						datepicker.removeClass('active');
