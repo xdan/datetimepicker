@@ -705,7 +705,7 @@
 				datetimepicker
 					.on('xchange.xdsoft',function( event ) {
 						var table 	=	'',
-							start	= new Date(_xdsoft_datetime.currentTime.getFullYear(),_xdsoft_datetime.currentTime.getMonth(),1),
+							start	= new Date(_xdsoft_datetime.currentTime.getFullYear(),_xdsoft_datetime.currentTime.getMonth(),1, 12, 0, 0),
 							i = 0,
 							today = _xdsoft_datetime.now();
 						while( start.getDay()!=options.dayOfWeekStart )
