@@ -371,10 +371,14 @@
 						options.prev = 'xdsoft_next';
 					}
 
-					if( !options.datepicker && options.timepicker )
+					if( options.datepicker )
+						datepicker.addClass('active');
+					else
 						datepicker.removeClass('active');
-
-					if( options.datepicker && !options.timepicker )
+						
+					if( options.timepicker )
+						timepicker.addClass('active');
+					else
 						timepicker.removeClass('active');
 
 					if( options.value ){
