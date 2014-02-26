@@ -862,8 +862,8 @@
 							return false;
 
 						currentTime.setFullYear( $this.data('year') );
-						currentTime.setDate( $this.data('date') );
 						currentTime.setMonth( $this.data('month') );
+						currentTime.setDate( $this.data('date') );
 						datetimepicker.trigger('select.xdsoft',[currentTime]);
 
 						input.val( _xdsoft_datetime.str() );
