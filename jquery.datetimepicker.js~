@@ -110,14 +110,6 @@
 				dayOfWeek: [
                     "일", "월", "화", "수", "목", "금", "토"
 				]
-			},
-			it:{ // Italian
-				months: [
-					"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
-				],
-				dayOfWeek: [
-					"Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"
-				]
 			}
 		},
 		value:'',
