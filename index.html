@@ -138,7 +138,6 @@ var dateToDisable = new Date();
 $('#datetimepicker11').datetimepicker({
 	beforeShowDay: function(date) {
 		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
-			console.log("Disable date " + date.toDateString());
 			return [false, ""]
 		}
 
@@ -148,7 +147,6 @@ $('#datetimepicker11').datetimepicker({
 $('#datetimepicker12').datetimepicker({
 	beforeShowDay: function(date) {
 		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
-			console.log("Style date " + date.toDateString());
 			return [true, "custom-date-style"];
 		}
 
