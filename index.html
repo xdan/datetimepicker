@@ -3,6 +3,13 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
+<style type="text/css">
+
+.custom-date-style {
+	background-color: red !important;
+}
+
+</style>
 </head>
 <body>
 	<p><a href="http://xdsoft.net/jqplugins/datetimepicker/">Homepage</a></p>
@@ -34,6 +41,12 @@
 	<div id="show_inline" style="display:none">
 		<input type="text" id="datetimepicker10"/>
 	</div>
+	<h3>Disable Specific Dates</h3>
+	<p>Disable the dates 2 days from now.</p>
+	<input type="text" id="datetimepicker11"/>
+	<h3>Custom Date Styling</h3>
+	<p>Make the background of the date 2 days from now bright red.</p>
+	<input type="text" id="datetimepicker12"/>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -119,6 +132,26 @@ $('#datetimepicker9').datetimepicker({
 	},
 	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
 	timepicker:false
+});
+var dateToDisable = new Date();
+	dateToDisable.setDate(dateToDisable.getDate() + 2);
+$('#datetimepicker11').datetimepicker({
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [false, ""]
+		}
+
+		return [true, ""];
+	}
+});
+$('#datetimepicker12').datetimepicker({
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [true, "custom-date-style"];
+		}
+
+		return [true, ""];
+	}
 });
 </script>
 </html>

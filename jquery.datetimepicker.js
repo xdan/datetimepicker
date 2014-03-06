@@ -167,7 +167,8 @@
 		roundTime:'round', // ceil, floor
 		className:'',
 		weekends	: 	[],
-		yearOffset:0
+		yearOffset:0,
+		beforeShowDay: null
 	};
 	// fix for ie8
 	if ( !Array.prototype.indexOf ) {
@@ -383,7 +384,7 @@
 						datepicker.addClass('active');
 					else
 						datepicker.removeClass('active');
-						
+
 					if( options.timepicker )
 						timepicker.addClass('active');
 					else
@@ -750,7 +751,7 @@
 							minDate = _xdsoft_datetime.strtodate(options.minDate);
 							minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
 						}
-						var d,y,m,classes = [];
+						var d,y,m,classes = [],customDateSettings;
 						while( i<_xdsoft_datetime.currentTime.getDaysInMonth()||start.getDay()!=options.dayOfWeekStart||_xdsoft_datetime.currentTime.getMonth()==start.getMonth() ) {
 							classes = [];
 							i++;
@@ -759,8 +760,18 @@
 
 							classes.push('xdsoft_date');
 
-							if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate ) ){
+							if ( options.beforeShowDay && options.beforeShowDay.call ) {
+								customDateSettings = options.beforeShowDay.call(datetimepicker, start);
+							} else {
+								customDateSettings = null;
+							}
+
+							if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate )||(customDateSettings && customDateSettings[0] === false) ){
 								classes.push('xdsoft_disabled');
+							}
+
+							if ( customDateSettings && customDateSettings[1] != "" ) {
+								classes.push(customDateSettings[1]);
 							}
 
 							if( _xdsoft_datetime.currentTime.getMonth()!=m ) classes.push('xdsoft_other_month');
