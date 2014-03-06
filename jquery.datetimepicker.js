@@ -168,7 +168,7 @@
 		className:'',
 		weekends	: 	[],
 		yearOffset:0,
-		beforeShowDay: function() { return [true,'']; }
+		beforeShowDay: function() { return [true,'']; }// This must always return an array: [dateEnabled:Boolean, customCssClassForDate:String]
 	};
 	// fix for ie8
 	if ( !Array.prototype.indexOf ) {
