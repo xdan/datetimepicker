@@ -168,7 +168,7 @@
 		className:'',
 		weekends	: 	[],
 		yearOffset:0,
-		beforeShowDay: function() { return [true,'']; }// This must always return an array: [dateEnabled:Boolean, customCssClassForDate:String]
+		beforeShowDay: null
 	};
 	// fix for ie8
 	if ( !Array.prototype.indexOf ) {
@@ -760,16 +760,17 @@
 
 							classes.push('xdsoft_date');
 
-							if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate ) ){
+							if ( options.beforeShowDay && options.beforeShowDay.call ) {
+								customDateSettings = options.beforeShowDay.call(datetimepicker, start);
+							} else {
+								customDateSettings = null;
+							}
+
+							if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate )||(customDateSettings && customDateSettings[0] === false) ){
 								classes.push('xdsoft_disabled');
 							}
 
-							customDateSettings = options.beforeShowDay.call(datetimepicker, start);
-							if ( customDateSettings[0] === false ) {
-								classes.push('xdsoft_disabled');
-							}
-
-							if ( customDateSettings[1] != "" ) {
+							if ( customDateSettings && customDateSettings[1] != "" ) {
 								classes.push(customDateSettings[1]);
 							}
 
