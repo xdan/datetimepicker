@@ -136,6 +136,7 @@
 		maxTime:false,
 		allowTimes:[],
 		opened:false,
+		initTime:true,
 		inline:false,
 		onSelectDate:function() {},
 		onSelectTime:function() {},
@@ -808,8 +809,13 @@
 								classes = [];
 								if( (options.maxTime!==false&&_xdsoft_datetime.strtotime(options.maxTime).getTime()<now.getTime())||(options.minTime!==false&&_xdsoft_datetime.strtotime(options.minTime).getTime()>now.getTime()))
 									classes.push('xdsoft_disabled');
-								if( (options.defaultSelect||datetimepicker.data('changed')) && parseInt(_xdsoft_datetime.currentTime.getHours())==parseInt(h)&&(options.step>59||Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes()/options.step)*options.step==parseInt(m)))
-									classes.push('xdsoft_current');
+								if( (options.initTime||options.defaultSelect||datetimepicker.data('changed')) && parseInt(_xdsoft_datetime.currentTime.getHours())==parseInt(h)&&(options.step>59||Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes()/options.step)*options.step==parseInt(m))) {
+									if( options.defaultSelect||datetimepicker.data('changed')) {
+										classes.push('xdsoft_current');
+									} else if( options.initTime ) {
+										classes.push('xdsoft_init_time');
+									}
+								}
 								if( parseInt(today.getHours())==parseInt(h)&&parseInt(today.getMinutes())==parseInt(m))
 									classes.push('xdsoft_today');
 								time+= '<div class="xdsoft_time '+classes.join(' ')+'" data-hour="'+h+'" data-minute="'+m+'">'+now.dateFormat(options.formatTime)+'</div>';
@@ -850,14 +856,23 @@
 						event.stopPropagation();
 					})
 					.on('afterOpen.xdsoft',function() {
-						if( options.timepicker && timebox.find('.xdsoft_current').length ) {
-							var pheight = timeboxparent[0].clientHeight,
-								height = timebox[0].offsetHeight,
-								top = timebox.find('.xdsoft_current').index()*options.timeHeightInTimePicker+1;
-							if( (height-pheight)<top )
-								top = height-pheight;
-							timebox.css('marginTop','-'+parseInt(top)+'px');
-							timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
+						if( options.timepicker ) {
+							var classType;
+							if( timebox.find('.xdsoft_current').length ) {
+								classType = '.xdsoft_current';
+							} else if( timebox.find('.xdsoft_init_time').length ) {
+								classType = '.xdsoft_init_time';
+							}
+							
+							if( classType ) {
+								var pheight = timeboxparent[0].clientHeight,
+									height = timebox[0].offsetHeight,
+									top = timebox.find(classType).index()*options.timeHeightInTimePicker+1;
+								if( (height-pheight)<top )
+									top = height-pheight;
+								timebox.css('marginTop','-'+parseInt(top)+'px');
+								timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
+							}
 						}
 					});
 				var timerclick = 0;
