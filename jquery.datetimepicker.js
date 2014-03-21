@@ -959,8 +959,11 @@
 
 				datetimepicker
 					.on('changedatetime.xdsoft',function() {
-						if( options.onChangeDateTime&&options.onChangeDateTime.call )
-							options.onChangeDateTime.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+						if( options.onChangeDateTime&&options.onChangeDateTime.call ) {
+							var $input = datetimepicker.data('input');
+							options.onChangeDateTime.call(datetimepicker, _xdsoft_datetime.currentTime, $input);
+							$input.trigger('change');
+						}
 					})
 					.on('generate.xdsoft',function() {
 						if( options.onGenerate&&options.onGenerate.call )
