@@ -29,6 +29,10 @@
 	<input type="text" id="datetimepicker8"/>
 	<h3>disable all weekend</h3>
 	<input type="text" id="datetimepicker9"/>
+	<h3>Date Time Picker start time</h3>
+	<input type="text" id="datetimepicker_start_time"/>
+	<h3>Date Time Picker from unixtime</h3>
+	<input type="text" id="datetimepicker_unixtime"/>
 	<h3>Show inline</h3>
 	<a href="javascript:var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
 	<div id="show_inline" style="display:none">
@@ -43,9 +47,19 @@ $('#datetimepicker10').datetimepicker({
 	step:5,
 	inline:true
 });
+
 $('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59'
 });
+
+$('#datetimepicker_start_time').datetimepicker({
+	startDate:'+1970/05/01'
+});
+
+$('#datetimepicker_unixtime').datetimepicker({
+	format:'unixtime'
+});
+
 $('#datetimepicker').datetimepicker();
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
 $('#datetimepicker1').datetimepicker({
@@ -90,14 +104,16 @@ $('#destroy').click(function(){
 	}
 });
 var logic = function( currentDateTime ){
-	if( currentDateTime.getDay()==6 ){
-		this.setOptions({
-			minTime:'11:00'
-		});
-	}else
-		this.setOptions({
-			minTime:'8:00'
-		});
+	if( currentDateTime ){
+		if( currentDateTime.getDay()==6 ){
+			this.setOptions({
+				minTime:'11:00'
+			});
+		}else
+			this.setOptions({
+				minTime:'8:00'
+			});
+	}
 };
 $('#datetimepicker7').datetimepicker({
 	onChangeDateTime:logic,
