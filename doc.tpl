@@ -115,7 +115,32 @@ $('#_datetimepicker2').datetimepicker({
 });
 });
 </script>
-
+<h3 id="startdate">Date Time Picker start date <a href="#startdate">#</a></h3>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker_start_time&#39;).datetimepicker({
+	startDate:&#39;+1970/05/01&#39;
+});</code></pre>
+<p><strong>Result</strong></p>
+<p><input type="text" id="datetimepicker_start_time"/></p>
+<script>$(function(){
+	$('#datetimepicker_start_time').datetimepicker({
+		startDate:'+1970/05/01'
+	});
+});
+</script>
+<h3 id="unixtime">Date Time Picker from unixtime <a href="#unixtime">#</a></h3>
+<p><strong>javaScript</strong></p>
+<pre><code data-language="javascript">$(&#39;#datetimepicker_unixtime&#39;).datetimepicker({
+	format:&#39;unixtime&#39;
+});</code></pre>
+<p><strong>Result</strong></p>
+<p><input type="text" id="datetimepicker_unixtime"/></p>
+<script>$(function(){
+	$('#datetimepicker_unixtime').datetimepicker({
+		format:'unixtime'
+	});
+});
+</script>
 <hr id="Inline"/>
 <h4>Inline DateTimePicker Example <a href="#Inline">#</a></h4>
 <p><strong>javaScript</strong></p>
