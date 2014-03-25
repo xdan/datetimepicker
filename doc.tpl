@@ -118,13 +118,13 @@ $('#_datetimepicker2').datetimepicker({
 <h3 id="startdateex">Date Time Picker start date <a href="#startdateex">#</a></h3>
 <p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker_start_time&#39;).datetimepicker({
-	startDate:&#39;+1970/05/01&#39;
+	startDate:&#39;+1971/05/01&#39;//or 1986/12/08
 });</code></pre>
 <p><strong>Result</strong></p>
 <p><input type="text" id="datetimepicker_start_time"/></p>
 <script>$(function(){
 	$('#datetimepicker_start_time').datetimepicker({
-		startDate:'+1970/05/01'
+		startDate:'+1971/05/01'
 	});
 });
 </script>
@@ -526,19 +526,18 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 			<td><a href="#maxDate">maxDate</a></td>
 			<td>false</td>
 			<td></td>
-			<td><pre><code data-language="javascript">{maxDate:0,}
+			<td><pre><code data-language="javascript">{maxDate:0}
 {maxDate:&#39;2013/12/03&#39;}
 {maxDate:&#39;+1970/01/02&#39;} // tommorrow
 {maxDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
-		<tr id="starDate">
-			<td><a href="#starDate">starDate</a></td>
+		<tr id="startDate">
+			<td><a href="#starDate">startDate</a></td>
 			<td>false</td>
 			<td>if input value is empty, calendar set date from this starDate</td>
-			<td><pre><code data-language="javascript">
-{starDate:&#39;1987/12/03&#39;}
-{starDate:&#39;+1970/01/02&#39;} // tommorrow
-{starDate:&#39;08.12.1986&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
+			<td><pre><code data-language="javascript">{startDate:&#39;1987/12/03&#39;}
+{startDate:&#39;+1970/01/02&#39;} // tommorrow
+{startDate:&#39;08.12.1986&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
 		<tr id="minTime">
 			<td><a href="#minTime">minTime</a></td>
