@@ -115,7 +115,7 @@ $('#_datetimepicker2').datetimepicker({
 });
 });
 </script>
-<h3 id="startdate">Date Time Picker start date <a href="#startdate">#</a></h3>
+<h3 id="startdateex">Date Time Picker start date <a href="#startdateex">#</a></h3>
 <p><strong>javaScript</strong></p>
 <pre><code data-language="javascript">$(&#39;#datetimepicker_start_time&#39;).datetimepicker({
 	startDate:&#39;+1970/05/01&#39;
@@ -455,10 +455,10 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 		<tr id="format">
 			<td><a href="#format">format</a></td>
 			<td>Y/m/d H:i</td>
-			<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>&nbsp;</td>
+			<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>&nbsp; Also there is a special type of <i>&laquo;unixtime&raquo;</i></td>
 			<td>
 			<pre><code data-language="javascript">{format:&#39;H&#39;}
-{format:&#39;Y&#39;}</code></pre>
+{format:&#39;Y&#39;}{format:&#39;unixtime&#39;}</code></pre>
 			</td>
 		</tr>
 		<tr id="formatDate">
@@ -530,6 +530,15 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 {maxDate:&#39;2013/12/03&#39;}
 {maxDate:&#39;+1970/01/02&#39;} // tommorrow
 {maxDate:&#39;05.12.2013&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
+		</tr>
+		<tr id="starDate">
+			<td><a href="#starDate">starDate</a></td>
+			<td>false</td>
+			<td>if input value is empty, calendar set date from this starDate</td>
+			<td><pre><code data-language="javascript">
+{starDate:&#39;1987/12/03&#39;}
+{starDate:&#39;+1970/01/02&#39;} // tommorrow
+{starDate:&#39;08.12.1986&#39;,formatDate:&#39;d.m.Y&#39;}</code></pre></td>
 		</tr>
 		<tr id="minTime">
 			<td><a href="#minTime">minTime</a></td>
