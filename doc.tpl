@@ -426,7 +426,7 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 	<tbody>
 		<tr id="lazyInit">
 			<td><a href="#lazyInit">lazyInit</a></td>
-			<td>true</td>
+			<td>false</td>
 			<td>Initializing plugin occurs only when the user interacts. Greatly accelerates plugin work with a large number of fields</td>
 			<td></td>
 		</tr>

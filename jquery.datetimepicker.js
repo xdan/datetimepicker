@@ -183,7 +183,7 @@
 		scrollTime:true,
 		scrollInput:true,
 		
-		lazyInit:true,
+		lazyInit:false,
 		
 		mask:false,
 		validateOnBlur:true,
