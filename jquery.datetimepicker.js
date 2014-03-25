@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.2.2
+ * @preserve jQuery DateTimePicker plugin v2.2.3
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -183,6 +183,8 @@
 		scrollTime:true,
 		scrollInput:true,
 		
+		lazyInit:true,
+		
 		mask:false,
 		validateOnBlur:true,
 		allowBlank:true,
@@ -330,8 +332,32 @@
 			YKEY = 89,
 			ctrlDown	=	false,
 			options = ($.isPlainObject(opt)||!opt)?$.extend(true,{},default_options,opt):$.extend({},default_options),
+
+			lazyInitTimer = 0,
+
+			lazyInit = function( input ){
+				input
+					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft',function initOnActionCallback(event) {
+						if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible')||input.data( 'xdsoft_datetimepicker') )
+							return;
+				
+						clearTimeout(lazyInitTimer);
+						
+						lazyInitTimer = setTimeout(function() {
+
+							if( !input.data( 'xdsoft_datetimepicker') )
+								createDateTimePicker(input);
+								
+							input
+								.off('open.xdsoft focusin.xdsoft mousedown.xdsoft',initOnActionCallback)
+								.trigger('open.xdsoft');
+						},100);
+						
+					});
+			},
 			
 			createDateTimePicker = function( input ) {
+				
 				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+options.className+'"></div>'),
 					xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 					datepicker = $('<div class="xdsoft_datepicker active"></div>'),
@@ -1194,7 +1220,12 @@
 				}
 				return 0;
 			}else
-				($.type(opt) !== 'string')&&createDateTimePicker($(this));
+				if( ($.type(opt) !== 'string') ){
+					if( !options.lazyInit||options.open||options.inline ){
+						createDateTimePicker($(this));
+					}else
+						lazyInit($(this));
+				}
 		});
 	};
 })( jQuery );

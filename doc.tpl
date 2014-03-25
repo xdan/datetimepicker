@@ -455,7 +455,7 @@ $('#_datetimepicker_weekends_disable').datetimepicker({
 		<tr id="format">
 			<td><a href="#format">format</a></td>
 			<td>Y/m/d H:i</td>
-			<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>&nbsp; Also there is a special type of <i>&laquo;unixtime&raquo;</i></td>
+			<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>&nbsp; Also there is a special type of <a href="#unixtime"><i>&laquo;unixtime&raquo;</i></a></td>
 			<td>
 			<pre><code data-language="javascript">{format:&#39;H&#39;}
 {format:&#39;Y&#39;}{format:&#39;unixtime&#39;}</code></pre>
