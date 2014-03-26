@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.2.3
+ * @preserve jQuery DateTimePicker plugin v2.2.4
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -428,6 +428,15 @@
 				// set options
 				datetimepicker.setOptions = function( _options ) {
 					options = $.extend(true,{},options,_options);
+					
+					if( _options.allowTimes && $.isArray(_options.allowTimes) && _options.allowTimes.length ){
+						options['allowTimes'] = $.extend(true,[],_options.allowTimes);
+					}
+					
+					if( _options.weekends && $.isArray(_options.weekends) && _options.weekends.length ){
+						options['weekends'] = $.extend(true,[],_options.weekends);
+					}
+					
 					if( (options.open||options.opened)&&(!options.inline) ) {
 						input.trigger('open.xdsoft');
 					}
