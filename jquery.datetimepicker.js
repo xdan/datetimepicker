@@ -149,7 +149,7 @@
 		
 		step:60,
 		
-		closeOnDateSelect:0,
+		closeOnDateSelect:true,
 		closeOnWithoutClick:true,
 		
 		timepicker:true,
@@ -975,7 +975,8 @@
 				
 				var timerclick = 0;
 				calendar
-					.on('click.xdsoft','td',function() {
+					.on('click.xdsoft', 'td', function (xdevent) {
+					    xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 						timerclick++;
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
@@ -1005,7 +1006,8 @@
 					});
 
 				timebox
-					.on('click.xdsoft','div',function() {
+					.on('click.xdsoft', 'div', function (xdevent) {
+					    xdevent.stopPropagation(); // NAJ: Prevents closing of Pop-ups, Modals and Flyouts
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
 						if( $this.hasClass('xdsoft_disabled') )
