@@ -304,7 +304,7 @@ Date.prototype.getDayOfYear = function () {
     for (var i = 0; i < this.getMonth(); ++i) {
         num += Date.daysInMonth[i]
     }
-    return num + this.getDate() - 1
+    return num + this.getDate()
 };
 Date.prototype.getWeekOfYear = function () {
     var now = this.getDayOfYear() + (4 - this.getDay());
