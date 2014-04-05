@@ -304,14 +304,13 @@ Date.prototype.getDayOfYear = function () {
     for (var i = 0; i < this.getMonth(); ++i) {
         num += Date.daysInMonth[i]
     }
-    return num + this.getDate() - 1
+    return num + this.getDate()
 };
 Date.prototype.getWeekOfYear = function () {
     var now = this.getDayOfYear() + (4 - this.getDay());
     var jan1 = new Date(this.getFullYear(), 0, 1);
     var then = (7 - jan1.getDay() + 4);
-    document.write(then);
-    return String.leftPad(((now - then) / 7) + 1, 2, "0")
+    return String.leftPad(Math.ceil((now - then) / 7) + 1, 2, "0")
 };
 Date.prototype.isLeapYear = function () {
     var year = this.getFullYear();
