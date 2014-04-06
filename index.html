@@ -29,39 +29,26 @@
 	<input type="text" id="datetimepicker8"/>
 	<h3>disable all weekend</h3>
 	<input type="text" id="datetimepicker9"/>
-	<h3>Date Time Picker start time</h3>
-	<input type="text" id="datetimepicker_start_time"/>
-	<h3>Date Time Picker from unixtime</h3>
-	<input type="text" id="datetimepicker_unixtime"/>
 	<h3>Show inline</h3>
 	<a href="javascript:var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
 	<div id="show_inline" style="display:none">
 		<input type="text" id="datetimepicker10"/>
 	</div>
+	<h3>Date Time Picker start time</h3>
+	<input type="text" id="datetimepicker_start_time"/>
+	<h3>Date Time Picker from unixtime</h3>
+	<input type="text" id="datetimepicker_unixtime"/>
 </body>
-<script src="./jquery.js"></script>
-<script src="./jquery.datetimepicker.js"></script>
-<script>
-
-$('#datetimepicker10').datetimepicker({
-	step:5,
-	inline:true
-});
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./jquery.datetimepicker.js"></script>
+<script type="text/javascript">
+$('#datetimepicker').datetimepicker()
+	.datetimepicker({value:'2015/04/15 05:03',step:10});
 
 $('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59'
 });
 
-$('#datetimepicker_start_time').datetimepicker({
-	startDate:'+1970/05/01'
-});
-
-$('#datetimepicker_unixtime').datetimepicker({
-	format:'unixtime'
-});
-
-$('#datetimepicker').datetimepicker();
-$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
@@ -135,6 +122,19 @@ $('#datetimepicker9').datetimepicker({
 	},
 	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
 	timepicker:false
+});
+
+$('#datetimepicker10').datetimepicker({
+	step:5,
+	inline:true
+});
+
+$('#datetimepicker_start_time').datetimepicker({
+	startDate:'+1970/05/01'
+});
+
+$('#datetimepicker_unixtime').datetimepicker({
+	format:'unixtime'
 });
 </script>
 </html>
