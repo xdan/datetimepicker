@@ -825,8 +825,6 @@
 									i = 0,
 									today = _xdsoft_datetime.now();
 								
-								console.log('fire xchange.xdsoft',_xdsoft_datetime.currentTime);  // remove
-								
 								while( start.getDay()!=options.dayOfWeekStart )
 									start.setDate(start.getDate()-1);
 
