@@ -38,6 +38,8 @@
 	<input type="text" id="datetimepicker_start_time"/>
 	<h3>Date Time Picker from unixtime</h3>
 	<input type="text" id="datetimepicker_unixtime"/>
+	<h3>Date Time Picker with day of year and week of year</h3>
+	<input type="text" id="datetimepicker11"/>
 </body>
 <script type="text/javascript" src="./jquery.js"></script>
 <script type="text/javascript" src="./jquery.datetimepicker.js"></script>
@@ -135,6 +137,15 @@ $('#datetimepicker_start_time').datetimepicker({
 
 $('#datetimepicker_unixtime').datetimepicker({
 	format:'unixtime'
+});
+$('#datetimepicker11').datetimepicker({
+        hours12: false,
+        format: 'Y-z H:i W',
+        step: 1,
+        opened: false,
+        validateOnBlur: false,
+        closeOnDateSelect: false,
+        closeOnTimeSelect: false
 });
 </script>
 </html>

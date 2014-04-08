@@ -121,7 +121,7 @@ Date.createParser = function (format) {
     var regexNum = Date.parseRegexes.length;
     var currentGroup = 1;
     Date.parseFunctions[format] = funcName;
-    var code = "Date." + funcName + " = function(input) {\n" + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1;\n" + "var d = new Date();\n" + "y = d.getFullYear();\n" + "m = d.getMonth();\n" + "d = d.getDate();\n" + "var results = input.match(Date.parseRegexes[" + regexNum + "]);\n" + "if (results && results.length > 0) {";
+    var code = "Date." + funcName + " = function(input) {\n" + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, z = -1;\n" + "var d = new Date();\n" + "y = d.getFullYear();\n" + "m = d.getMonth();\n" + "d = d.getDate();\n" + "var results = input.match(Date.parseRegexes[" + regexNum + "]);\n" + "if (results && results.length > 0) {";
     var regex = "";
     var special = false;
     var ch = '';
@@ -141,6 +141,7 @@ Date.createParser = function (format) {
             }
         }
     }
+    code += "if (y > 0 && z > 0){\n" + "var doyDate = new Date(y,0);\ndoyDate.setDate(z);\nm = doyDate.getMonth();\nd = doyDate.getDate();\n}";
     code += "if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n" + "{return new Date(y, m, d, h, i, s);}\n" + "else if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0)\n" + "{return new Date(y, m, d, h, i);}\n" + "else if (y > 0 && m >= 0 && d > 0 && h >= 0)\n" + "{return new Date(y, m, d, h);}\n" + "else if (y > 0 && m >= 0 && d > 0)\n" + "{return new Date(y, m, d);}\n" + "else if (y > 0 && m >= 0)\n" + "{return new Date(y, m);}\n" + "else if (y > 0)\n" + "{return new Date(y);}\n" + "}return null;}";
     Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$");
     eval(code)
@@ -180,9 +181,9 @@ Date.formatCodeToRegex = function (character, currentGroup) {
         };
     case "z":
         return {
-            g: 0,
-            c: null,
-            s: "(?:\\d{1,3})"
+            g: 1,
+            c: "z = parseInt(results[" + currentGroup + "], 10);\n",
+            s: "(\\d{1,3})"
         };
     case "W":
         return {
