@@ -888,6 +888,11 @@
 										classes.push('xdsoft_weekend');
 									}
 
+									if(options.beforeShowDay && typeof options.beforeShowDay == 'function')
+                                    					{
+                                        					classes.push(options.beforeShowDay(start))
+                                    					}
+
 									table+='<td data-date="'+d+'" data-month="'+m+'" data-year="'+y+'"'+' class="xdsoft_date xdsoft_day_of_week'+start.getDay()+' '+ classes.join(' ')+'">'+
 												'<div>'+d+'</div>'+
 											'</td>';
