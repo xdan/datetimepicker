@@ -975,7 +975,7 @@
 									opt+='<div class="xdsoft_option '+(_xdsoft_datetime.currentTime.getMonth()==i?'xdsoft_current':'')+'" data-value="'+i+'">'+options.i18n[options.lang].months[i]+'</div>';
 								}
 								monthselect.children().eq(0).html(opt);
-								$(this).trigger('generate.xdsoft');
+								$(datetimepicker).trigger('generate.xdsoft');
 						},10);
 						event.stopPropagation();
 					})
