@@ -468,7 +468,9 @@
 					if( options.inline ) {
 						datetimepicker.addClass('xdsoft_inline');
 						input.after(datetimepicker).hide();
-						datetimepicker.trigger('afterOpen.xdsoft');
+						setTimeout(function() {
+							datetimepicker.trigger('afterOpen.xdsoft');
+						}, 100);
 					}
 
 					if( options.inverseButton ) {
