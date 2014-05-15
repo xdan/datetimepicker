@@ -164,7 +164,7 @@
 		//fromUnixtime:	false,
 		
 		step:60,
-		
+		monthChangeSpinner:true,
 		closeOnDateSelect:false,
 		closeOnWithoutClick:true,
 		
@@ -792,7 +792,9 @@
 								}else if( $this.hasClass( options.prev ) ) {
 									_xdsoft_datetime.prevMonth();
 								}
-								!stop&&(timer = setTimeout(arguments_callee1,v?v:100));
+								if (options.monthChangeSpinner) {
+									!stop&&(timer = setTimeout(arguments_callee1,v?v:100));
+								}
 							})(500);
 
 							$([document.body,window]).on('mouseup.xdsoft',function arguments_callee2() {
