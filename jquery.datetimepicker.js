@@ -1021,9 +1021,10 @@
 						if( $this.hasClass('xdsoft_disabled') )
 							return false;
 
-						currentTime.setDate( $this.data('date') );
-						currentTime.setMonth( $this.data('month') );
+						currentTime.setDate( 1 );
 						currentTime.setFullYear( $this.data('year') );
+						currentTime.setMonth( $this.data('month') );
+						currentTime.setDate( $this.data('date') );
 						
 						datetimepicker.trigger('select.xdsoft',[currentTime]);
 
