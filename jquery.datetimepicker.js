@@ -476,7 +476,6 @@
 					if( options.inline ) {
 						datetimepicker.addClass('xdsoft_inline');
 						input.after(datetimepicker).hide();
-						datetimepicker.trigger('afterOpen.xdsoft');
 					}
 
 					if( options.inverseButton ) {
@@ -1004,7 +1003,6 @@
 									top = timebox.find(classType).index()*options.timeHeightInTimePicker+1;
 								if( (height-pheight)<top )
 									top = height-pheight;
-								timebox.css('marginTop','-'+parseInt(top)+'px');
 								timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
 							}
 						}
@@ -1106,8 +1104,10 @@
 						}
 					})
 					.on('generate.xdsoft',function() {
+						datetimepicker.trigger('afterOpen.xdsoft'); // recalc scroll bar
 						if( options.onGenerate&&options.onGenerate.call )
 							options.onGenerate.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+					
 					})
 					.on( 'click.xdsoft', function( xdevent )
 					{
