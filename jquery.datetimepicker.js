@@ -1107,6 +1107,10 @@
 					.on('generate.xdsoft',function() {
 						if( options.onGenerate&&options.onGenerate.call )
 							options.onGenerate.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+					})
+					.on( 'click.xdsoft', function( xdevent )
+					{
+						xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 					});
 
 				var current_time_index = 0;
