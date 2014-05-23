@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.2.7
+ * @preserve jQuery DateTimePicker plugin v2.2.8
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -240,6 +240,10 @@
 			 }
 			 return -1;
 		}
+	};
+	
+	Date.prototype.countDaysInMonth = function(){
+		return new Date(this.getFullYear(), this.getMonth()+1, 0).getDate();
 	};
 	
 	$.fn.xdsoftScroller = function( _percent ) {
@@ -879,7 +883,7 @@
 								
 								var d,y,m,classes = [];
 								
-								while( i<_xdsoft_datetime.currentTime.getDaysInMonth()||start.getDay()!=options.dayOfWeekStart||_xdsoft_datetime.currentTime.getMonth()==start.getMonth() ) {
+								while( i<_xdsoft_datetime.currentTime.countDaysInMonth()||start.getDay()!=options.dayOfWeekStart||_xdsoft_datetime.currentTime.getMonth()==start.getMonth() ) {
 									classes = [];
 									i++;
 
