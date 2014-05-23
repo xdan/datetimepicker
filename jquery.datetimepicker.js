@@ -899,15 +899,15 @@
 										classes.push('xdsoft_other_month');
 									}
 
-									if( (options.defaultSelect||datetimepicker.data('changed')) && _xdsoft_datetime.currentTime.dateFormat('d.m.Y')==start.dateFormat('d.m.Y') ) {
+									if( (options.defaultSelect||datetimepicker.data('changed')) && _xdsoft_datetime.currentTime.dateFormat( options.formatDate )==start.dateFormat( options.formatDate ) ) {
 										classes.push('xdsoft_current');
 									}
 
-									if( today.dateFormat('d.m.Y')==start.dateFormat('d.m.Y') ) {
+									if( today.dateFormat( options.formatDate )==start.dateFormat( options.formatDate ) ) {
 										classes.push('xdsoft_today');
 									}
 
-									if( start.getDay()==0||start.getDay()==6||~options.weekends.indexOf(start.dateFormat('d.m.Y')) ) {
+									if( start.getDay()==0||start.getDay()==6||~options.weekends.indexOf(start.dateFormat( options.formatDate )) ) {
 										classes.push('xdsoft_weekend');
 									}
 
