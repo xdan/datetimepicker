@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.2.6
+ * @preserve jQuery DateTimePicker plugin v2.2.7
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -158,18 +158,16 @@
 				dayOfWeek: [
 					"CN", "T2", "T3", "T4", "T5", "T6", "T7"
 				]
-			},
+			}
 		},
 		value:'',
-		lang:				'en',
+		lang:'en',
 		
-		format:			'Y/m/d H:i',
+		format:	'Y/m/d H:i',
 		formatTime:	'H:i',
 		formatDate:	'Y/m/d',
 		
 		startDate:	false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05', 
-		
-		//fromUnixtime:	false,
 		
 		step:60,
 		monthChangeSpinner:true,
@@ -474,6 +472,7 @@
 					}
 
 					if( options.inline ) {
+						triggerAfterOpen = true;
 						datetimepicker.addClass('xdsoft_inline');
 						input.after(datetimepicker).hide();
 					}
@@ -642,8 +641,10 @@
 							});
 					}
 					options.dayOfWeekStartPrev = (options.dayOfWeekStart==0)?6:options.dayOfWeekStart-1;
+					
 					datetimepicker
-						.trigger('xchange.xdsoft');
+						.trigger('xchange.xdsoft')
+						.trigger('afterOpen.xdsoft')
 				};
 
 				datetimepicker
@@ -659,6 +660,7 @@
 				var scroll_element = timepicker.find('.xdsoft_time_box');
 				scroll_element.append(timebox);
 				scroll_element.xdsoftScroller();
+				
 				datetimepicker.on('afterOpen.xdsoft',function() {
 					scroll_element.xdsoftScroller();
 				});
@@ -984,7 +986,8 @@
 									opt+='<div class="xdsoft_option '+(_xdsoft_datetime.currentTime.getMonth()==i?'xdsoft_current':'')+'" data-value="'+i+'">'+options.i18n[options.lang].months[i]+'</div>';
 								}
 								monthselect.children().eq(0).html(opt);
-								$(datetimepicker).trigger('generate.xdsoft');
+								$(datetimepicker)
+									.trigger('generate.xdsoft');
 						},10);
 						event.stopPropagation();
 					})
@@ -1004,6 +1007,8 @@
 								if( (height-pheight)<top )
 									top = height-pheight;
 								timeboxparent.trigger('scroll_element.xdsoft_scroller',[parseInt(top)/(height-pheight)]);
+							}else{
+								timeboxparent.trigger('scroll_element.xdsoft_scroller',[0]);
 							}
 						}
 					});
@@ -1094,7 +1099,8 @@
 					event.stopPropagation();
 					return fl;
 				});
-
+				
+				var triggerAfterOpen = false;
 				datetimepicker
 					.on('changedatetime.xdsoft',function() {
 						if( options.onChangeDateTime&&options.onChangeDateTime.call ) {
@@ -1104,10 +1110,12 @@
 						}
 					})
 					.on('generate.xdsoft',function() {
-						datetimepicker.trigger('afterOpen.xdsoft'); // recalc scroll bar
 						if( options.onGenerate&&options.onGenerate.call )
 							options.onGenerate.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
-					
+						if( triggerAfterOpen ){
+							datetimepicker.trigger('afterOpen.xdsoft');
+							triggerAfterOpen = false;
+						}
 					})
 					.on( 'click.xdsoft', function( xdevent )
 					{
@@ -1152,7 +1160,6 @@
 						}
 						if( onShow!==false ) {
 							datetimepicker.show();
-							datetimepicker.trigger('afterOpen.xdsoft');
 							setPos();
 							$(window)
 								.off('resize.xdsoft',setPos)
@@ -1201,8 +1208,6 @@
 				
 				_xdsoft_datetime.setCurrentTime( getCurrentValue() );
 
-				datetimepicker.trigger('afterOpen.xdsoft');
-
 				input
 					.data( 'xdsoft_datetimepicker',datetimepicker )
 					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft',function(event) {
@@ -1212,6 +1217,8 @@
 						timer = setTimeout(function() {
 							if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible') )
 								return;
+								
+							triggerAfterOpen = true;
 							_xdsoft_datetime.setCurrentTime(getCurrentValue());
 							
 							datetimepicker.trigger('open.xdsoft');
