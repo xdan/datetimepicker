@@ -752,7 +752,7 @@
 						var tmpDate = [],timeOffset,currentTime;
 					
 						if( ( tmpDate = /^(\+|\-)(.*)$/.exec(sDateTime) )  && ( tmpDate[2]=Date.parseDate(tmpDate[2], options.formatDate) ) ) {
-							timeOffset = tmpDate[2].getTime()-1*(tmpDate[2].getTimezoneOffset())*60000;
+							timeOffset = tmpDate[2].getTime()-(tmpDate[2].getTimezoneOffset())*60000;
 							currentTime = new Date((_xdsoft_datetime.now()).getTime()+parseInt(tmpDate[1]+'1')*timeOffset);
 						}else
 							currentTime = sDateTime?Date.parseDate(sDateTime, options.format):_this.now();
