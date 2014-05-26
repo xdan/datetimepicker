@@ -4,7 +4,7 @@
  * (c) 2014, Chupurnov Valeriy.
  */
 (function( $ ) {
-	'use strict'
+	'use strict';
 	var default_options  = {
 		i18n:{
 			bg:{ // Bulgarian
@@ -723,7 +723,7 @@
 								Date.daysInMonth[month],
 								_this.currentTime.getDate()
 							)
-						)
+						);
 						_this.currentTime.setMonth(month);
 						options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						datetimepicker.trigger('xchange.xdsoft');
@@ -741,7 +741,7 @@
 								Date.daysInMonth[month],
 								_this.currentTime.getDate()
 							)
-						)
+						);
 						_this.currentTime.setMonth(month);
 						options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						datetimepicker.trigger('xchange.xdsoft');
