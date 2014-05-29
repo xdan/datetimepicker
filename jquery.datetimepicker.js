@@ -166,7 +166,15 @@
 				dayOfWeek: [
 					"CN", "T2", "T3", "T4", "T5", "T6", "T7"
 				]
-			}
+			},
+			sl:{ // Slovenščina
+		            months: [
+		                "Januar", "Februar", "Marec", "April", "Maj", "Junij", "Julij", "Avgust", "September", "Oktober", "November", "December"
+		            ],
+		            dayOfWeek: [
+		                "Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob"
+		            ]
+		        }    
 		},
 		value:'',
 		lang:'en',
