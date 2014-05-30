@@ -1327,6 +1327,7 @@
 				}
 		});
 	};
+	$.fn.datetimepicker.defaults = default_options;
 })( jQuery );
 
 /*
