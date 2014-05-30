@@ -241,6 +241,8 @@
 		style:'',
 		id:'',
 		
+		fixed: false,
+		
 		roundTime:'round', // ceil, floor
 		className:'',
 		
@@ -1160,16 +1162,23 @@
 					}
 				});
 				var setPos = function() {
-					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left;
-					if( top+datetimepicker[0].offsetHeight>$(window).height()+$(window).scrollTop() )
-						top = offset.top-datetimepicker[0].offsetHeight+1;
-						if (top < 0)
-							top = 0;
-					if( left+datetimepicker[0].offsetWidth>$(window).width() )
-						left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
+					var offset = datetimepicker.data('input').offset(), top = offset.top+datetimepicker.data('input')[0].offsetHeight-1, left = offset.left, position = "absolute";
+					if (options.fixed) {
+						top -= $(window).scrollTop();
+						left -= $(window).scrollLeft();
+						position = "fixed";
+					}else {
+						if( top+datetimepicker[0].offsetHeight>$(window).height()+$(window).scrollTop() )
+							top = offset.top-datetimepicker[0].offsetHeight+1;
+							if (top < 0)
+								top = 0;
+						if( left+datetimepicker[0].offsetWidth>$(window).width() )
+							left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
+					}
 					datetimepicker.css({
 						left:left,
-						top:top
+						top:top,
+						position: position
 					});
 				};
 				datetimepicker
