@@ -189,6 +189,7 @@
 		monthChangeSpinner:true,
 		closeOnDateSelect:false,
 		closeOnWithoutClick:true,
+		closeOnInputClick: true,
 		
 		timepicker:true,
 		datepicker:true,
@@ -1240,7 +1241,7 @@
 				input
 					.data( 'xdsoft_datetimepicker',datetimepicker )
 					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft',function(event) {
-						if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible') )
+						if( input.is(':disabled')||input.is(':hidden')||!input.is(':visible')||(input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick) )
 							return;
 						clearTimeout(timer);
 						timer = setTimeout(function() {
