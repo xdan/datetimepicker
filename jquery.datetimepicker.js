@@ -267,7 +267,7 @@
 			 }
 			 return -1;
 		}
-	};
+	}
 	
 	Date.prototype.countDaysInMonth = function(){
 		return new Date(this.getFullYear(), this.getMonth()+1, 0).getDate();
@@ -361,7 +361,7 @@
 						timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top-(coord.y-start.y))/(height-parentHeight)]);
 						event.stopPropagation();
 						event.preventDefault();
-					};
+					}
 				});
 				timeboxparent.on('touchend touchcancel',function( event ) {
 					start = false;
