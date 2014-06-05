@@ -563,7 +563,7 @@
 								}
 							},
 							setCaretPos = function ( node,pos ) {
-								var node = (typeof node == "string" || node instanceof String) ? document.getElementById(node) : node;
+								node = (typeof node == "string" || node instanceof String) ? document.getElementById(node) : node;
 								if(!node) {
 									return false;
 								}else if(node.createTextRange) {
