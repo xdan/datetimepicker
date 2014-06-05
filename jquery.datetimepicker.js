@@ -40,13 +40,13 @@
 				]
 			},
 			el:{ // Ελληνικά
-		                months: [
-		                    "Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"
-		                ],
-			        dayOfWeek: [
-		                    "Κυρ", "Δευ", "Τρι", "Τετ", "Πεμ", "Παρ", "Σαβ"
-		                ]
-		      },
+				months: [
+					"Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"
+				],
+				dayOfWeek: [
+					"Κυρ", "Δευ", "Τρι", "Τετ", "Πεμ", "Παρ", "Σαβ"
+				]
+			},
 			de:{ // German
 				months:[
 					'Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'
@@ -129,10 +129,10 @@
 			},
 			kr:{ // Korean
 				months: [
-                    "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"
+					"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"
 				],
 				dayOfWeek: [
-                    "일", "월", "화", "수", "목", "금", "토"
+					"일", "월", "화", "수", "목", "금", "토"
 				]
 			},
 			it:{ // Italian
@@ -168,13 +168,21 @@
 				]
 			},
 			sl:{ // Slovenščina
-		            months: [
-		                "Januar", "Februar", "Marec", "April", "Maj", "Junij", "Julij", "Avgust", "September", "Oktober", "November", "December"
-		            ],
-		            dayOfWeek: [
-		                "Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob"
-		            ]
-		        }    
+				months: [
+					"Januar", "Februar", "Marec", "April", "Maj", "Junij", "Julij", "Avgust", "September", "Oktober", "November", "December"
+				],
+				dayOfWeek: [
+					"Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob"
+				]
+			},
+			cs:{ // Čeština
+				months: [
+					"Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"
+				],
+				dayOfWeek: [
+					"Ne", "Po", "Út", "St", "Čt", "Pá", "So"
+				]
+			}
 		},
 		value:'',
 		lang:'en',
@@ -930,10 +938,9 @@
 										classes.push('xdsoft_weekend');
 									}
 
-									if(options.beforeShowDay && typeof options.beforeShowDay == 'function')
-                                    					{
-                                        					classes.push(options.beforeShowDay(start))
-                                    					}
+									if(options.beforeShowDay && typeof options.beforeShowDay == 'function') {
+										classes.push(options.beforeShowDay(start))
+									}
 
 									table+='<td data-date="'+d+'" data-month="'+m+'" data-year="'+y+'"'+' class="xdsoft_date xdsoft_day_of_week'+start.getDay()+' '+ classes.join(' ')+'">'+
 												'<div>'+d+'</div>'+
