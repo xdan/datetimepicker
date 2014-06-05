@@ -174,6 +174,14 @@
 				dayOfWeek: [
 					"Ned", "Pon", "Tor", "Sre", "Čet", "Pet", "Sob"
 				]
+			},
+			cs:{ // Čeština
+				months: [
+					"Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"
+				],
+				dayOfWeek: [
+					"Ne", "Po", "Út", "St", "Čt", "Pá", "So"
+				]
 			}
 		},
 		value:'',
