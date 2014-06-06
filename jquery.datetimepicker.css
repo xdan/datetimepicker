@@ -6,7 +6,6 @@
 	border-right: 1px solid #CCCCCC;
 	border-top: 1px solid #CCCCCC;
 	color: #333333;
-	display: block;
 	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	padding: 8px;
 	padding-left: 0px;
@@ -178,7 +177,6 @@
 .xdsoft_datetimepicker  .xdsoft_label > .xdsoft_select{
 	border:1px solid #ccc;
 	position:absolute;
-	display:block;
 	right:0px;
 	top:30px;
 	z-index:101;
@@ -225,7 +223,6 @@
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td,.xdsoft_datetimepicker  .xdsoft_calendar th{
 	width:14.2857142%;
-	text-align:center;
 	background: #F5F5F5;
 	border:1px solid #DDDDDD;
 	color: #666666;
@@ -292,7 +289,6 @@
 }
 .xdsoft_scrollbar{
 	position:absolute;
-	width:7px;
 	width:7px;
 	right:0px;
 	top:0px;
