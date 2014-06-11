@@ -776,6 +776,9 @@
 					};
 
 					_this.strToDateTime = function( sDateTime ) {
+						if( sDateTime && sDateTime instanceof Date && _this.isValidDate(sDateTime) )
+							return sDateTime;
+						
 						var tmpDate = [],timeOffset,currentTime;
 					
 						if( ( tmpDate = /^(\+|\-)(.*)$/.exec(sDateTime) )  && ( tmpDate[2]=Date.parseDate(tmpDate[2], options.formatDate) ) ) {
