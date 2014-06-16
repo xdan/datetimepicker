@@ -151,6 +151,14 @@
 					"Søn", "Man", "Tir", "ons", "Tor", "Fre", "lør"
 				]
 			},
+			no:{ // Norwegian
+				months: [
+					"Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"
+				],
+				dayOfWeek: [
+					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
+				]
+			},
 			ja:{ // Japanese
 				months: [
 					"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"
