@@ -190,6 +190,14 @@
 				dayOfWeek: [
 					"Ne", "Po", "Út", "St", "Čt", "Pá", "So"
 				]
+			},
+			hu:{ // Hungarian
+			    months: [
+					"Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"
+			    ],
+			    dayOfWeek: [
+					"Va", "Hé", "Ke", "Sze", "Cs", "Pé", "Szo"
+			    ]
 			}
 		},
 		value:'',
