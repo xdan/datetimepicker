@@ -377,6 +377,7 @@
 						timeboxparent.trigger('scroll_element.xdsoft_scroller',[(top-(coord.y-start.y))/(height-parentHeight)]);
 						event.stopPropagation();
 						event.preventDefault();
+						start = pointerEventToXY(event);
 					}
 				});
 				timeboxparent.on('touchend touchcancel',function( event ) {
