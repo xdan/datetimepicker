@@ -1256,16 +1256,23 @@
 				datetimepicker.setOptions(options);
 				
 				function getCurrentValue(){
-					var ct = options.value?options.value:(input&&input.val&&input.val())?input.val():'';
-				
-					if( ct && _xdsoft_datetime.isValidDate(ct = Date.parseDate(ct, options.format)) ) {
+
+					var ct = false;
+
+                    if (options.startDate instanceof Date && !isNaN(options.startDate.valueOf())) {
+                        ct = options.startDate;
+                    } else if (!ct && options.startDate!==false) {
+                        ct = _xdsoft_datetime.strToDateTime(options.startDate);
+                    } else if (!ct) {
+                        ct = options.value?options.value:(input&&input.val&&input.val())?input.val():'';
+				        ct = Date.parseDate(ct, options.format);
+                    }
+
+					if ( ct && _xdsoft_datetime.isValidDate(ct) ) {
 						datetimepicker.data('changed',true);
-					}else
-						ct = '';
-					
-					if( !ct && options.startDate!==false ){
-						ct = _xdsoft_datetime.strToDateTime(options.startDate);
-					}
+					} else {
+                        ct = '';
+                    }
 					
 					return ct?ct:0;
 				}
