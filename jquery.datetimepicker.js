@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.2.9
+ * @preserve jQuery DateTimePicker plugin v2.3.0
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -272,7 +272,8 @@
 		className:'',
 		
 		weekends	: 	[],
-		yearOffset:0
+		yearOffset:0,
+		beforeShowDay: null
 	};
 	
 	// fix for ie8
@@ -534,7 +535,7 @@
 						datepicker.addClass('active');
 					else
 						datepicker.removeClass('active');
-						
+
 					if( options.timepicker )
 						timepicker.addClass('active');
 					else
@@ -936,7 +937,7 @@
 									minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
 								}
 								
-								var d,y,m,classes = [];
+								var d,y,m,classes = [],customDateSettings;
 								
 								while( i<_xdsoft_datetime.currentTime.countDaysInMonth()||start.getDay()!=options.dayOfWeekStart||_xdsoft_datetime.currentTime.getMonth()==start.getMonth() ) {
 									classes = [];
@@ -946,13 +947,21 @@
 
 									classes.push('xdsoft_date');
 
-									if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate ) ){
+									if ( options.beforeShowDay && options.beforeShowDay.call ) {
+										customDateSettings = options.beforeShowDay.call(datetimepicker, start);
+									} else {
+										customDateSettings = null;
+									}
+
+									if( ( maxDate!==false && start > maxDate )||(  minDate!==false && start < minDate )||(customDateSettings && customDateSettings[0] === false) ){
 										classes.push('xdsoft_disabled');
 									}
 
-									if( _xdsoft_datetime.currentTime.getMonth()!=m ){
-										classes.push('xdsoft_other_month');
+									if ( customDateSettings && customDateSettings[1] != "" ) {
+										classes.push(customDateSettings[1]);
 									}
+
+									if( _xdsoft_datetime.currentTime.getMonth()!=m ) classes.push('xdsoft_other_month');
 
 									if( (options.defaultSelect||datetimepicker.data('changed')) && _xdsoft_datetime.currentTime.dateFormat( options.formatDate )==start.dateFormat( options.formatDate ) ) {
 										classes.push('xdsoft_current');

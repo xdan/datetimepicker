@@ -3,6 +3,13 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="./jquery.datetimepicker.css"/>
+<style type="text/css">
+
+.custom-date-style {
+	background-color: red !important;
+}
+
+</style>
 </head>
 <body>
 	<p><a href="http://xdsoft.net/jqplugins/datetimepicker/">Homepage</a></p>
@@ -34,23 +41,26 @@
 	<div id="show_inline" style="display:none">
 		<input type="text" id="datetimepicker10"/>
 	</div>
-	<h3>Date Time Picker start time</h3>
-	<input type="text" id="datetimepicker_start_time"/>
-	<h3>Date Time Picker from unixtime</h3>
-	<input type="text" id="datetimepicker_unixtime"/>
-	<h3>Date Time Picker with day of year and week of year</h3>
+	<h3>Disable Specific Dates</h3>
+	<p>Disable the dates 2 days from now.</p>
 	<input type="text" id="datetimepicker11"/>
+	<h3>Custom Date Styling</h3>
+	<p>Make the background of the date 2 days from now bright red.</p>
+	<input type="text" id="datetimepicker12"/>
 </body>
-<script type="text/javascript" src="./jquery.js"></script>
-<script type="text/javascript" src="./jquery.datetimepicker.js"></script>
-<script type="text/javascript">
-$('#datetimepicker').datetimepicker()
-	.datetimepicker({value:'2015/04/15 05:03',step:10});
+<script src="./jquery.js"></script>
+<script src="./jquery.datetimepicker.js"></script>
+<script>
 
+$('#datetimepicker10').datetimepicker({
+	step:5,
+	inline:true
+});
 $('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59'
 });
-
+$('#datetimepicker').datetimepicker();
+$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
@@ -80,7 +90,8 @@ $('#reset').click(function(){
 });
 $('#datetimepicker5').datetimepicker({
 	datepicker:false,
-	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00']
+	allowTimes:['12:00','13:00','15:00','17:00','17:05','17:20','19:00','20:00'],
+	step:5
 });
 $('#datetimepicker6').datetimepicker();
 $('#destroy').click(function(){
@@ -93,16 +104,14 @@ $('#destroy').click(function(){
 	}
 });
 var logic = function( currentDateTime ){
-	if( currentDateTime ){
-		if( currentDateTime.getDay()==6 ){
-			this.setOptions({
-				minTime:'11:00'
-			});
-		}else
-			this.setOptions({
-				minTime:'8:00'
-			});
-	}
+	if( currentDateTime.getDay()==6 ){
+		this.setOptions({
+			minTime:'11:00'
+		});
+	}else
+		this.setOptions({
+			minTime:'8:00'
+		});
 };
 $('#datetimepicker7').datetimepicker({
 	onChangeDateTime:logic,
@@ -125,28 +134,25 @@ $('#datetimepicker9').datetimepicker({
 	weekends:['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'],
 	timepicker:false
 });
-
-
-$('#datetimepicker10').datetimepicker({
-	step:5,
-	inline:true
-});
-
-$('#datetimepicker_start_time').datetimepicker({
-	startDate:'+1970/05/01'
-});
-
-$('#datetimepicker_unixtime').datetimepicker({
-	format:'unixtime'
-});
+var dateToDisable = new Date();
+	dateToDisable.setDate(dateToDisable.getDate() + 2);
 $('#datetimepicker11').datetimepicker({
-        hours12: false,
-        format: 'Y-z H:i W',
-        step: 1,
-        opened: false,
-        validateOnBlur: false,
-        closeOnDateSelect: false,
-        closeOnTimeSelect: false
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [false, ""]
+		}
+
+		return [true, ""];
+	}
+});
+$('#datetimepicker12').datetimepicker({
+	beforeShowDay: function(date) {
+		if (date.getMonth() == dateToDisable.getMonth() && date.getDate() == dateToDisable.getDate()) {
+			return [true, "custom-date-style"];
+		}
+
+		return [true, ""];
+	}
 });
 </script>
 </html>
