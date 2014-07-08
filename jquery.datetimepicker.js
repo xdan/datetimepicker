@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.3.0
+ * @preserve jQuery DateTimePicker plugin v2.3.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -1088,6 +1088,12 @@
 						timerclick++;
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
+						
+						if( currentTime===undefined||currentTime===null ){
+                            _xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+                            currentTime = _xdsoft_datetime.currentTime;
+                        }
+						
 						if( $this.hasClass('xdsoft_disabled') )
 							return false;
 
@@ -1120,6 +1126,12 @@
 					    xdevent.stopPropagation(); // NAJ: Prevents closing of Pop-ups, Modals and Flyouts
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
+						
+						if( currentTime===undefined||currentTime===null ){
+                            _xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+                            currentTime = _xdsoft_datetime.currentTime;
+                        }
+						
 						if( $this.hasClass('xdsoft_disabled') )
 							return false;
 						currentTime.setHours($this.data('hour'));
