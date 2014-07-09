@@ -36,6 +36,8 @@
 	<input type="text" id="datetimepicker8"/>
 	<h3>disable all weekend</h3>
 	<input type="text" id="datetimepicker9"/>
+	<h3>Default date and time </h3>
+	<input type="text" id="default_datetimepicker"/>
 	<h3>Show inline</h3>
 	<a href="javascript:var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
 	<div id="show_inline" style="display:none">
@@ -51,6 +53,12 @@
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
 <script>
+$('#default_datetimepicker').datetimepicker({
+	formatTime:'H:i',
+	formatDate:'d.m.Y',
+	defaultDate:'8.12.1986', // it's my birthday
+	defaultTime:'10:00'
+});
 
 $('#datetimepicker10').datetimepicker({
 	step:5,
