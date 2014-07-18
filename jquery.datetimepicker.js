@@ -217,6 +217,7 @@
 		
 		timepicker:true,
 		datepicker:true,
+		weeks:false,
 		
 		defaultTime:false,		// use formatTime format (ex. '10:00' for formatTime:	'H:i')
 		defaultDate:false, 		// use formatDate format (ex new Date() or '1986/12/08' or '-1970/01/05' or '-1970/01/05')
@@ -440,7 +441,7 @@
 			
 			createDateTimePicker = function( input ) {
 				
-				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+options.className+'"></div>'),
+				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+(options.weeks?' xdsoft_showweeks':'')+options.className+'"></div>'),
 					xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 					datepicker = $('<div class="xdsoft_datepicker active"></div>'),
 					mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><button type="button" class="xdsoft_today_button"></button><div class="xdsoft_label xdsoft_month"><span></span></div><div class="xdsoft_label xdsoft_year"><span></span></div><button type="button" class="xdsoft_next"></button></div>'),
@@ -939,13 +940,17 @@
 								//generate calendar
 								table+='<table><thead><tr>';
 
+								if(options.weeks) {
+									table+='<th></th>';
+								}
+
 								// days
 								for(var j = 0; j<7; j++) {
 									table+='<th>'+options.i18n[options.lang].dayOfWeek[(j+options.dayOfWeekStart)>6?0:j+options.dayOfWeekStart]+'</th>';
 								}
 
 								table+='</tr></thead>';
-								table+='<tbody><tr>';
+								table+='<tbody>';
 								var maxDate = false, minDate = false;
 								
 								if( options.maxDate!==false ) {
@@ -958,13 +963,13 @@
 									minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
 								}
 								
-								var d,y,m,classes = [],customDateSettings;
+								var d,y,m,w,classes = [],customDateSettings,newRow=true;
 								
 								while( i<_xdsoft_datetime.currentTime.countDaysInMonth()||start.getDay()!=options.dayOfWeekStart||_xdsoft_datetime.currentTime.getMonth()==start.getMonth() ) {
 									classes = [];
 									i++;
 
-									d = start.getDate(); y = start.getFullYear(); m = start.getMonth();
+									d = start.getDate(); y = start.getFullYear(); m = start.getMonth(); w = start.getWeekOfYear();
 
 									classes.push('xdsoft_date');
 
@@ -1000,12 +1005,22 @@
 										classes.push(options.beforeShowDay(start))
 									}
 
+									if(newRow) {
+										table+='<tr>';
+										newRow = false;
+										
+										if(options.weeks) {
+											table+='<th>'+w+'</th>';
+										}
+									}
+
 									table+='<td data-date="'+d+'" data-month="'+m+'" data-year="'+y+'"'+' class="xdsoft_date xdsoft_day_of_week'+start.getDay()+' '+ classes.join(' ')+'">'+
 												'<div>'+d+'</div>'+
 											'</td>';
 
 									if( start.getDay()==options.dayOfWeekStartPrev ) {
 										table+='</tr>';
+										newRow = true;
 									}
 
 									start.setDate(d+1);
