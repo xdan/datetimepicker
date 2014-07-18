@@ -64,6 +64,9 @@
 	float:left;
 	margin-left:8px;
 }
+.xdsoft_datetimepicker.xdsoft_showweeks .xdsoft_datepicker{
+	width: 256px;
+}
 .xdsoft_datetimepicker  .xdsoft_timepicker{
 	width: 58px;
 	float:left;
@@ -232,6 +235,9 @@
 	border-collapse:collapse;
 	cursor:pointer;
 	height: 25px;
+}
+.xdsoft_datetimepicker.xdsoft_showweeks  .xdsoft_calendar td,.xdsoft_datetimepicker.xdsoft_showweeks  .xdsoft_calendar th{
+	width:12.5%;
 }
 .xdsoft_datetimepicker  .xdsoft_calendar th{
 	background: #F1F1F1;
