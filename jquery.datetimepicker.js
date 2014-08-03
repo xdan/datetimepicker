@@ -156,7 +156,7 @@
 					"January", "Februar", "Marts", "April", "Maj", "Juni", "July", "August", "September", "Oktober", "November", "December"
 				],
 				dayOfWeek: [
-					"Søn", "Man", "Tir", "ons", "Tor", "Fre", "lør"
+					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
 				]
 			},
 			no:{ // Norwegian
