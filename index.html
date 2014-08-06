@@ -39,7 +39,7 @@
 	<h3>Default date and time </h3>
 	<input type="text" id="default_datetimepicker"/>
 	<h3>Show inline</h3>
-	<a href="javascript:var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
+	<a href="javascript:void(0)" onclick="var si = document.getElementById('show_inline').style; si.display = (si.display=='none')?'block':'none';return false; ">Show/Hide</a>
 	<div id="show_inline" style="display:none">
 		<input type="text" id="datetimepicker10"/>
 	</div>
@@ -58,8 +58,8 @@ dayOfWeekStart : 1,
 lang:'ru',
 startDate:	'1986/01/05'
 });
-//$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
-/*
+$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
+
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
 	formatDate:'d.m.Y',
@@ -167,6 +167,6 @@ $('#datetimepicker12').datetimepicker({
 
 		return [true, ""];
 	}
-});*/
+});
 </script>
 </html>
