@@ -67,7 +67,10 @@ $('#datetimepicker10').datetimepicker({
 $('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59'
 });
-$('#datetimepicker').datetimepicker();
+$('#datetimepicker').datetimepicker({
+dayOfWeekStart : 1,
+lang:'ru'
+});
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
