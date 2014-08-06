@@ -746,7 +746,7 @@
 						var d = new Date();
 						
 						if( !norecursion && options.defaultDate  ){
-							var date = _this.strtodate(options.defaultDate);
+							var date = _this.strToDate(options.defaultDate);
 							d.setFullYear( date.getFullYear() );
 							d.setMonth( date.getMonth() );
 							d.setDate( date.getDate() );
@@ -839,7 +839,7 @@
 						return currentTime;
 					};
 
-					_this.strtodate = function( sDate ) {
+					_this.strToDate = function( sDate ) {
 						if( sDate && sDate instanceof Date && _this.isValidDate(sDate) )
 							return sDate;
 						
@@ -962,12 +962,12 @@
 								var maxDate = false, minDate = false;
 								
 								if( options.maxDate!==false ) {
-									maxDate = _xdsoft_datetime.strtodate(options.maxDate);
+									maxDate = _xdsoft_datetime.strToDate(options.maxDate);
 									maxDate = new Date(maxDate.getFullYear(),maxDate.getMonth(),maxDate.getDate(),23,59,59,999);
 								}
 								
 								if( options.minDate!==false ) {
-									minDate = _xdsoft_datetime.strtodate(options.minDate);
+									minDate = _xdsoft_datetime.strToDate(options.minDate);
 									minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
 								}
 								
@@ -1327,10 +1327,14 @@
 					var ct = false;
 
                     if ( options.startDate ) {
-                        ct = _xdsoft_datetime.strToDateTime(options.startDate);
+                        ct = _xdsoft_datetime.strToDate(options.startDate);
                     } else {
                         ct = options.value?options.value:(input&&input.val&&input.val())?input.val():'';
-				        ct = Date.parseDate(ct, options.format);
+						if( ct ) {
+							ct = _xdsoft_datetime.strToDateTime(ct);
+						} else if ( options.defaultDate ) {
+							ct = _xdsoft_datetime.strToDate(options.defaultDate);
+						}
                     }
 
 					if ( ct && _xdsoft_datetime.isValidDate(ct) ) {

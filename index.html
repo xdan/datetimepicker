@@ -14,7 +14,7 @@
 <body>
 	<p><a href="http://xdsoft.net/jqplugins/datetimepicker/">Homepage</a></p>
 	<h3>DateTimePicker</h3>
-	<input type="text" value="2014/03/15 05:06" id="datetimepicker"/><br><br>
+	<input type="text" value="" id="datetimepicker"/><br><br>
 	<h3>Mask DateTimePicker</h3>
 	<input type="text" value="" id="datetimepicker_mask"/><br><br>
 	<h3>TimePicker</h3>
@@ -53,6 +53,13 @@
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
 <script>
+$('#datetimepicker').datetimepicker({
+dayOfWeekStart : 1,
+lang:'ru',
+startDate:	'1986/01/05'
+});
+//$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
+/*
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
 	formatDate:'d.m.Y',
@@ -67,11 +74,7 @@ $('#datetimepicker10').datetimepicker({
 $('#datetimepicker_mask').datetimepicker({
 	mask:'9999/19/39 29:59'
 });
-$('#datetimepicker').datetimepicker({
-dayOfWeekStart : 1,
-lang:'ru'
-});
-$('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
+
 $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
@@ -164,6 +167,6 @@ $('#datetimepicker12').datetimepicker({
 
 		return [true, ""];
 	}
-});
+});*/
 </script>
 </html>
