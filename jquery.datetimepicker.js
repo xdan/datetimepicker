@@ -793,7 +793,8 @@
 						}
 						_this.currentTime.setDate(
 							Math.min(
-								Date.daysInMonth[month],
+								// Day 0 is the last day in the previous month, but we want to know the number of days in the current month, so we need to evaluate the subsequent month (month+1)
+								new Date(_this.currentTime.getFullYear(), month+1, 0).getDate(),
 								_this.currentTime.getDate()
 							)
 						);
@@ -811,7 +812,8 @@
 						}
 						_this.currentTime.setDate(
 							Math.min(
-								Date.daysInMonth[month],
+								// Day 0 is the last day in the previous month, but we want to know the number of days in the current month, so we need to evaluate the subsequent month (month+1)
+								new Date(_this.currentTime.getFullYear(), month+1, 0).getDate(),
 								_this.currentTime.getDate()
 							)
 						);
