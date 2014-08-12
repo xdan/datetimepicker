@@ -7,6 +7,30 @@
 	'use strict';
 	var default_options  = {
 		i18n:{
+			ar: { // Arabic
+				months: [
+					"كانون الثاني", "شباط", "آذار", "نيسان", "مايو", "حزيران", "تموز", "آب", "أيلول", "تشرين الأول", "تشرين الثاني", "كانون الأول"
+				],
+				dayOfWeek: [
+					"ن", "ث", "ع", "خ", "ج", "س", "ح"
+				]
+			},
+			ro: { // Romanian
+				months: [
+					"ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"
+				],
+				dayOfWeek: [
+					"l", "ma", "mi", "j", "v", "s", "d"
+				]
+			},
+			id: { // Indonesian
+				months: [
+					"Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+				],
+				dayOfWeek: [
+					"Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"
+				]
+			},
 			bg:{ // Bulgarian
 				months:[
 					"Януари", "Февруари", "Март", "Април", "Май", "Юни", "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
