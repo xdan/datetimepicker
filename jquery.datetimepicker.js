@@ -382,7 +382,9 @@
 							timeboxparent.trigger('resize_scroll.xdsoft_scroller',[percent,true]);
 						percent = percent>1?1:(percent<0||isNaN(percent))?0:percent;
 						scroller.css('margin-top',maximumOffset*percent);
-						timebox.css('marginTop',-parseInt((height-parentHeight)*percent))
+						setTimeout(function(){
+							timebox.css('marginTop',-parseInt((timebox[0].offsetHeight-parentHeight)*percent))
+						},10);						
 					})
 					.on('resize_scroll.xdsoft_scroller',function( event,_percent,noTriggerScroll ) {
 						parentHeight = timeboxparent[0].clientHeight;
