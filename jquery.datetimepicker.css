@@ -231,6 +231,7 @@
 	color: #666666;
 	font-size: 12px;
 	text-align: right;
+	vertical-align: middle;
 	padding:0px;
 	border-collapse:collapse;
 	cursor:pointer;
