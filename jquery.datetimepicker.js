@@ -1303,7 +1303,7 @@
 							if (top < 0)
 								top = 0;
 						if( left+datetimepicker[0].offsetWidth>$(window).width() )
-							left = offset.left-datetimepicker[0].offsetWidth+datetimepicker.data('input')[0].offsetWidth;
+							left = $(window).width()-datetimepicker[0].offsetWidth;
 					}
 					datetimepicker.css({
 						left:left,
