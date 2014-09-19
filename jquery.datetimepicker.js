@@ -279,6 +279,8 @@
 		next:	'xdsoft_next',
 		prev : 'xdsoft_prev',
 		dayOfWeekStart:0,
+
+    parentID: 'body',
 		
 		timeHeightInTimePicker:25,
 		timepickerScrollbar:true,
@@ -764,7 +766,7 @@
 					.append(mounth_picker)
 					.append(calendar);
 
-				$('body').append(datetimepicker);
+				$(options.parentID).append(datetimepicker);
 
 				var _xdsoft_datetime = new function() {
 					var _this = this;
