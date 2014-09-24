@@ -368,7 +368,7 @@ position:relative;
 	color:#000;
 }
 
-.xdsoft_datetimepicker .xdsoft_label i,
+.xdsoft_datetimepicker.xdsoft_dark  .xdsoft_label i,
 .xdsoft_datetimepicker.xdsoft_dark  .xdsoft_prev, 
 .xdsoft_datetimepicker.xdsoft_dark  .xdsoft_next,
 .xdsoft_datetimepicker.xdsoft_dark  .xdsoft_today_button{
