@@ -249,7 +249,7 @@
 		
 		timepicker:true,
 		datepicker:true,
-		weeks:true,
+		weeks:false,
 		
 		defaultTime:false,		// use formatTime format (ex. '10:00' for formatTime:	'H:i')
 		defaultDate:false, 		// use formatDate format (ex new Date() or '1986/12/08' or '-1970/01/05' or '-1970/01/05')
