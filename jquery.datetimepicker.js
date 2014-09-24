@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.3.4
+ * @preserve jQuery DateTimePicker plugin v2.3.5
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -249,7 +249,7 @@
 		
 		timepicker:true,
 		datepicker:true,
-		weeks:false,
+		weeks:true,
 		
 		defaultTime:false,		// use formatTime format (ex. '10:00' for formatTime:	'H:i')
 		defaultDate:false, 		// use formatDate format (ex new Date() or '1986/12/08' or '-1970/01/05' or '-1970/01/05')
@@ -264,9 +264,12 @@
 		initTime:true,
 		inline:false,
 		
+		theme:'',
+		
 		onSelectDate:function() {},
 		onSelectTime:function() {},
 		onChangeMonth:function() {},
+		onChangeYear:function() {},
 		onChangeDateTime:function() {},
 		onShow:function() {},
 		onClose:function() {},
@@ -280,7 +283,7 @@
 		prev : 'xdsoft_prev',
 		dayOfWeekStart:0,
 
-    parentID: 'body',
+		parentID: 'body',
 		
 		timeHeightInTimePicker:25,
 		timepickerScrollbar:true,
@@ -477,7 +480,7 @@
 			
 			createDateTimePicker = function( input ) {
 				
-				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_noselect '+(options.weeks?' xdsoft_showweeks':'')+options.className+'"></div>'),
+				var datetimepicker = $('<div '+(options.id?'id="'+options.id+'"':'')+' '+(options.style?'style="'+options.style+'"':'')+' class="xdsoft_datetimepicker xdsoft_'+options.theme+' xdsoft_noselect '+(options.weeks?' xdsoft_showweeks':'')+options.className+'"></div>'),
 					xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 					datepicker = $('<div class="xdsoft_datepicker active"></div>'),
 					mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><button type="button" class="xdsoft_today_button"></button><div class="xdsoft_label xdsoft_month"><span></span></div><div class="xdsoft_label xdsoft_year"><span></span></div><button type="button" class="xdsoft_next"></button></div>'),
@@ -501,18 +504,22 @@
 				mounth_picker
 					.find('.xdsoft_month,.xdsoft_year')
 						.on('mousedown.xdsoft',function(event) {
+							var select = $(this).find('.xdsoft_select').eq(0),
+								val = 0,
+								top = 0,
+								visible = select.is(':visible');
+							
+							
 							mounth_picker
 								.find('.xdsoft_select')
 									.hide();
 									
-							var select = $(this).find('.xdsoft_select').eq(0),
-								val = 0,
-								top = 0;
+						
 
 							if( _xdsoft_datetime.currentTime )
 								val = _xdsoft_datetime.currentTime[$(this).hasClass('xdsoft_month')?'getMonth':'getFullYear']();
 
-							select.show();
+							select[visible?'hide':'show']();
 							
 							for(var items = select.find('div.xdsoft_option'),i = 0;i<items.length;i++) {
 								if( items.eq(i).data('value')==val ) {
@@ -534,6 +541,7 @@
 							event.preventDefault();
 						})
 						.on('mousedown.xdsoft','.xdsoft_option',function( event ) {
+							var year = _xdsoft_datetime.currentTime.getFullYear();
 							if( _xdsoft_datetime&&_xdsoft_datetime.currentTime )
 								_xdsoft_datetime.currentTime[$(this).parent().parent().hasClass('xdsoft_monthselect')?'setMonth':'setFullYear']($(this).data('value'));
 							
@@ -541,6 +549,10 @@
 							
 							datetimepicker.trigger('xchange.xdsoft');
 							options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							
+							if( year!=_xdsoft_datetime.currentTime.getFullYear() && $.isFunction(options.onChangeYear) ){
+								options.onChangeYear.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							}
 						});
 
 
@@ -766,7 +778,8 @@
 					.append(mounth_picker)
 					.append(calendar);
 
-				$(options.parentID).append(datetimepicker);
+				$(options.parentID)
+					.append(datetimepicker);
 
 				var _xdsoft_datetime = new function() {
 					var _this = this;
@@ -819,6 +832,8 @@
 							_this.currentTime.setFullYear(_this.currentTime.getFullYear()+1);
 							month = 0;
 						}
+						var year = _this.currentTime.getFullYear();
+						
 						_this.currentTime.setDate(
 							Math.min(
 								// Day 0 is the last day in the previous month, but we want to know the number of days in the current month, so we need to evaluate the subsequent month (month+1)
@@ -828,6 +843,11 @@
 						);
 						_this.currentTime.setMonth(month);
 						options.onChangeMonth&&options.onChangeMonth.call&&options.onChangeMonth.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+						
+						if( year!=_this.currentTime.getFullYear() && $.isFunction(options.onChangeYear) ){
+							options.onChangeYear.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+						}
+						
 						datetimepicker.trigger('xchange.xdsoft');
 						return month;
 					};
@@ -850,7 +870,12 @@
 						datetimepicker.trigger('xchange.xdsoft');
 						return month;
 					};
-
+					
+					_this.getWeekOfYear = function( datetime ) {
+						var onejan = new Date( datetime.getFullYear(),0,1 );
+						return Math.ceil((((datetime - onejan) / 86400000) + onejan.getDay()+1)/7);
+					};
+					
 					_this.strToDateTime = function( sDateTime ) {
 						if( sDateTime && sDateTime instanceof Date && _this.isValidDate(sDateTime) )
 							return sDateTime;
@@ -884,7 +909,7 @@
 						if( sTime && sTime instanceof Date && _this.isValidDate(sTime) )
 							return sTime;
 							
-						var currentTime = sTime?Date.parseDate(sTime, options.formatTime):_this.now();
+						var currentTime = sTime?Date.parseDate(sTime, options.formatTime):_this.now(true);
 						if( !_this.isValidDate(currentTime) )
 							currentTime = _this.now(true);
 							
@@ -1007,7 +1032,10 @@
 									classes = [];
 									i++;
 
-									d = start.getDate(); y = start.getFullYear(); m = start.getMonth(); w = start.getWeekOfYear();
+									d = start.getDate(); 
+									y = start.getFullYear(); 
+									m = start.getMonth(); 
+									w = _xdsoft_datetime.getWeekOfYear(start);
 
 									classes.push('xdsoft_date');
 
@@ -1043,7 +1071,7 @@
 										classes.push(options.beforeShowDay(start))
 									}
 
-									if(newRow) {
+									if( newRow ) {
 										table+='<tr>';
 										newRow = false;
 										
@@ -1271,8 +1299,7 @@
 							triggerAfterOpen = false;
 						}
 					})
-					.on( 'click.xdsoft', function( xdevent )
-					{
+					.on( 'click.xdsoft', function( xdevent ) {
 						xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 					});
 
@@ -1336,6 +1363,12 @@
 					})
 					.on('close.xdsoft', function( event ) {
 						var onClose = true;
+						
+						mounth_picker
+							.find('.xdsoft_month,.xdsoft_year')
+								.find('.xdsoft_select')
+									.hide();
+						
 						if( options.onClose&&options.onClose.call ) {
 							onClose=options.onClose.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
 						}
@@ -1364,6 +1397,11 @@
 							ct = _xdsoft_datetime.strToDateTime(ct);
 						} else if ( options.defaultDate ) {
 							ct = _xdsoft_datetime.strToDate(options.defaultDate);
+							if( options.defaultTime ){
+								var time = _xdsoft_datetime.strtotime(options.defaultTime);
+								ct.setHours( time.getHours() );
+								ct.setMinutes( time.getMinutes() );
+							}
 						}
                     }
 

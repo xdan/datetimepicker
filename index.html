@@ -49,6 +49,9 @@
 	<h3>Custom Date Styling</h3>
 	<p>Make the background of the date 2 days from now bright red.</p>
 	<input type="text" id="datetimepicker12"/>
+	<h3>Dark theme</h3>
+	<p>thank for this <a href="https://github.com/lampslave">https://github.com/lampslave</a></p>
+	<input type="text" id="datetimepicker_dark"/>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -168,5 +171,8 @@ $('#datetimepicker12').datetimepicker({
 		return [true, ""];
 	}
 });
+$('#datetimepicker_dark').datetimepicker({theme:'dark'})
+
+
 </script>
 </html>
