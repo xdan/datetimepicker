@@ -110,6 +110,7 @@
 	display: block;
 	height: 30px;
 	opacity: 0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 	outline: medium none currentColor;
 	overflow: hidden;
 	padding: 0px;
@@ -158,6 +159,7 @@
 .xdsoft_datetimepicker  .xdsoft_next:hover,
 .xdsoft_datetimepicker  .xdsoft_prev:hover {
     opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 .xdsoft_datetimepicker  .xdsoft_label{
 	display: inline;
@@ -258,9 +260,11 @@
 .xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_disabled,
 .xdsoft_datetimepicker  .xdsoft_time_box >div >div.xdsoft_disabled{
 	opacity:0.5;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled{
 	opacity:0.2;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
 }
 .xdsoft_datetimepicker  .xdsoft_calendar td:hover,
 .xdsoft_datetimepicker  .xdsoft_timepicker .xdsoft_time_box >div >div:hover{
