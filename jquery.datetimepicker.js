@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.3.5
+ * @preserve jQuery DateTimePicker plugin v2.3.6
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -288,8 +288,8 @@
 		timeHeightInTimePicker:25,
 		timepickerScrollbar:true,
 		
-		todayButton:true, // 2.1.0
-		defaultSelect:true, // 2.1.0
+		todayButton:true,
+		defaultSelect:true,
 		
 		scrollMonth:true,
 		scrollTime:true,
@@ -495,8 +495,7 @@
 					scroller = $('<div class="xdsoft_scroller"></div>'),
 					monthselect =$('<div class="xdsoft_select xdsoft_monthselect"><div></div></div>'),
 					yearselect =$('<div class="xdsoft_select xdsoft_yearselect"><div></div></div>');
-
-				//constructor lego
+					
 				mounth_picker
 					.find('.xdsoft_month span')
 						.after(monthselect);
@@ -558,8 +557,6 @@
 							}
 						});
 
-
-				// set options
 				datetimepicker.setOptions = function( _options ) {
 					options = $.extend(true,{},options,_options);
 					
@@ -839,7 +836,6 @@
 						
 						_this.currentTime.setDate(
 							Math.min(
-								// Day 0 is the last day in the previous month, but we want to know the number of days in the current month, so we need to evaluate the subsequent month (month+1)
 								new Date(_this.currentTime.getFullYear(), month+1, 0).getDate(),
 								_this.currentTime.getDate()
 							)
@@ -863,7 +859,6 @@
 						}
 						_this.currentTime.setDate(
 							Math.min(
-								// Day 0 is the last day in the previous month, but we want to know the number of days in the current month, so we need to evaluate the subsequent month (month+1)
 								new Date(_this.currentTime.getFullYear(), month+1, 0).getDate(),
 								_this.currentTime.getDate()
 							)
@@ -1003,14 +998,12 @@
 								while( start.getDay()!=options.dayOfWeekStart )
 									start.setDate(start.getDate()-1);
 
-								//generate calendar
 								table+='<table><thead><tr>';
 
 								if(options.weeks) {
 									table+='<th></th>';
 								}
 
-								// days
 								for(var j = 0; j<7; j++) {
 									table+='<th>'+options.i18n[options.lang].dayOfWeek[(j+options.dayOfWeekStart)%7]+'</th>';
 								}
@@ -1228,7 +1221,7 @@
 
 				timebox
 					.on('click.xdsoft', 'div', function (xdevent) {
-					    xdevent.stopPropagation(); // NAJ: Prevents closing of Pop-ups, Modals and Flyouts
+					    xdevent.stopPropagation();
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
 						
@@ -1303,7 +1296,7 @@
 						}
 					})
 					.on( 'click.xdsoft', function( xdevent ) {
-						xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
+						xdevent.stopPropagation();
 					});
 
 				var current_time_index = 0;
@@ -1416,7 +1409,7 @@
 					
 					return ct?ct:0;
 				}
-				//debugger
+				
 				_xdsoft_datetime.setCurrentTime( getCurrentValue() );
 
 				input
