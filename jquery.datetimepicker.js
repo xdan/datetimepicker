@@ -1057,7 +1057,7 @@
 						}
 
 						if( options.onSelectDate &&	options.onSelectDate.call ) {
-							options.onSelectDate.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							options.onSelectDate.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'),xdevent);
 						}
 
 						datetimepicker.data('changed',true);
@@ -1084,7 +1084,7 @@
 						!options.inline&&datetimepicker.trigger('close.xdsoft');
 
 						if( options.onSelectTime&&options.onSelectTime.call ) {
-							options.onSelectTime.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							options.onSelectTime.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'),xdevent);
 						}
 						datetimepicker.data('changed',true);
 						datetimepicker.trigger('xchange.xdsoft');
@@ -1122,10 +1122,10 @@
 				
 				var triggerAfterOpen = false;
 				datetimepicker
-					.on('changedatetime.xdsoft',function() {
+					.on('changedatetime.xdsoft',function(event) {
 						if( options.onChangeDateTime&&options.onChangeDateTime.call ) {
 							var $input = datetimepicker.data('input');
-							options.onChangeDateTime.call(datetimepicker, _xdsoft_datetime.currentTime, $input);
+							options.onChangeDateTime.call(datetimepicker, _xdsoft_datetime.currentTime, $input,event);
 							$input.trigger('change');
 						}
 					})
@@ -1173,10 +1173,10 @@
 					});
 				};
 				datetimepicker
-					.on('open.xdsoft', function() {
+					.on('open.xdsoft', function(event) {
 						var onShow = true;
 						if( options.onShow&&options.onShow.call) {
-							onShow = options.onShow.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							onShow = options.onShow.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'),event);
 						}
 						if( onShow!==false ) {
 							datetimepicker.show();
@@ -1196,7 +1196,7 @@
 					.on('close.xdsoft', function( event ) {
 						var onClose = true;
 						if( options.onClose&&options.onClose.call ) {
-							onClose=options.onClose.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'));
+							onClose=options.onClose.call(datetimepicker,_xdsoft_datetime.currentTime,datetimepicker.data('input'),event);
 						}
 						if( onClose!==false&&!options.opened&&!options.inline ) {
 							datetimepicker.hide();
