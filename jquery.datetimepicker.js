@@ -302,6 +302,7 @@
 		roundTime: 'round', // ceil, floor
 		className: '',
 		weekends: [],
+		disabledDates : [],
 		yearOffset: 0,
 		beforeShowDay: null
 	};
@@ -622,7 +623,11 @@
 				if (_options.weekends && $.isArray(_options.weekends) && _options.weekends.length) {
 					options.weekends = $.extend(true, [], _options.weekends);
 				}
-
+				
+				if( _options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length ){
+                    options.disabledDates = $.extend(true,[],_options.disabledDates);
+                }
+				
 				if ((options.open || options.opened) && (!options.inline)) {
 					input.trigger('open.xdsoft');
 				}
@@ -1145,6 +1150,8 @@
 							}
 
 							if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+								classes.push('xdsoft_disabled');
+							} else if (options.disabledDates.indexOf(start.dateFormat(options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
 							}
 
