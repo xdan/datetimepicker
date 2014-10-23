@@ -1,8 +1,9 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.3.8
+ * @preserve jQuery DateTimePicker plugin v2.3.9
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
+/*global document,window,jQuery,setTimeout,clearTimeout*/
 (function ($) {
 	'use strict';
 	var default_options  = {
@@ -304,7 +305,9 @@
 		weekends: [],
 		disabledDates : [],
 		yearOffset: 0,
-		beforeShowDay: null
+		beforeShowDay: null,
+
+		enterLikeTab: true
 	};
 	// fix for ie8
 	if (!Array.prototype.indexOf) {
@@ -623,11 +626,11 @@
 				if (_options.weekends && $.isArray(_options.weekends) && _options.weekends.length) {
 					options.weekends = $.extend(true, [], _options.weekends);
 				}
-				
-				if( _options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length ){
-                    options.disabledDates = $.extend(true,[],_options.disabledDates);
+
+				if (_options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length) {
+                    options.disabledDates = $.extend(true, [], _options.disabledDates);
                 }
-				
+
 				if ((options.open || options.opened) && (!options.inline)) {
 					input.trigger('open.xdsoft');
 				}
@@ -1544,7 +1547,7 @@
 				.on('keydown.xdsoft', function (event) {
 					var val = this.value, elementSelector,
 						key = event.which;
-					if ([ENTER].indexOf(key) !== -1) {
+					if ([ENTER].indexOf(key) !== -1 && options.enterLikeTab) {
 						elementSelector = $("input:visible,textarea:visible");
 						datetimepicker.trigger('close.xdsoft');
 						elementSelector.eq(elementSelector.index(this) + 1).focus();
