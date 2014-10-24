@@ -1484,6 +1484,9 @@
 					}
 					event.stopPropagation();
 				})
+				.on('toggle.xdsoft', function (event) {
+					datetimepicker.is(':visible') ? datetimepicker.trigger('close.xdsoft') : datetimepicker.trigger('open.xdsoft');
+				})
 				.data('input', input);
 
 			timer = 0;
@@ -1594,6 +1597,9 @@
 						break;
 					case 'hide':
 						datetimepicker.trigger('close.xdsoft');
+						break;
+					case 'toggle':
+						datetimepicker.trigger('toggle.xdsoft');
 						break;
 					case 'destroy':
 						destroyDateTimePicker($(this));
