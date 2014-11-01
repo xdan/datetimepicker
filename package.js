@@ -36,8 +36,6 @@
 		"email" : "chupurnov@gmail.com"
 	},
 	"homepage":"http://xdsoft.net/jqplugins/datetimepicker/",
-    "dependencies": {
-        "jquery": ">=1.7"
-    },
+    "dependencies": {},
 	"license": "MIT"
 }
