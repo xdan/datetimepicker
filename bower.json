@@ -12,7 +12,8 @@
 		"**/*.txt",
 		"**/*.md",
 		"**/*.html",
-		"**/*.tpl"
+		"**/*.tpl",
+		"**/jquery.js"
 	  ],
 	"keywords": [
 		"calendar",
