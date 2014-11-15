@@ -410,10 +410,10 @@
 			},
 			he: { //Hebrew (עברית)
 				months: [
-					'ינואר','פברואר','מרץ','אפריל','מאי','יוני', 'יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'
+					'ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'
 				],
 				dayOfWeek: [
-					'א\'','ב\'','ג\'','ד\'','ה\'','ו\'','שבת'
+					'א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'שבת'
 				]
 			}
 		},
@@ -1672,7 +1672,11 @@
 					event.stopPropagation();
 				})
 				.on('toggle.xdsoft', function (event) {
-					datetimepicker.is(':visible') ? datetimepicker.trigger('close.xdsoft') : datetimepicker.trigger('open.xdsoft');
+					if (datetimepicker.is(':visible')) {
+						datetimepicker.trigger('close.xdsoft');
+					} else {
+						datetimepicker.trigger('open.xdsoft');
+					}
 				})
 				.data('input', input);
 

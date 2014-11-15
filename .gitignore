@@ -1,1 +1,2 @@
-index.php
+$ cat .gitignore
+parse.php
