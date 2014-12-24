@@ -16,6 +16,9 @@
 	<p><a href="http://xdsoft.net/jqplugins/datetimepicker/">Homepage</a></p>
 	<h3>DateTimePicker</h3>
 	<input type="text" value="" id="datetimepicker"/><br><br>
+  <h3>DateTimePickers selected by class</h3>
+	<input type="text" class="some_class" value="" id="some_class_1"/>
+	<input type="text" class="some_class" value="" id="some_class_2"/>
 	<h3>Mask DateTimePicker</h3>
 	<input type="text" value="" id="datetimepicker_mask"/><br><br>
 	<h3>TimePicker</h3>
@@ -68,6 +71,8 @@ disabledDates:['1986/01/08','1986/01/09','1986/01/10'],
 startDate:	'1986/01/05'
 });
 $('#datetimepicker').datetimepicker({value:'2015/04/15 05:03',step:10});
+
+$('.some_class').datetimepicker();
 
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
