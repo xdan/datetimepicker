@@ -690,7 +690,6 @@
 			lazyInitTimer = 0,
 			createDateTimePicker,
 			destroyDateTimePicker,
-			_xdsoft_datetime,
 
 			lazyInit = function (input) {
 				input
@@ -735,7 +734,8 @@
 				current_time_index,
 				setPos,
 				timer = 0,
-				timer1 = 0;
+				timer1 = 0,
+				_xdsoft_datetime;
 
 			mounth_picker
 				.find('.xdsoft_month span')
