@@ -694,7 +694,7 @@
 			lazyInit = function (input) {
 				input
 					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function initOnActionCallback(event) {
-						if (input.is(':disabled') || input.is(':hidden') || !input.is(':visible') || input.data('xdsoft_datetimepicker')) {
+						if (input.is(':disabled') || input.data('xdsoft_datetimepicker')) {
 							return;
 						}
 						clearTimeout(lazyInitTimer);
@@ -1722,12 +1722,12 @@
 			input
 				.data('xdsoft_datetimepicker', datetimepicker)
 				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function (event) {
-					if (input.is(':disabled') || input.is(':hidden') || !input.is(':visible') || (input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick)) {
+					if (input.is(':disabled') || (input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick)) {
 						return;
 					}
 					clearTimeout(timer);
 					timer = setTimeout(function () {
-						if (input.is(':disabled') || input.is(':hidden') || !input.is(':visible')) {
+						if (input.is(':disabled')) {
 							return;
 						}
 
