@@ -1358,7 +1358,7 @@
 								classes.push('xdsoft_today');
 							}
 
-							if (start.getDay() === 0 || start.getDay() === 6 || options.weekends.indexOf(start.dateFormat(options.formatDate)) === -1) {
+							if (start.getDay() === 0 || start.getDay() === 6 && options.weekends.indexOf(start.dateFormat(options.formatDate)) === -1) {
 								classes.push('xdsoft_weekend');
 							}
 
