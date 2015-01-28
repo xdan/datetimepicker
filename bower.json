@@ -1,6 +1,6 @@
 {
-	"name":"datetimepicker",
-	"version":"2.4.1",
+	"name": "datetimepicker",
+	"version": "2.4.1",
 	"main": [
 		"jquery.datetimepicker.js",
 		"jquery.datetimepicker.css"
@@ -14,7 +14,7 @@
 		"**/*.html",
 		"**/*.tpl",
 		"**/jquery.js"
-	  ],
+	],
 	"keywords": [
 		"calendar",
 		"date",
@@ -34,17 +34,18 @@
 		"touch"
 	],
 	"dependencies": {
-    "jquery": ">= 1.7.2"
-  },
-	"authors": [
-		{
-			"name": 	"Chupurnov Valeriy",
-			"email": 	"chupurnov@gmail.com",
-			"homepage": 		"http://xdsoft.net/contacts.html"
-    }
-	],
-	"homepage":"http://xdsoft.net/jqplugins/datetimepicker/",
+		"jquery": ">= 1.7.2",
+        "jquery-mousewheel": "~3.1.12",
+        "moment": ">= 2.9.0"
+	},
+	"authors": [{
+		"name": "Chupurnov Valeriy",
+		"email": "chupurnov@gmail.com",
+		"homepage": "http://xdsoft.net/contacts.html"
+	}],
+	"homepage": "http://xdsoft.net/jqplugins/datetimepicker/",
 	"repository": {
-		"type": "git", "url": "git://github.com:xdan/datetimepicker.git"
+		"type": "git",
+		"url": "git://github.com:xdan/datetimepicker.git"
 	}
 }
