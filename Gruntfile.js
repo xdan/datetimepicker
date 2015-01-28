@@ -10,13 +10,12 @@ module.exports = function(grunt) {
   // npm publish
 
   grunt.loadNpmTasks('grunt-rigger');
-  grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-shell');
-  grunt.loadTasks('buildtasks');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Project configuration.
   grunt.initConfig({
-    clean: ['bin'],
     rig: {
       standalone: {
         src: ['javascripts/jquery.datetimepicker.js'],
@@ -27,6 +26,24 @@ module.exports = function(grunt) {
         dest: 'dist/jquery.moment.datetimepicker.js'
       }
     },
+    copy:{
+      sass:{
+        files:[
+          {src:'stylesheets/jquery.datetimepicker.scss',dest:'dist/jquery.datetimepicker.scss'},
+          {src:'stylesheets/_options.scss',dest:'dist/_options.scss'}
+        ]
+      }
+    },
+    sass: {
+        options: {
+            sourceMap: true
+        },
+        dist: {
+            files: {
+                'dist/jquery.datetimepicker.css': 'dist/jquery.datetimepicker.scss'
+            }
+        }
+    },
     uglify: {
       standalone: {
         src: ['dist/jquery.datetimepicker.js'],
@@ -35,11 +52,15 @@ module.exports = function(grunt) {
       moment: {
         src: ['dist/jquery.moment.datetimepicker.js'],
         dest: 'dist/jquery.moment.datetimepicker.min.js'
+      },
+      css:{
+        src: ['stylesheets/jquery.datetimepicker.scss'],
+        dest: 'stylesheets/jquery.moment.datetimepicker.min.css'        
       }
     }
   });
 
   // Default task.
-  grunt.registerTask('default', ['clean', 'rig']);
+  grunt.registerTask('default', ['rig', 'copy', 'sass']);
   grunt.registerTask('release', ['default', 'uglify', 'copy', 'compress']);
 };
