@@ -1,3 +1,4 @@
+//= ../bin/jquery.mousewheel.js
 /**
  * @preserve jQuery DateTimePicker plugin v2.4.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
@@ -5,9 +6,12 @@
  */
 /*global document,window,jQuery,setTimeout,clearTimeout*/
 (function(a) {
-    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery-mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
+    ('function' == typeof(define) && define.amd) ? define(['jquery','jquery.mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
 })(function($, moment) {
     'use strict';
+    var defaultFormat='Y/m/d H:i',
+    defaultFormatTime='H:i',
+    defaultFormatDate='Y/m/d';
     var I18N={
         ar: { // Arabic
             months: [
@@ -432,4 +436,3 @@
     //= datetimepicker.base.js
     //= parse.js
 });
-//= https://raw.githubusercontent.com/jquery/jquery-mousewheel/3.1.12/jquery.mousewheel.js

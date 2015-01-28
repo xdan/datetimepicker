@@ -5,7 +5,7 @@
  */
 /*global document,window,jQuery,setTimeout,clearTimeout*/
 (function(a) {
-    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery-mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
+    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery.mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
 })(function($, moment) {
     'use strict';
     Date.prototype.dateFormat = function(format) {
@@ -14,6 +14,9 @@
     Date.parseDate = function(date, format) {
         return moment(date, format).toDate();
     };
+    var defaultFormat= 'YYYY/MM/DD HH:mm',
+    defaultFormatTime= 'HH:mm',
+    defaultFormatDate= 'YYYY/MM/DD';
     var I18N = { 
         months:'months',
         dayOfWeek:'weekdaysShort'
@@ -128,9 +131,9 @@
         value: '',
         lang: 'en',
     
-        format: 'YYYY/MM/DD HH:mm',
-        formatTime: 'HH:mm',
-        formatDate: 'YYYY/MM/DD',
+        format:defaultFormat,
+        formatTime:defaultFormatTime,
+        formatDate:defaultFormatDate,
     
         startDate: false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
         step: 60,
@@ -292,7 +295,7 @@
                                     .off(xde.scroller.mousemove, calcOffset)
                                     .removeClass(xdc.noselect);
                             });
-                            $(xdcument.body).on(xde.scroller.mousemove, calcOffset);
+                            $(document.body).on(xde.scroller.mousemove, calcOffset);
                         } else {
                             touchStart = true;
                             event.stopPropagation();

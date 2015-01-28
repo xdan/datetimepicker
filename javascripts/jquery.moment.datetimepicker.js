@@ -5,7 +5,7 @@
  */
 /*global document,window,jQuery,setTimeout,clearTimeout*/
 (function(a) {
-    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery-mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
+    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery.mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
 })(function($, moment) {
     'use strict';
     Date.prototype.dateFormat = function(format) {
@@ -14,6 +14,9 @@
     Date.parseDate = function(date, format) {
         return moment(date, format).toDate();
     };
+    var defaultFormat= 'YYYY/MM/DD HH:mm',
+    defaultFormatTime= 'HH:mm',
+    defaultFormatDate= 'YYYY/MM/DD';
     var I18N = { 
         months:'months',
         dayOfWeek:'weekdaysShort'

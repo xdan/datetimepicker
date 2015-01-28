@@ -13,6 +13,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   // Project configuration.
   grunt.initConfig({
@@ -24,6 +25,24 @@ module.exports = function(grunt) {
       moment: {
         src: ['javascripts/jquery.moment.datetimepicker.js'],
         dest: 'dist/jquery.moment.datetimepicker.js'
+      },
+      mousewheel: {
+        src: ['javascripts/import.mousewheel.js'],
+        dest: 'bin/jquery.mousewheel.js'
+      }
+    },
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "./bin/",
+          name: "jquery.mousewheel", 
+          out: "./bin/jquery.mousewheel.js",
+          paths: {
+              "jquery.mousewheel": "./jquery.mousewheel",
+              'jquery':'empty:'
+          },
+          optimize:'none'
+        }
       }
     },
     copy:{
@@ -61,6 +80,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', ['rig', 'copy', 'sass']);
+  grunt.registerTask('default', ['rig:moment','rig:mousewheel', 'requirejs','rig:standalone', 'copy', 'sass']);
   grunt.registerTask('release', ['default', 'uglify', 'copy', 'compress']);
 };

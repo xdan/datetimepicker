@@ -102,9 +102,9 @@ var default_options = {
     value: '',
     lang: 'en',
 
-    format: 'YYYY/MM/DD HH:mm',
-    formatTime: 'HH:mm',
-    formatDate: 'YYYY/MM/DD',
+    format:defaultFormat,
+    formatTime:defaultFormatTime,
+    formatDate:defaultFormatDate,
 
     startDate: false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
     step: 60,
@@ -266,7 +266,7 @@ $.fn.xdsoftScroller = function(percent) {
                                 .off(xde.scroller.mousemove, calcOffset)
                                 .removeClass(xdc.noselect);
                         });
-                        $(xdcument.body).on(xde.scroller.mousemove, calcOffset);
+                        $(document.body).on(xde.scroller.mousemove, calcOffset);
                     } else {
                         touchStart = true;
                         event.stopPropagation();
