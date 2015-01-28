@@ -25,7 +25,7 @@
         return moment[I18N[prop]]();
     };
     var setDayOfWeekStart=function(options){
-        options.dayOfWeek=moment.localeData().firstDayOfWeek();
+        options.dayOfWeekStart=moment.localeData().firstDayOfWeek();
     };
     //= datetimepicker.base.js
 });

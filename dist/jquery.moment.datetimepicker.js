@@ -25,7 +25,7 @@
         return moment[I18N[prop]]();
     };
     var setDayOfWeekStart=function(options){
-        options.dayOfWeek=moment.localeData().firstDayOfWeek();
+        options.dayOfWeekStart=moment.localeData().firstDayOfWeek();
     };
     var NS, XDE_KEYUP, XDE_AFTEROPEN, XDE_BLUR, XDE_CHANGEDATETIME, XDE_CLICK, XDE_CLOSE, XDE_DBLCLICK, XDE_FOCUSIN, XDE_GENERATE, XDE_KEYDOWN,
         XDE_MOUSEDOWN, XDE_MOUSEUP, XDE_MOUSEWHEEL, XDE_OPEN, XDE_RESIZE, XDE_TOGGLE, XDE_XCHANGE, XDE_ERROR_INPUT, XDE_SELECT, XDE_RESIZE_SCROLL,
