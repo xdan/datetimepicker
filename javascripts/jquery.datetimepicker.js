@@ -434,5 +434,5 @@
         }
     };
     //= datetimepicker.base.js
-    //= parse.js
 });
+//= parse.js
