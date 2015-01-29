@@ -1,0 +1,178 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'grunt-copy' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose readDependencies using package.json deps
+6 verbose cache add [ 'grunt-copy', null ]
+7 verbose cache add name=undefined spec="grunt-copy" args=["grunt-copy",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: 'grunt-copy',
+8 verbose parsed url   path: 'grunt-copy',
+8 verbose parsed url   href: 'grunt-copy' }
+9 silly lockFile f3b06549-grunt-copy grunt-copy
+10 verbose lock grunt-copy C:\Users\Sam\AppData\Roaming\npm-cache\f3b06549-grunt-copy.lock
+11 silly lockFile f3b06549-grunt-copy grunt-copy
+12 silly lockFile f3b06549-grunt-copy grunt-copy
+13 verbose addNamed [ 'grunt-copy', '' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 5d702d88-grunt-copy grunt-copy@
+16 verbose lock grunt-copy@ C:\Users\Sam\AppData\Roaming\npm-cache\5d702d88-grunt-copy.lock
+17 silly addNameRange { name: 'grunt-copy', range: '*', hasData: false }
+18 verbose request where is /grunt-copy
+19 verbose request registry https://registry.npmjs.org/
+20 verbose request id 341642e6ca07ed06
+21 verbose url raw /grunt-copy
+22 verbose url resolving [ 'https://registry.npmjs.org/', './grunt-copy' ]
+23 verbose url resolved https://registry.npmjs.org/grunt-copy
+24 verbose request where is https://registry.npmjs.org/grunt-copy
+25 info trying registry request attempt 1 at 00:57:14
+26 http GET https://registry.npmjs.org/grunt-copy
+27 http 200 https://registry.npmjs.org/grunt-copy
+28 silly registry.get cb [ 200,
+28 silly registry.get   { date: 'Wed, 28 Jan 2015 06:57:14 GMT',
+28 silly registry.get     server: 'CouchDB/1.6.1 (Erlang OTP/R14B04)',
+28 silly registry.get     etag: '"57ZFWGZT7KFNE9QZIMB6DYGFG"',
+28 silly registry.get     'content-type': 'application/json',
+28 silly registry.get     'cache-control': 'max-age=60',
+28 silly registry.get     'content-length': '7156',
+28 silly registry.get     'accept-ranges': 'bytes',
+28 silly registry.get     via: '1.1 varnish',
+28 silly registry.get     age: '0',
+28 silly registry.get     'x-served-by': 'cache-ord1723-ORD',
+28 silly registry.get     'x-cache': 'MISS',
+28 silly registry.get     'x-cache-hits': '0',
+28 silly registry.get     'x-timer': 'S1422428234.634766,VS0,VE40',
+28 silly registry.get     vary: 'Accept',
+28 silly registry.get     'keep-alive': 'timeout=10, max=50',
+28 silly registry.get     connection: 'Keep-Alive' } ]
+29 silly addNameRange number 2 { name: 'grunt-copy', range: '*', hasData: true }
+30 silly addNameRange versions [ 'grunt-copy', [ '0.1.0' ] ]
+31 verbose addNamed [ 'grunt-copy', '0.1.0' ]
+32 verbose addNamed [ '0.1.0', '0.1.0' ]
+33 silly lockFile ec7bfd43-grunt-copy-0-1-0 grunt-copy@0.1.0
+34 verbose lock grunt-copy@0.1.0 C:\Users\Sam\AppData\Roaming\npm-cache\ec7bfd43-grunt-copy-0-1-0.lock
+35 silly lockFile 63575510--grunt-copy-grunt-copy-0-1-0-tgz https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz
+36 verbose lock https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz C:\Users\Sam\AppData\Roaming\npm-cache\63575510--grunt-copy-grunt-copy-0-1-0-tgz.lock
+37 verbose addRemoteTarball [ 'https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz',
+37 verbose addRemoteTarball   '5166fff1d19fcff8a02c75b9663e7331e236406d' ]
+38 info retry fetch attempt 1 at 00:57:14
+39 verbose fetch to= C:\Users\Sam\AppData\Local\Temp\npm-12540-WRE37PeM\registry.npmjs.org\grunt-copy\-\grunt-copy-0.1.0.tgz
+40 http GET https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz
+41 http 200 https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz
+42 silly lockFile 63575510--grunt-copy-grunt-copy-0-1-0-tgz https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz
+43 silly lockFile 63575510--grunt-copy-grunt-copy-0-1-0-tgz https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz
+44 silly lockFile ec7bfd43-grunt-copy-0-1-0 grunt-copy@0.1.0
+45 silly lockFile ec7bfd43-grunt-copy-0-1-0 grunt-copy@0.1.0
+46 silly lockFile 5d702d88-grunt-copy grunt-copy@
+47 silly lockFile 5d702d88-grunt-copy grunt-copy@
+48 silly resolved [ { name: 'grunt-copy',
+48 silly resolved     description: 'The best Grunt plugin ever.',
+48 silly resolved     version: '0.1.0',
+48 silly resolved     homepage: 'https://github.com/xudafeng/grunt-copy',
+48 silly resolved     author:
+48 silly resolved      { name: 'xudafeng',
+48 silly resolved        email: 'xudafeng@126.com',
+48 silly resolved        url: 'http://xdf.me/' },
+48 silly resolved     repository:
+48 silly resolved      { type: 'git',
+48 silly resolved        url: 'https://github.com/xudafeng/grunt-copy.git' },
+48 silly resolved     bugs: { url: 'https://github.com/xudafeng/grunt-copy/issues' },
+48 silly resolved     licenses: [ [Object] ],
+48 silly resolved     main: 'Gruntfile.js',
+48 silly resolved     engines: { node: '>= 0.8.0' },
+48 silly resolved     scripts: { test: 'grunt test' },
+48 silly resolved     devDependencies:
+48 silly resolved      { 'grunt-contrib-jshint': '~0.6.0',
+48 silly resolved        'grunt-contrib-clean': '~0.4.0',
+48 silly resolved        'grunt-contrib-nodeunit': '~0.2.0',
+48 silly resolved        grunt: '~0.4.2' },
+48 silly resolved     peerDependencies: { grunt: '~0.4.2' },
+48 silly resolved     keywords: [ 'gruntplugin' ],
+48 silly resolved     readme: '# grunt-copy\n\n> The best Grunt plugin ever.\n\n## Getting Started\nThis plugin requires Grunt `~0.4.2`\n\nIf you haven\'t used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you\'re familiar with that process, you may install this plugin with this command:\n\n```shell\nnpm install grunt-copy --save-dev\n```\n\nOnce the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:\n\n```js\ngrunt.loadNpmTasks(\'grunt-copy\');\n```\n\n## The "copy" task\n\n### Overview\nIn your project\'s Gruntfile, add a section named `copy` to the data object passed into `grunt.initConfig()`.\n\n```js\ngrunt.initConfig({\n  copy: {\n    options: {\n      // Task-specific options go here.\n    },\n    your_target: {\n      // Target-specific file lists and/or options go here.\n    },\n  },\n});\n```\n\n### Options\n\n#### options.separator\nType: `String`\nDefault value: `\',  \'`\n\nA string value that is used to do something with whatever.\n\n#### options.punctuation\nType: `String`\nDefault value: `\'.\'`\n\nA string value that is used to do something else with whatever else.\n\n### Usage Examples\n\n#### Default Options\nIn this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`\n\n```js\ngrunt.initConfig({\n  copy: {\n    options: {},\n    files: {\n      \'dest/default_options\': [\'src/testing\', \'src/123\'],\n    },\n  },\n});\n```\n\n#### Custom Options\nIn this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`\n\n```js\ngrunt.initConfig({\n  copy: {\n    options: {\n      separator: \': \',\n      punctuation: \' !!!\',\n    },\n    files: {\n      \'dest/default_options\': [\'src/testing\', \'src/123\'],\n    },\n  },\n});\n```\n\n## Contributing\nIn lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).\n\n## Release History\n_(Nothing yet)_\n',
+48 silly resolved     readmeFilename: 'README.md',
+48 silly resolved     _id: 'grunt-copy@0.1.0',
+48 silly resolved     dist:
+48 silly resolved      { shasum: '5166fff1d19fcff8a02c75b9663e7331e236406d',
+48 silly resolved        tarball: 'http://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz' },
+48 silly resolved     _from: 'grunt-copy@',
+48 silly resolved     _npmVersion: '1.3.22',
+48 silly resolved     _npmUser: { name: 'xudafeng', email: 'xudafeng@126.com' },
+48 silly resolved     maintainers: [ [Object] ],
+48 silly resolved     directories: {},
+48 silly resolved     _shasum: '5166fff1d19fcff8a02c75b9663e7331e236406d',
+48 silly resolved     _resolved: 'https://registry.npmjs.org/grunt-copy/-/grunt-copy-0.1.0.tgz' } ]
+49 info install grunt-copy@0.1.0 into C:\Users\Sam\Documents\GitHub\datetimepicker
+50 info installOne grunt-copy@0.1.0
+51 verbose node_modules\grunt-copy unbuild
+52 verbose tar unpack C:\Users\Sam\AppData\Roaming\npm-cache\grunt-copy\0.1.0\package.tgz
+53 silly lockFile 2f4551c6-mepicker-node-modules-grunt-copy tar://C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy
+54 verbose lock tar://C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy C:\Users\Sam\AppData\Roaming\npm-cache\2f4551c6-mepicker-node-modules-grunt-copy.lock
+55 silly lockFile c895d2ae-che-grunt-copy-0-1-0-package-tgz tar://C:\Users\Sam\AppData\Roaming\npm-cache\grunt-copy\0.1.0\package.tgz
+56 verbose lock tar://C:\Users\Sam\AppData\Roaming\npm-cache\grunt-copy\0.1.0\package.tgz C:\Users\Sam\AppData\Roaming\npm-cache\c895d2ae-che-grunt-copy-0-1-0-package-tgz.lock
+57 silly gunzTarPerm modes [ '777', '666' ]
+58 silly gunzTarPerm extractEntry package.json
+59 silly gunzTarPerm modified mode [ 'package.json', 420, 438 ]
+60 silly gunzTarPerm extractEntry .npmignore
+61 silly gunzTarPerm modified mode [ '.npmignore', 420, 438 ]
+62 silly gunzTarPerm extractEntry README.md
+63 silly gunzTarPerm modified mode [ 'README.md', 420, 438 ]
+64 silly gunzTarPerm extractEntry Gruntfile.js
+65 silly gunzTarPerm modified mode [ 'Gruntfile.js', 420, 438 ]
+66 silly gunzTarPerm extractEntry .jshintrc
+67 silly gunzTarPerm modified mode [ '.jshintrc', 420, 438 ]
+68 silly gunzTarPerm extractEntry LICENSE-MIT
+69 silly gunzTarPerm modified mode [ 'LICENSE-MIT', 420, 438 ]
+70 silly gunzTarPerm extractEntry tasks/copy.js
+71 silly gunzTarPerm modified mode [ 'tasks/copy.js', 420, 438 ]
+72 silly gunzTarPerm extractEntry test/copy_test.js
+73 silly gunzTarPerm modified mode [ 'test/copy_test.js', 420, 438 ]
+74 silly gunzTarPerm extractEntry test/expected/custom_options
+75 silly gunzTarPerm modified mode [ 'test/expected/custom_options', 420, 438 ]
+76 silly gunzTarPerm extractEntry test/expected/default_options
+77 silly gunzTarPerm modified mode [ 'test/expected/default_options', 420, 438 ]
+78 silly gunzTarPerm extractEntry test/fixtures/123
+79 silly gunzTarPerm modified mode [ 'test/fixtures/123', 420, 438 ]
+80 silly gunzTarPerm extractEntry test/fixtures/testing
+81 silly gunzTarPerm modified mode [ 'test/fixtures/testing', 420, 438 ]
+82 silly lockFile 2f4551c6-mepicker-node-modules-grunt-copy tar://C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy
+83 silly lockFile 2f4551c6-mepicker-node-modules-grunt-copy tar://C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy
+84 silly lockFile c895d2ae-che-grunt-copy-0-1-0-package-tgz tar://C:\Users\Sam\AppData\Roaming\npm-cache\grunt-copy\0.1.0\package.tgz
+85 silly lockFile c895d2ae-che-grunt-copy-0-1-0-package-tgz tar://C:\Users\Sam\AppData\Roaming\npm-cache\grunt-copy\0.1.0\package.tgz
+86 info preinstall grunt-copy@0.1.0
+87 verbose readDependencies using package.json deps
+88 verbose readDependencies using package.json deps
+89 silly resolved []
+90 verbose about to build C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy
+91 info build C:\Users\Sam\Documents\GitHub\datetimepicker\node_modules\grunt-copy
+92 verbose linkStuff [ false,
+92 verbose linkStuff   false,
+92 verbose linkStuff   false,
+92 verbose linkStuff   'C:\\Users\\Sam\\Documents\\GitHub\\datetimepicker\\node_modules' ]
+93 info linkStuff grunt-copy@0.1.0
+94 verbose linkBins grunt-copy@0.1.0
+95 verbose linkMans grunt-copy@0.1.0
+96 verbose rebuildBundles grunt-copy@0.1.0
+97 info install grunt-copy@0.1.0
+98 info postinstall grunt-copy@0.1.0
+99 error peerinvalid The package grunt-contrib-copy does not satisfy its siblings' peerDependencies requirements!
+99 error peerinvalid Peer grunt-contrib@0.11.0 wants grunt-contrib-copy@~0.5.0
+100 error System Windows_NT 6.2.9200
+101 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "--save-dev" "grunt-copy"
+102 error cwd C:\Users\Sam\Documents\GitHub\datetimepicker
+103 error node -v v0.10.33
+104 error npm -v 1.4.28
+105 error code EPEERINVALID
+106 verbose exit [ 1, true ]

@@ -1,2 +1,4 @@
 $ cat .gitignore
 parse.php
+/node_modules
+/bin
