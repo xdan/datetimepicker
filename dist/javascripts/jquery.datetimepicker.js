@@ -653,6 +653,18 @@
             options.dayOfWeekStart = parseInt(options.dayOfWeekStart, 10) % 7;
         }
     };
+    var setMaskFormat=function(options){        
+        if (options.mask === true) {
+            options.mask = options.format
+                .replace(/Y/g, '9999')
+                .replace(/F/g, '9999')
+                .replace(/m/g, '19')
+                .replace(/d/g, '39')
+                .replace(/H/g, '29')
+                .replace(/i/g, '59')
+                .replace(/s/g, '59');
+        }
+    };
     var NS, XDE_KEYUP, XDE_AFTEROPEN, XDE_BLUR, XDE_CHANGEDATETIME, XDE_CLICK, XDE_CLOSE, XDE_DBLCLICK, XDE_FOCUSIN, XDE_GENERATE, XDE_KEYDOWN,
         XDE_MOUSEDOWN, XDE_MOUSEUP, XDE_MOUSEWHEEL, XDE_OPEN, XDE_RESIZE, XDE_TOGGLE, XDE_XCHANGE, XDE_ERROR_INPUT, XDE_SELECT, XDE_RESIZE_SCROLL,
         XDE_SCROLL_ELEMENT, XDE_SCROLLER_MOUSEDOWN, XDE_SCROLLER_MOUSEMOVE, XDE_SCROLLER_MOUSEUP, XDE_SCROLLER_RESIZE_SCROLL, XDE_SCROLLER_SCROLL_ELEMENT,
@@ -1253,16 +1265,7 @@
                         };
                     input.off(XDE_KEYDOWN);
     
-                    if (options.mask === true) {
-                        options.mask = options.format
-                            .replace(/Y/g, '9999')
-                            .replace(/F/g, '9999')
-                            .replace(/m/g, '19')
-                            .replace(/d/g, '39')
-                            .replace(/H/g, '29')
-                            .replace(/i/g, '59')
-                            .replace(/s/g, '59');
-                    }
+                    setMaskFormat(options);
     
                     if ($.type(options.mask) === 'string') {
                         if (!isValidValue(options.mask, input.val())) {

@@ -433,6 +433,18 @@
             options.dayOfWeekStart = parseInt(options.dayOfWeekStart, 10) % 7;
         }
     };
+    var setMaskFormat=function(options){        
+        if (options.mask === true) {
+            options.mask = options.format
+                .replace(/Y/g, '9999')
+                .replace(/F/g, '9999')
+                .replace(/m/g, '19')
+                .replace(/d/g, '39')
+                .replace(/H/g, '29')
+                .replace(/i/g, '59')
+                .replace(/s/g, '59');
+        }
+    };
     //= datetimepicker.base.js
 });
 //= parse.js

@@ -598,16 +598,7 @@ $.fn.datetimepicker = function(opt) {
                     };
                 input.off(XDE_KEYDOWN);
 
-                if (options.mask === true) {
-                    options.mask = options.format
-                        .replace(/Y/g, '9999')
-                        .replace(/F/g, '9999')
-                        .replace(/m/g, '19')
-                        .replace(/d/g, '39')
-                        .replace(/H/g, '29')
-                        .replace(/i/g, '59')
-                        .replace(/s/g, '59');
-                }
+                setMaskFormat(options);
 
                 if ($.type(options.mask) === 'string') {
                     if (!isValidValue(options.mask, input.val())) {

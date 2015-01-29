@@ -26,6 +26,24 @@
     };
     var setDayOfWeekStart=function(options){
         options.dayOfWeekStart=moment.localeData().firstDayOfWeek();
+    };    
+    var setMaskFormat=function(options){        
+        if (options.mask === true) {
+            options.mask = options.format
+                .replace(/Y/g, '9')
+                .replace(/MM/g, '19')
+                .replace(/DD/g, '39')
+                .replace(/M/g, '19')
+                .replace(/D/g, '39')
+                .replace(/HH/g, '29')
+                .replace(/hh/g, '19')
+                .replace(/H/g, '29')
+                .replace(/h/g, '19')
+                .replace(/mm/g, '59')
+                .replace(/ss/g, '59')
+                .replace(/m/g, '59')
+                .replace(/s/g, '59');
+        }
     };
     //= datetimepicker.base.js
 });
