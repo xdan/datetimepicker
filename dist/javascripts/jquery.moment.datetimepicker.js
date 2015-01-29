@@ -5,7 +5,7 @@
  */
 /*global document,window,jQuery,setTimeout,clearTimeout*/
 (function(a) {
-    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery.mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery);
+    ('function' == typeof(define) && define.amd) ? define(['jquery', 'moment', 'jquery.mousewheel'], a): 'object' == typeof exports ? module.exports = a : a(jQuery,moment);
 })(function($, moment) {
     'use strict';
     Date.prototype.dateFormat = function(format) {
