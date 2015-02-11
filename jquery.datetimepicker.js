@@ -256,7 +256,7 @@
 					"Dg", "Dl", "Dt", "Dc", "Dj", "Dv", "Ds"
 				]
 			},
-			'en-GB': { //English (British)
+			'en-gb': { //English (British)
 				months: [
 					"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 				],
@@ -344,7 +344,7 @@
 					"Дав", "Мяг", "Лха", "Пүр", "Бсн", "Бям", "Ням"
 				]
 			},
-			'pt-BR': { //Português(Brasil)
+			'pt-br': { //Português(Brasil)
 				months: [
 					"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 				],
@@ -368,7 +368,7 @@
 					"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
 				]
 			},
-			'sr-YU': { //Serbian (Srpski)
+			'sr-yu': { //Serbian (Srpski)
 				months: [
 					"Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"
 				],
@@ -392,7 +392,7 @@
 					"Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
 				]
 			},
-			'zh-TW': { //Traditional Chinese (繁體中文)
+			'zh-tw': { //Traditional Chinese (繁體中文)
 				months: [
 					"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"
 				],
