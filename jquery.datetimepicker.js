@@ -1422,7 +1422,7 @@
 							h = parseInt(now.getHours(), 10);
 							now.setMinutes(m);
 							m = parseInt(now.getMinutes(), 10);
-							var optionDateTime = new Date(_xdsoft_datetime.currentTime)
+							var optionDateTime = new Date(_xdsoft_datetime.currentTime);
 							optionDateTime.setHours(h);
 							optionDateTime.setMinutes(m);
 							classes = [];
