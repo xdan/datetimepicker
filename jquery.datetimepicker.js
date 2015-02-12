@@ -470,13 +470,15 @@
 		withoutCopyright: true,
 		inverseButton: false,
 		hours12: false,
-		next:	'xdsoft_next',
+		next: 'xdsoft_next',
 		prev : 'xdsoft_prev',
 		dayOfWeekStart: 0,
 		parentID: 'body',
 		timeHeightInTimePicker: 25,
 		timepickerScrollbar: true,
 		todayButton: true,
+		prevButton: true,
+		nextButton: true,
 		defaultSelect: true,
 
 		scrollMonth: true,
@@ -489,6 +491,8 @@
 		allowBlank: true,
 		yearStart: 1950,
 		yearEnd: 2050,
+		monthStart: 0,
+		monthEnd: 11,
 		style: '',
 		id: '',
 		fixed: false,
@@ -879,6 +883,14 @@
 					.find('.xdsoft_today_button')
 						.css('visibility', !options.todayButton ? 'hidden' : 'visible');
 
+				mounth_picker
+					.find('.' + options.prev)
+						.css('visibility', !options.prevButton ? 'hidden' : 'visible');
+
+				mounth_picker
+					.find('.' + options.next)
+						.css('visibility', !options.nextButton ? 'hidden' : 'visible');
+
 				if (options.mask) {
 					var e,
 						getCaretPos = function (input) {
@@ -1003,7 +1015,7 @@
 						  } else if (!Date.parseDate($(this).val(), options.format)) {
 						    var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
 						        splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
-						    
+
 						    // parse the numbers as 0312 => 03:12
 						    if(!options.datepicker && options.timepicker && splittedHours >= 0 && splittedHours < 24 && splittedMinutes >= 0 && splittedMinutes < 60) {
 						      $(this).val([splittedHours, splittedMinutes].map(function(item) {
@@ -1012,12 +1024,12 @@
 						    } else {
 						      $(this).val((_xdsoft_datetime.now()).dateFormat(options.format));
 						    }
-						    
+
 						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  } else {
 						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  }
-						  
+
 						  datetimepicker.trigger('changedatetime.xdsoft');
 						});
 				}
@@ -1469,7 +1481,7 @@
 						yearselect.children().eq(0)
 												.html(opt);
 
-						for (i = 0, opt = ''; i <= 11; i += 1) {
+						for (i = parseInt(options.monthStart), opt = ''; i <= parseInt(options.monthEnd); i += 1) {
 							opt += '<div class="xdsoft_option ' + (_xdsoft_datetime.currentTime.getMonth() === i ? 'xdsoft_current' : '') + '" data-value="' + i + '">' + options.i18n[options.lang].months[i] + '</div>';
 						}
 						monthselect.children().eq(0).html(opt);
