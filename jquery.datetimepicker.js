@@ -1253,7 +1253,6 @@
 						stop = false;
 
 					(function arguments_callee1(v) {
-						//var month =  _xdsoft_datetime.currentTime.getMonth();
 						if ($this.hasClass(options.next)) {
 							_xdsoft_datetime.nextMonth();
 						} else if ($this.hasClass(options.prev)) {
