@@ -792,9 +792,9 @@
 				})
 				.on('mousedown.xdsoft', '.xdsoft_option', function (event) {
 
-				  if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
-				    _xdsoft_datetime.currentTime = _xdsoft_datetime.now();
-				  }
+					if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+						_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+					}
 
 					var year = _xdsoft_datetime.currentTime.getFullYear();
 					if (_xdsoft_datetime && _xdsoft_datetime.currentTime) {
@@ -1116,9 +1116,9 @@
 
 				_this.nextMonth = function () {
 
-				  if (_this.currentTime === undefined || _this.currentTime === null) {
-				    _this.currentTime = _this.now();
-				  }
+					if (_this.currentTime === undefined || _this.currentTime === null) {
+						_this.currentTime = _this.now();
+					}
 
 					var month = _this.currentTime.getMonth() + 1,
 						year;
@@ -1151,9 +1151,9 @@
 
 				_this.prevMonth = function () {
 
-				  if (_this.currentTime === undefined || _this.currentTime === null) {
-				    _this.currentTime = _this.now();
-				  }
+					if (_this.currentTime === undefined || _this.currentTime === null) {
+						_this.currentTime = _this.now();
+					}
 
 					var month = _this.currentTime.getMonth() - 1;
 					if (month === -1) {
@@ -1309,11 +1309,11 @@
 					clearTimeout(xchangeTimer);
 					xchangeTimer = setTimeout(function () {
 
-					  if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
-					    _xdsoft_datetime.currentTime = _xdsoft_datetime.now();
-					  }
+						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+						}
 
-					  var table =	'',
+						var table =	'',
 							start = new Date(_xdsoft_datetime.currentTime.getFullYear(), _xdsoft_datetime.currentTime.getMonth(), 1, 12, 0, 0),
 							i = 0,
 							j,
