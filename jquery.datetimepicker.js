@@ -1441,7 +1441,12 @@
 							if((options.minDateTime !== false && options.minDateTime > optionDateTime) || (options.maxTime !== false && _xdsoft_datetime.strtotime(options.maxTime).getTime() < now.getTime()) || (options.minTime !== false && _xdsoft_datetime.strtotime(options.minTime).getTime() > now.getTime())) {
 								classes.push('xdsoft_disabled');
 							}
-							if ((options.initTime || options.defaultSelect || datetimepicker.data('changed')) && parseInt(_xdsoft_datetime.currentTime.getHours(), 10) === parseInt(h, 10) && (options.step > 59 || Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes() / options.step) * options.step === parseInt(m, 10))) {
+
+							var current_time = new Date(_xdsoft_datetime.currentTime);
+							current_time.setHours(parseInt(_xdsoft_datetime.currentTime.getHours(), 10));
+							current_time.setMinutes(Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes() / options.step) * options.step);
+
+							if ((options.initTime || options.defaultSelect || datetimepicker.data('changed')) && current_time.getHours() === parseInt(h, 10) && (options.step > 59 || current_time.getMinutes() === parseInt(m, 10))) {
 								if (options.defaultSelect || datetimepicker.data('changed')) {
 									classes.push('xdsoft_current');
 								} else if (options.initTime) {
