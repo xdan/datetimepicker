@@ -791,6 +791,11 @@
 					event.preventDefault();
 				})
 				.on('mousedown.xdsoft', '.xdsoft_option', function (event) {
+
+					if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+						_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+					}
+
 					var year = _xdsoft_datetime.currentTime.getFullYear();
 					if (_xdsoft_datetime && _xdsoft_datetime.currentTime) {
 						_xdsoft_datetime.currentTime[$(this).parent().parent().hasClass('xdsoft_monthselect') ? 'setMonth' : 'setFullYear']($(this).data('value'));
@@ -1110,6 +1115,11 @@
 				};
 
 				_this.nextMonth = function () {
+
+					if (_this.currentTime === undefined || _this.currentTime === null) {
+						_this.currentTime = _this.now();
+					}
+
 					var month = _this.currentTime.getMonth() + 1,
 						year;
 					if (month === 12) {
@@ -1140,6 +1150,11 @@
 				};
 
 				_this.prevMonth = function () {
+
+					if (_this.currentTime === undefined || _this.currentTime === null) {
+						_this.currentTime = _this.now();
+					}
+
 					var month = _this.currentTime.getMonth() - 1;
 					if (month === -1) {
 						_this.currentTime.setFullYear(_this.currentTime.getFullYear() - 1);
@@ -1238,7 +1253,6 @@
 						stop = false;
 
 					(function arguments_callee1(v) {
-						var month =  _xdsoft_datetime.currentTime.getMonth();
 						if ($this.hasClass(options.next)) {
 							_xdsoft_datetime.nextMonth();
 						} else if ($this.hasClass(options.prev)) {
@@ -1294,6 +1308,11 @@
 				.on('xchange.xdsoft', function (event) {
 					clearTimeout(xchangeTimer);
 					xchangeTimer = setTimeout(function () {
+
+						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
+						}
+
 						var table =	'',
 							start = new Date(_xdsoft_datetime.currentTime.getFullYear(), _xdsoft_datetime.currentTime.getMonth(), 1, 12, 0, 0),
 							i = 0,
