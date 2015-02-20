@@ -1841,6 +1841,10 @@
 						}
 						datetimepicker.data('xdsoft_datetime').setCurrentTime(this.value);
 						break;
+					case 'validate':
+                        var $input = datetimepicker.data('input');
+						$input.trigger('blur.xdsoft');
+						break;
 					}
 				} else {
 					datetimepicker
