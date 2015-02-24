@@ -69,7 +69,6 @@
 		hours12: false,
 		next:	'xdsoft_next',
 		prev : 'xdsoft_prev',
-		dayOfWeekStart: 0,
 		parentID: 'body',
 		timeHeightInTimePicker: 25,
 		timepickerScrollbar: true,
@@ -419,8 +418,8 @@
 				}
 
 				if (_options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length) {
-					options.disabledDates = $.extend(true, [], _options.disabledDates);
-				}
+                    options.disabledDates = $.extend(true, [], _options.disabledDates);
+                }
 
 				if ((options.open || options.opened) && (!options.inline)) {
 					input.trigger('open.xdsoft');
@@ -596,24 +595,24 @@
 						.off('blur.xdsoft')
 						.on('blur.xdsoft', function () {
 						  if (options.allowBlank && !$.trim($(this).val()).length) {
-							$(this).val(null);
-							datetimepicker.data('xdsoft_datetime').empty();
+						    $(this).val(null);
+						    datetimepicker.data('xdsoft_datetime').empty();
 						  } else if (!parseDate($(this).val(), options.format)) {
-							var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
-								splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
-							
-							// parse the numbers as 0312 => 03:12
-							if(!options.datepicker && options.timepicker && splittedHours >= 0 && splittedHours < 24 && splittedMinutes >= 0 && splittedMinutes < 60) {
-							  $(this).val([splittedHours, splittedMinutes].map(function(item) {
-								return item > 9 ? item : '0' + item
-							  }).join(':'));
-							} else {
-							  $(this).val((_xdsoft_datetime.now()).format(options.format));
-							}
-							
-							datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+						    var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
+						        splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
+						    
+						    // parse the numbers as 0312 => 03:12
+						    if(!options.datepicker && options.timepicker && splittedHours >= 0 && splittedHours < 24 && splittedMinutes >= 0 && splittedMinutes < 60) {
+						      $(this).val([splittedHours, splittedMinutes].map(function(item) {
+						        return item > 9 ? item : '0' + item
+						      }).join(':'));
+						    } else {
+						      $(this).val((_xdsoft_datetime.now()).format(options.format));
+						    }
+						    
+						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  } else {
-							datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
+						    datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
 						  }
 						  
 						  datetimepicker.trigger('changedatetime.xdsoft');
