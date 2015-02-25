@@ -503,7 +503,8 @@
 		yearOffset: 0,
 		beforeShowDay: null,
 
-		enterLikeTab: true
+		enterLikeTab: true,
+        showApplyButton: false
 	};
 	// fix for ie8
 	if (!Array.prototype.indexOf) {
@@ -734,6 +735,7 @@
 				timepicker = $('<div class="xdsoft_timepicker active"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_time_box"></div><button type="button" class="xdsoft_next"></button></div>'),
 				timeboxparent = timepicker.find('.xdsoft_time_box').eq(0),
 				timebox = $('<div class="xdsoft_time_variant"></div>'),
+                applyButton = $('<button class="xdsoft_save_selected blue-gradient-button">Save Selected</button>'),
 				/*scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
 				scroller = $('<div class="xdsoft_scroller"></div>'),*/
 				monthselect = $('<div class="xdsoft_select xdsoft_monthselect"><div></div></div>'),
@@ -883,6 +885,8 @@
 				if (options.maxDate &&  /^\+(.*)$/.test(options.maxDate)) {
 					options.maxDate = _xdsoft_datetime.strToDateTime(options.maxDate).dateFormat(options.formatDate);
 				}
+
+				applyButton.toggle(options.showApplyButton);
 
 				mounth_picker
 					.find('.xdsoft_today_button')
@@ -1065,7 +1069,7 @@
 
 			datetimepicker
 				.append(datepicker)
-				.append(timepicker);
+				.append(timepicker);				
 
 			if (options.withoutCopyright !== true) {
 				datetimepicker
@@ -1074,7 +1078,8 @@
 
 			datepicker
 				.append(mounth_picker)
-				.append(calendar);
+				.append(calendar)
+				.append(applyButton);
 
 			$(options.parentID)
 				.append(datetimepicker);
@@ -1247,6 +1252,13 @@
 
 			_xdsoft_datetime = new XDSoft_datetime();
 
+			applyButton.on('click', function (e) {//pathbrite
+                e.preventDefault();
+                datetimepicker.data('changed',true);
+                _xdsoft_datetime.setCurrentTime(getCurrentValue());
+                input.val(_xdsoft_datetime.str());
+                datetimepicker.trigger('close.xdsoft');
+            });
 			mounth_picker
 				.find('.xdsoft_today_button')
 				.on('mousedown.xdsoft', function () {
