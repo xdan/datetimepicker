@@ -1609,8 +1609,9 @@
 					datetimepicker.trigger('select.xdsoft', [currentTime]);
 
 					datetimepicker.data('input').val(_xdsoft_datetime.str());
-                    if (options.closeOnTimeSelect === true) {
-                        datetimepicker.trigger('close.xdsoft');	
+
+                    if (options.inline !== true && options.closeOnTimeSelect === true) {
+                        datetimepicker.trigger('close.xdsoft');
                     }
 
 					if (options.onSelectTime && $.isFunction(options.onSelectTime)) {
