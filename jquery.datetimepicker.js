@@ -508,6 +508,8 @@
 		roundTime: 'round', // ceil, floor
 		className: '',
 		weekends: [],
+		highlightedDates: [],
+		highlightedPeriods: [],
 		disabledDates : [],
 		yearOffset: 0,
 		beforeShowDay: null,
@@ -837,6 +839,52 @@
 
 				if (_options.weekends && $.isArray(_options.weekends) && _options.weekends.length) {
 					options.weekends = $.extend(true, [], _options.weekends);
+				}
+				
+				if (_options.highlightedDates && $.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
+					var highlightedDates = new Object();
+					$.each(_options.highlightedDates, function(index, value) {
+						var splitData = $.map(value.split(','), $.trim),
+							hDate = new HighlightedDate(Date.parseDate(splitData[0], options.formatDate), splitData[1], splitData[2]), // date, desc, style
+							keyDate = hDate.date.dateFormat(options.formatDate);
+						if(keyDate in highlightedDates) {
+							var exDesc = highlightedDates[keyDate].desc;
+							if (exDesc && exDesc.length && hDate.desc && hDate.desc.length) {
+								highlightedDates[keyDate].desc = exDesc + "\n" + hDate.desc;
+							}
+						} else {
+							highlightedDates[keyDate] = hDate;
+						}
+					});
+					
+					options.highlightedDates = $.extend(true, [], highlightedDates);
+				}
+				
+				if (_options.highlightedPeriods && $.isArray(_options.highlightedPeriods) && _options.highlightedPeriods.length) {
+					var highlightedDates = $.extend(true, [], options.highlightedDates);
+					$.each(_options.highlightedPeriods, function(index, value) {
+						var splitData = $.map(value.split(','), $.trim),
+							dateTest = Date.parseDate(splitData[0], options.formatDate), // start date
+							dateEnd = Date.parseDate(splitData[1], options.formatDate),
+							desc = splitData[2], 
+							style = splitData[3];
+
+						while (dateTest <= dateEnd) {
+							var hDate = new HighlightedDate(dateTest, desc, style),
+								keyDate = dateTest.dateFormat(options.formatDate);
+							dateTest.setDate(dateTest.getDate() + 1);
+							if(keyDate in highlightedDates) {
+								var exDesc = highlightedDates[keyDate].desc;
+								if (exDesc && exDesc.length && hDate.desc && hDate.desc.length) {
+									highlightedDates[keyDate].desc = exDesc + "\n" + hDate.desc;
+								}
+							} else {
+								highlightedDates[keyDate] = hDate;
+							}
+						}
+					});
+					
+					options.highlightedDates = $.extend(true, [], highlightedDates);
 				}
 
 				if (_options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length) {
@@ -1362,7 +1410,8 @@
 							newRow = true,
 							time = '',
 							h = '',
-							line_time;
+							line_time,
+							description;
 
 						while (start.getDay() !== options.dayOfWeekStart) {
 							start.setDate(start.getDate() - 1);
@@ -1399,6 +1448,7 @@
 							y = start.getFullYear();
 							m = start.getMonth();
 							w = _xdsoft_datetime.getWeekOfYear(start);
+							description = '';
 
 							classes.push('xdsoft_date');
 
@@ -1433,6 +1483,12 @@
 							if (start.getDay() === 0 || start.getDay() === 6 || ~options.weekends.indexOf(start.dateFormat(options.formatDate))) {
 								classes.push('xdsoft_weekend');
 							}
+							
+							if (start.dateFormat(options.formatDate) in options.highlightedDates) {
+								var hDate = options.highlightedDates[start.dateFormat(options.formatDate)];
+								classes.push(hDate.style === undefined ? 'xdsoft_highlighted_default' : hDate.style);
+								description = hDate.desc === undefined ? '' : hDate.desc;
+							}
 
 							if (options.beforeShowDay && $.isFunction(options.beforeShowDay)) {
 								classes.push(options.beforeShowDay(start));
@@ -1446,7 +1502,7 @@
 								}
 							}
 
-							table += '<td data-date="' + d + '" data-month="' + m + '" data-year="' + y + '"' + ' class="xdsoft_date xdsoft_day_of_week' + start.getDay() + ' ' + classes.join(' ') + '">' +
+							table += '<td data-date="' + d + '" data-month="' + m + '" data-year="' + y + '"' + ' class="xdsoft_date xdsoft_day_of_week' + start.getDay() + ' ' + classes.join(' ') + '" title="' + description + '">' +
 										'<div>' + d + '</div>' +
 									'</td>';
 
@@ -1904,6 +1960,13 @@
 	};
 	$.fn.datetimepicker.defaults = default_options;
 }(jQuery));
+
+function HighlightedDate(date, desc, style) {
+	this.date = date;
+	this.desc = desc;
+	this.style = style;
+};
+
 (function () {
 
 /*! Copyright (c) 2013 Brandon Aaron (http://brandon.aaron.sh)
