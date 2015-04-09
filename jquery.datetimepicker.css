@@ -301,6 +301,17 @@
 	color: #33aaff;
 }
 
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_highlighted_default {
+	background: #ffe9d2;
+	box-shadow: #ffb871 0 1px 4px 0 inset;
+	color: #000;
+}
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_highlighted_mint {
+	background: #c1ffc9;
+	box-shadow: #00dd1c 0 1px 4px 0 inset;
+	color: #000;
+}
+
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box >div >div.xdsoft_current {
@@ -441,6 +452,17 @@
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_today {
 	color: #cc5500;
+}
+
+.xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_default {
+	background: #ffe9d2;
+	box-shadow: #ffb871 0 1px 4px 0 inset;
+	color:#000;
+}
+.xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_highlighted_mint {
+	background: #c1ffc9;
+	box-shadow: #00dd1c 0 1px 4px 0 inset;
+	color:#000;
 }
 
 .xdsoft_datetimepicker.xdsoft_dark .xdsoft_calendar td.xdsoft_default,
