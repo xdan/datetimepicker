@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.2
+ * @preserve jQuery DateTimePicker plugin v2.4.3
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -1285,7 +1285,7 @@
 						return sDate;
 					}
 
-					var currentTime = sDate ? Date.parse(sDate, options.formatDate) : _this.now(true);
+					var currentTime = sDate ? Date.parseDate(sDate, options.formatDate) : _this.now(true);
 					if (!_this.isValidDate(currentTime)) {
 						currentTime = _this.now(true);
 					}
