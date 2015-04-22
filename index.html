@@ -63,7 +63,7 @@
 <script>/*
 window.onerror = function(errorMsg) {
 	$('#console').html($('#console').html()+'<br>'+errorMsg)
-}*//*
+}*/
 $('#datetimepicker').datetimepicker({
 dayOfWeekStart : 1,
 lang:'en',
@@ -95,16 +95,16 @@ $('#datetimepicker1').datetimepicker({
 	datepicker:false,
 	format:'H:i',
 	step:5
-});*/
+});
 $('#datetimepicker2').datetimepicker({
-	//yearOffset:222,
-	//lang:'ch',
+	yearOffset:222,
+	lang:'ch',
 	timepicker:false,
 	format:'d/m/Y',
 	formatDate:'Y/m/d',
-	minDate:'-1970/01/03', // yesterday is minimum date
-	maxDate:'+1970/01/03' // and tommorow is maximum date calendar
-});/*
+	minDate:'-1970/01/02', // yesterday is minimum date
+	maxDate:'+1970/01/02' // and tommorow is maximum date calendar
+});
 $('#datetimepicker3').datetimepicker({
 	inline:true
 });
@@ -186,6 +186,6 @@ $('#datetimepicker12').datetimepicker({
 });
 $('#datetimepicker_dark').datetimepicker({theme:'dark'})
 
-*/
+
 </script>
 </html>
