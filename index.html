@@ -77,7 +77,8 @@ $('.some_class').datetimepicker();
 $('#default_datetimepicker').datetimepicker({
 	formatTime:'H:i',
 	formatDate:'d.m.Y',
-	defaultDate:'8.12.1986', // it's my birthday
+	//defaultDate:'8.12.1986', // it's my birthday
+	defaultDate:'+03.01.1970', // it's my birthday
 	defaultTime:'10:00',
 	timepickerScrollbar:false
 });
@@ -133,7 +134,7 @@ $('#destroy').click(function(){
 	}
 });
 var logic = function( currentDateTime ){
-	if( currentDateTime.getDay()==6 ){
+	if (currentDateTime && currentDateTime.getDay() == 6){
 		this.setOptions({
 			minTime:'11:00'
 		});
