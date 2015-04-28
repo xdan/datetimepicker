@@ -443,7 +443,8 @@
 		maxDate: false,
 		minTime: false,
 		maxTime: false,
-
+		minDateTime: false,
+		
 		allowTimes: [],
 		opened: false,
 		initTime: true,
@@ -867,6 +868,10 @@
 					options.maxDate = _xdsoft_datetime.strToDateTime(options.maxDate).dateFormat(options.formatDate);
 				}
 
+				if (options.minDateTime &&  /^\+(.*)$/.test(options.minDateTime)) {
+					options.minDateTime = _xdsoft_datetime.strToDateTime(options.minDateTime).dateFormat(options.formatDate);
+				}
+
 				mounth_picker
 					.find('.xdsoft_today_button')
 						.css('visibility', !options.todayButton ? 'hidden' : 'visible');
@@ -1281,6 +1286,7 @@
 							today = _xdsoft_datetime.now(),
 							maxDate = false,
 							minDate = false,
+							minDateTime = false,
 							d,
 							y,
 							m,
@@ -1319,6 +1325,11 @@
 							minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 						}
 
+						if (options.minDateTime !== false) {
+							minDateTime = _xdsoft_datetime.strToDate(options.minDateTime);
+							minDateTime = new Date(minDateTime.getFullYear(), minDateTime.getMonth(), minDateTime.getDate(), minDateTime.getHours(), minDateTime.getMinutes(), minDateTime.getSeconds());
+						}
+						
 						while (i < _xdsoft_datetime.currentTime.countDaysInMonth() || start.getDay() !== options.dayOfWeekStart || _xdsoft_datetime.currentTime.getMonth() === start.getMonth()) {
 							classes = [];
 							i += 1;
@@ -1336,7 +1347,7 @@
 								customDateSettings = null;
 							}
 
-							if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+							if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledDates.indexOf(start.dateFormat(options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
