@@ -1325,6 +1325,18 @@
 					_xdsoft_datetime.setCurrentTime(0);
 					datetimepicker.trigger('afterOpen.xdsoft');
 				}).on('dblclick.xdsoft', function () {
+					var currentDate = _xdsoft_datetime.getCurrentTime();
+					currentDate = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate());
+					var minDate = _xdsoft_datetime.strtodate(options.minDate);
+					minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
+					if(currentDate < minDate) {
+						return;
+					}
+					var maxDate = _xdsoft_datetime.strtodate(options.maxDate);
+					maxDate = new Date(maxDate.getFullYear(),maxDate.getMonth(),maxDate.getDate());
+					if(currentDate > maxDate) {
+						return;
+					}
 					input.val(_xdsoft_datetime.str());
 					datetimepicker.trigger('close.xdsoft');
 				});
