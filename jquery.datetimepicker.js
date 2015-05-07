@@ -735,7 +735,7 @@
 			};
 
 		createDateTimePicker = function (input) {
-			var datetimepicker = $('<div ' + (options.id ? 'id="' + options.id + '"' : '') + ' ' + (options.style ? 'style="' + options.style + '"' : '') + ' class="xdsoft_datetimepicker xdsoft_' + options.theme + ' xdsoft_noselect ' + (options.weeks ? ' xdsoft_showweeks' : '') + options.className + '"></div>'),
+			var datetimepicker = $('<div class="xdsoft_datetimepicker xdsoft_noselect"></div>'),
 				xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 				datepicker = $('<div class="xdsoft_datepicker active"></div>'),
 				mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><button type="button" class="xdsoft_today_button"></button>' +
@@ -761,6 +761,13 @@
 				timer = 0,
 				timer1 = 0,
 				_xdsoft_datetime;
+
+			if (options.id) datetimepicker.attr('id', options.id);
+			if (options.style) datetimepicker.attr('style', options.style);
+			if (options.weeks) datetimepicker.addClass('xdsoft_showweeks');
+
+			datetimepicker.addClass('xdsoft_' + options.theme);
+			datetimepicker.addClass(options.className);
 
 			mounth_picker
 				.find('.xdsoft_month span')
