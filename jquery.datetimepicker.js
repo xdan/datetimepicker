@@ -1334,12 +1334,12 @@
 				}).on('dblclick.xdsoft', function () {
 					var currentDate = _xdsoft_datetime.getCurrentTime();
 					currentDate = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate());
-					var minDate = _xdsoft_datetime.strtodate(options.minDate);
+					var minDate = _xdsoft_datetime.strToDate(options.minDate);
 					minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
 					if(currentDate < minDate) {
 						return;
 					}
-					var maxDate = _xdsoft_datetime.strtodate(options.maxDate);
+					var maxDate = _xdsoft_datetime.strToDate(options.maxDate);
 					maxDate = new Date(maxDate.getFullYear(),maxDate.getMonth(),maxDate.getDate());
 					if(currentDate > maxDate) {
 						return;
