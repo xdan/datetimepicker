@@ -1788,6 +1788,14 @@
 						left = $(window).width() - datetimepicker[0].offsetWidth;
 					}
 				}
+				var node = datetimepicker[0]
+				do {
+					node = node.parentNode;
+					if(window.getComputedStyle(node).getPropertyValue('position') === 'relative' && $(window).width() >= node.offsetWidth) {
+						left = left - (($(window).width() - node.offsetWidth)/2)
+						break
+					}
+				} while(node.nodeName != 'HTML')
 				datetimepicker.css({
 					left: left,
 					top: top,
