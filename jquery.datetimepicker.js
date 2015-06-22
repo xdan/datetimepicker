@@ -1669,7 +1669,7 @@
 					datetimepicker.trigger('select.xdsoft', [currentTime]);
 
 					input.val(_xdsoft_datetime.str());
-					if ((timerclick > 1 || (options.closeOnDateSelect === true || (options.closeOnDateSelect === 0 && !options.timepicker))) && !options.inline) {
+					if ((timerclick > 1 || (options.closeOnDateSelect === true || (options.closeOnDateSelect === false && !options.timepicker))) && !options.inline) {
 						datetimepicker.trigger('close.xdsoft');
 					}
 
