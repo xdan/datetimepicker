@@ -746,7 +746,7 @@
 				timepicker = $('<div class="xdsoft_timepicker active"><button type="button" class="xdsoft_prev"></button><div class="xdsoft_time_box"></div><button type="button" class="xdsoft_next"></button></div>'),
 				timeboxparent = timepicker.find('.xdsoft_time_box').eq(0),
 				timebox = $('<div class="xdsoft_time_variant"></div>'),
-                applyButton = $('<button class="xdsoft_save_selected blue-gradient-button">Save Selected</button>'),
+                applyButton = $('<button type="button" class="xdsoft_save_selected blue-gradient-button">Save Selected</button>'),
 				/*scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
 				scroller = $('<div class="xdsoft_scroller"></div>'),*/
 				monthselect = $('<div class="xdsoft_select xdsoft_monthselect"><div></div></div>'),
