@@ -32,6 +32,14 @@
 					"Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"
 				]
 			},
+			is: { // Icelandic
+				months: [
+					"Janúar", "Febrúar", "Mars", "Apríl", "Maí", "Júní", "Júlí", "Ágúst", "September", "Október", "Nóvember", "Desember"
+				],
+				dayOfWeek: [
+					"Sun", "Mán", "Þrið", "Mið", "Fim", "Fös", "Lau"
+				]
+			},
 			bg: { // Bulgarian
 				months: [
 					"Януари", "Февруари", "Март", "Април", "Май", "Юни", "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
