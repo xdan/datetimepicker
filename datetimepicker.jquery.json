@@ -1,6 +1,6 @@
 {
     "name": "datetimepicker",
-    "version": "2.4.3",
+    "version": "2.4.4",
 	"title": "jQuery Date and Time picker",
     "description": "jQuery plugin for date, time, or datetime manipulation in form",
     "keywords": [
