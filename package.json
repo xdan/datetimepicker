@@ -1,6 +1,6 @@
 {
   "name": "jquery-datetimepicker",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "jquery.datetimepicker.js",
   "scripts": {

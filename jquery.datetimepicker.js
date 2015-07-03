@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.4
+ * @preserve jQuery DateTimePicker plugin v2.4.5
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * (c) 2014, Chupurnov Valeriy.
  */
@@ -529,6 +529,24 @@
         showApplyButton: false
 	};
 	// fix for ie8
+	if (!window.getComputedStyle) {
+		window.getComputedStyle = function (el, pseudo) {
+			this.el = el;
+			this.getPropertyValue = function (prop) {
+				var re = /(\-([a-z]){1})/g;
+				if (prop === 'float') {
+					prop = 'styleFloat';
+				}
+				if (re.test(prop)) {
+					prop = prop.replace(re, function (a, b, c) {
+						return c.toUpperCase();
+					});
+				}
+				return el.currentStyle[prop] || null;
+			};
+			return this;
+		};
+	}
 	if (!Array.prototype.indexOf) {
 		Array.prototype.indexOf = function (obj, start) {
 			var i, j;
@@ -773,9 +791,15 @@
 				timer1 = 0,
 				_xdsoft_datetime;
 
-			if (options.id) datetimepicker.attr('id', options.id);
-			if (options.style) datetimepicker.attr('style', options.style);
-			if (options.weeks) datetimepicker.addClass('xdsoft_showweeks');
+			if (options.id) {
+				datetimepicker.attr('id', options.id);
+			}
+			if (options.style) {
+				datetimepicker.attr('style', options.style);
+			}
+			if (options.weeks) {
+				datetimepicker.addClass('xdsoft_showweeks');
+			}
 
 			datetimepicker.addClass('xdsoft_' + options.theme);
 			datetimepicker.addClass(options.className);
@@ -953,7 +977,7 @@
 				if (_options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length) {
 					options.disabledDates = $.extend(true, [], _options.disabledDates);
 				}
-				
+
 				if (_options.disabledWeekDays && $.isArray(_options.disabledWeekDays) && _options.disabledWeekDays.length) {
 				    options.disabledWeekDays = $.extend(true, [], _options.disabledWeekDays);
 				}
@@ -1347,16 +1371,16 @@
 					_xdsoft_datetime.setCurrentTime(0);
 					datetimepicker.trigger('afterOpen.xdsoft');
 				}).on('dblclick.xdsoft', function () {
-					var currentDate = _xdsoft_datetime.getCurrentTime();
-					currentDate = new Date(currentDate.getFullYear(),currentDate.getMonth(),currentDate.getDate());
-					var minDate = _xdsoft_datetime.strToDate(options.minDate);
-					minDate = new Date(minDate.getFullYear(),minDate.getMonth(),minDate.getDate());
-					if(currentDate < minDate) {
+					var currentDate = _xdsoft_datetime.getCurrentTime(), minDate, maxDate;
+					currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+					minDate = _xdsoft_datetime.strToDate(options.minDate);
+					minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+					if (currentDate < minDate) {
 						return;
 					}
-					var maxDate = _xdsoft_datetime.strToDate(options.maxDate);
-					maxDate = new Date(maxDate.getFullYear(),maxDate.getMonth(),maxDate.getDate());
-					if(currentDate > maxDate) {
+					maxDate = _xdsoft_datetime.strToDate(options.maxDate);
+					maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+					if (currentDate > maxDate) {
 						return;
 					}
 					input.val(_xdsoft_datetime.str());
@@ -1579,8 +1603,8 @@
 								classes.push('xdsoft_disabled');
 							}
 							if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
-			                                	classes.push('xdsoft_disabled');
-			                            	}
+								classes.push('xdsoft_disabled');
+							}
 
 							current_time = new Date(_xdsoft_datetime.currentTime);
 							current_time.setHours(parseInt(_xdsoft_datetime.currentTime.getHours(), 10));
@@ -1794,7 +1818,7 @@
 			current_time_index = 0;
 
 			setPos = function () {
-				var offset = datetimepicker.data('input').offset(), top = offset.top + datetimepicker.data('input')[0].offsetHeight - 1, left = offset.left, position = "absolute";
+				var offset = datetimepicker.data('input').offset(), top = offset.top + datetimepicker.data('input')[0].offsetHeight - 1, left = offset.left, position = "absolute", node;
 				if (options.fixed) {
 					top -= $(window).scrollTop();
 					left -= $(window).scrollLeft();
@@ -1810,14 +1834,15 @@
 						left = $(window).width() - datetimepicker[0].offsetWidth;
 					}
 				}
-				var node = datetimepicker[0]
+
+				node = datetimepicker[0];
 				do {
 					node = node.parentNode;
-					if(window.getComputedStyle(node).getPropertyValue('position') === 'relative' && $(window).width() >= node.offsetWidth) {
-						left = left - (($(window).width() - node.offsetWidth)/2)
-						break
+					if (window.getComputedStyle(node).getPropertyValue('position') === 'relative' && $(window).width() >= node.offsetWidth) {
+						left = left - (($(window).width() - node.offsetWidth) / 2);
+						break;
 					}
-				} while(node.nodeName != 'HTML')
+				} while (node.nodeName !== 'HTML');
 				datetimepicker.css({
 					left: left,
 					top: top,
