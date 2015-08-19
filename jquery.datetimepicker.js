@@ -443,6 +443,7 @@
 		},
 		value: '',
 		lang: 'en',
+		rtl: false,
 
 		format:	'Y/m/d H:i',
 		formatTime:	'H:i',
@@ -799,6 +800,9 @@
 			}
 			if (options.weeks) {
 				datetimepicker.addClass('xdsoft_showweeks');
+			}
+			if (options.rtl) {
+				datetimepicker.addClass('xdsoft_rtl');
 			}
 
 			datetimepicker.addClass('xdsoft_' + options.theme);
