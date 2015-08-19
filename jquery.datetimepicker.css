@@ -16,6 +16,9 @@
 	box-sizing: border-box;
 	display: none;
 }
+.xdsoft_datetimepicker.xdsoft_rtl {
+	padding: 8px 0 8px 8px;
+}
 
 .xdsoft_datetimepicker iframe {
 	position: absolute;
@@ -71,6 +74,11 @@
 	float: left;
 	margin-left: 8px;
 }
+.xdsoft_datetimepicker.xdsoft_rtl .xdsoft_datepicker {
+	float: right;
+	margin-right: 8px;
+	margin-left: 0;
+}
 
 .xdsoft_datetimepicker.xdsoft_showweeks .xdsoft_datepicker {
 	width: 256px;
@@ -82,6 +90,11 @@
 	text-align: center;
 	margin-left: 8px;
 	margin-top: 0;
+}
+.xdsoft_datetimepicker.xdsoft_rtl .xdsoft_timepicker {
+	float: right;
+	margin-right: 8px;
+	margin-left: 0;
 }
 
 .xdsoft_datetimepicker .xdsoft_datepicker.active+.xdsoft_timepicker {
@@ -155,6 +168,12 @@
 	display: block;
 	margin-left: 14px;
 	margin-top: 7px;
+}
+.xdsoft_datetimepicker.xdsoft_rtl .xdsoft_timepicker .xdsoft_prev,
+.xdsoft_datetimepicker.xdsoft_rtl .xdsoft_timepicker .xdsoft_next {
+	float: none;
+	margin-left: 0;
+	margin-right: 14px;
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_prev {
