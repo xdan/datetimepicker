@@ -1388,6 +1388,7 @@
 						return;
 					}
 					input.val(_xdsoft_datetime.str());
+					input.trigger('change');
 					datetimepicker.trigger('close.xdsoft');
 				});
 			mounth_picker
