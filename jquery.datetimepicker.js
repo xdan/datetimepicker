@@ -951,14 +951,26 @@
 				if (_options.highlightedPeriods && $.isArray(_options.highlightedPeriods) && _options.highlightedPeriods.length) {
 					highlightedDates = $.extend(true, [], options.highlightedDates);
 					$.each(_options.highlightedPeriods, function (index, value) {
-						var splitData = $.map(value.split(','), $.trim),
-							dateTest = Date.parseDate(splitData[0], options.formatDate), // start date
-							dateEnd = Date.parseDate(splitData[1], options.formatDate),
-							desc = splitData[2],
+						var dateTest, // start date
+							dateEnd,
+							desc,
 							hDate,
 							keyDate,
 							exDesc,
+							style;
+						if ($.isArray(value)) {
+							dateTest = value[0];
+							dateEnd = value[1];
+							desc = value[2];
+							style = value[3];
+						}
+						else {
+							var splitData = $.map(value.split(','), $.trim);
+							dateTest = Date.parseDate(splitData[0], options.formatDate);
+							dateEnd = Date.parseDate(splitData[1], options.formatDate);
+							desc = splitData[2];
 							style = splitData[3];
+						}
 
 						while (dateTest <= dateEnd) {
 							hDate = new HighlightedDate(dateTest, desc, style);
