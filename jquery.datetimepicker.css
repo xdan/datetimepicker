@@ -409,6 +409,10 @@
 	bottom: 0;
 	cursor: pointer;
 }
+.xdsoft_datetimepicker.xdsoft_rtl .xdsoft_scrollbar {
+	left: 0;
+	right: auto;
+}
 .xdsoft_scroller_box {
 	position: relative;
 }
