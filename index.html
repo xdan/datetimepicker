@@ -9,6 +9,12 @@
 	background-color: red !important;
 }
 
+.input{	
+}
+.input-wide{
+	width: 500px;
+}
+
 </style>
 </head>
 <body>
@@ -57,6 +63,11 @@
 	<h3>Dark theme</h3>
 	<p>thank for this <a href="https://github.com/lampslave">https://github.com/lampslave</a></p>
 	<input type="text" id="datetimepicker_dark"/>
+	<h3>Date time format</h3>
+	<p></p>
+	<input type="text" value="D, l, M, F, Y-m-d H:i:s" id="datetimepicker_format_value"/>
+	<input type="button" value="applay =>" id="datetimepicker_format_change"/>
+	<input type="text" id="datetimepicker_format" class="input input-wide"/>
 </body>
 <script src="./jquery.js"></script>
 <script src="./jquery.datetimepicker.js"></script>
@@ -64,6 +75,14 @@
 window.onerror = function(errorMsg) {
 	$('#console').html($('#console').html()+'<br>'+errorMsg)
 }*/
+
+$.datetimepicker.setLocale('en');
+
+$('#datetimepicker_format').datetimepicker({value:'2015/04/15 05:03', format: $("#datetimepicker_format_value").val()});
+$("#datetimepicker_format_change").on("click", function(e){
+	$("#datetimepicker_format").data('xdsoft_datetimepicker').setOptions({format: $("#datetimepicker_format_value").val()});
+});
+
 $('#datetimepicker').datetimepicker({
 dayOfWeekStart : 1,
 lang:'en',
