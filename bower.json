@@ -34,7 +34,9 @@
     "touch"
   ],
   "dependencies": {
-    "jquery": ">= 1.7.2"
+    "jquery": ">= 1.7.2",
+		"jquery-mousewheel": ">= 3.1.13",
+		"date-functions": "https://gist.github.com/42ceeee96db98bf03b83.git"
   },
   "authors": [
     {
