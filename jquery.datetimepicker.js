@@ -4,7 +4,18 @@
  * (c) 2014, Chupurnov Valeriy.
  */
 /*global document,window,jQuery,setTimeout,clearTimeout,HighlightedDate,getCurrentValue*/
-(function ($) {
+(function (factory) {
+	if ( typeof define === 'function' && define.amd ) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', 'jquery-mousewheel'], factory);
+	} else if (typeof exports === 'object') {
+		// Node/CommonJS style for Browserify
+		module.exports = factory;
+	} else {
+		// Browser globals
+		factory(jQuery);
+	}
+}(function ($) {
 	'use strict';
 	var default_options  = {
 		i18n: {
@@ -2118,11 +2129,12 @@
 		});
 	};
 	$.fn.datetimepicker.defaults = default_options;
-}(jQuery));
 
-function HighlightedDate(date, desc, style) {
-	"use strict";
-	this.date = date;
-	this.desc = desc;
-	this.style = style;
-}
+	function HighlightedDate(date, desc, style) {
+		"use strict";
+		this.date = date;
+		this.desc = desc;
+		this.style = style;
+	}
+
+}));
