@@ -4,7 +4,11 @@
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "jquery.datetimepicker.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "concat": "bower update && cat jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js bower_components/date-functions/date-functions.js > build/jquery.datetimepicker.full.js",
+    "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js",
+    "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
+    "build": "npm run minify && npm run concat && npm run minifyconcat"
   },
   "repository": {
     "type": "git",
@@ -24,5 +28,9 @@
   "bugs": {
     "url": "https://github.com/xdan/datetimepicker/issues"
   },
-  "homepage": "https://github.com/xdan/datetimepicker"
+  "homepage": "https://github.com/xdan/datetimepicker",
+  "devDependencies": {
+    "bower": "^1.5.2",
+    "uglifyjs": "^2.4.10"
+  }
 }
