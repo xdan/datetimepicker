@@ -13,7 +13,9 @@
     "**/*.md",
     "**/*.html",
     "**/*.tpl",
-    "**/jquery.js"
+    "**/jquery.js",
+    "bower_components",
+    "node_modules"
   ],
   "keywords": [
     "calendar",
@@ -34,7 +36,9 @@
     "touch"
   ],
   "dependencies": {
-    "jquery": ">= 1.7.2"
+    "jquery": ">= 1.7.2",
+		"jquery-mousewheel": ">= 3.1.13",
+		"date-functions": "~0.0.1"
   },
   "authors": [
     {
