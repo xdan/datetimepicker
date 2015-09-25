@@ -1,5 +1,12 @@
-datetimepicker
+# datetimepicker
 ==============
+
+**!!! The latest version of the options 'lang' obsolete. The language setting is now global. !!!**
+
+Use this:
+```javascript
+$.datetimepicker.setLocale('en');
+```
 [Documentation][doc]
 
 
