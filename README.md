@@ -48,6 +48,6 @@ Build:
 - `npm run build`
 
 When build completed, you'll have the following files:
-- **build/query.datetimepicker.full.js** - browser file
+- **build/jquery.datetimepicker.full.js** - browser file
 - **build/jquery.datetimepicker.full.min.js** - browser minified file
 - **build/jquery.datetimepicker.min.js** - amd module style minified file
