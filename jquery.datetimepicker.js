@@ -700,12 +700,12 @@
 						startTopScroll = parseInt(scroller.css('margin-top'), 10);
 						h1 = scrollbar[0].offsetHeight;
 
-						if (event.type === 'mousedown') {
+						if (event.type === 'mousedown' || event.type === 'touchstart') {
 							if (document) {
 								$(document.body).addClass('xdsoft_noselect');
 							}
-							$([document.body, window]).on('mouseup.xdsoft_scroller', function arguments_callee() {
-								$([document.body, window]).off('mouseup.xdsoft_scroller', arguments_callee)
+							$([document.body, window]).on('touchend mouseup.xdsoft_scroller', function arguments_callee() {
+								$([document.body, window]).off('touchend mouseup.xdsoft_scroller', arguments_callee)
 									.off('mousemove.xdsoft_scroller', calcOffset)
 									.removeClass('xdsoft_noselect');
 							});
@@ -823,7 +823,7 @@
 
 			lazyInit = function (input) {
 				input
-					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function initOnActionCallback(event) {
+					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', function initOnActionCallback(event) {
 						if (input.is(':disabled') || input.data('xdsoft_datetimepicker')) {
 							return;
 						}
@@ -834,7 +834,7 @@
 								createDateTimePicker(input);
 							}
 							input
-								.off('open.xdsoft focusin.xdsoft mousedown.xdsoft', initOnActionCallback)
+								.off('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', initOnActionCallback)
 								.trigger('open.xdsoft');
 						}, 100);
 					});
@@ -893,7 +893,7 @@
 
 			mounth_picker
 				.find('.xdsoft_month,.xdsoft_year')
-					.on('mousedown.xdsoft', function (event) {
+					.on('touchstart mousedown.xdsoft', function (event) {
 					var select = $(this).find('.xdsoft_select').eq(0),
 						val = 0,
 						top = 0,
@@ -925,12 +925,11 @@
 			mounth_picker
 				.find('.xdsoft_select')
 					.xdsoftScroller()
-				.on('mousedown.xdsoft', function (event) {
+				.on('touchstart mousedown.xdsoft', function (event) {
 					event.stopPropagation();
 					event.preventDefault();
 				})
-				.on('mousedown.xdsoft', '.xdsoft_option', function (event) {
-
+				.on('touchstart mousedown.xdsoft', '.xdsoft_option', function (event) {
 					if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
 						_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 					}
@@ -1249,7 +1248,7 @@
 
 			datetimepicker
 				.data('options', options)
-				.on('mousedown.xdsoft', function (event) {
+				.on('touchstart mousedown.xdsoft', function (event) {
 					event.stopPropagation();
 					event.preventDefault();
 					yearselect.hide();
@@ -1449,7 +1448,7 @@
 
 			_xdsoft_datetime = new XDSoft_datetime();
 
-			applyButton.on('click', function (e) {//pathbrite
+			applyButton.on('touchend click', function (e) {//pathbrite
                 e.preventDefault();
                 datetimepicker.data('changed', true);
                 _xdsoft_datetime.setCurrentTime(getCurrentValue());
@@ -1458,7 +1457,7 @@
             });
 			mounth_picker
 				.find('.xdsoft_today_button')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					datetimepicker.data('changed', true);
 					_xdsoft_datetime.setCurrentTime(0);
 					datetimepicker.trigger('afterOpen.xdsoft');
@@ -1481,7 +1480,7 @@
 				});
 			mounth_picker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false;
@@ -1499,16 +1498,16 @@
 						}
 					}(500));
 
-					$([document.body, window]).on('mouseup.xdsoft', function arguments_callee2() {
+					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee2() {
 						clearTimeout(timer);
 						stop = true;
-						$([document.body, window]).off('mouseup.xdsoft', arguments_callee2);
+						$([document.body, window]).off('touchend mouseup.xdsoft', arguments_callee2);
 					});
 				});
 
 			timepicker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false,
@@ -1528,11 +1527,11 @@
 							timer = setTimeout(arguments_callee4, v || period);
 						}
 					}(500));
-					$([document.body, window]).on('mouseup.xdsoft', function arguments_callee5() {
+					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee5() {
 						clearTimeout(timer);
 						stop = true;
 						$([document.body, window])
-							.off('mouseup.xdsoft', arguments_callee5);
+							.off('touchend mouseup.xdsoft', arguments_callee5);
 					});
 				});
 
@@ -1781,7 +1780,7 @@
 
 			timerclick = 0;
 			calendar
-				.on('click.xdsoft', 'td', function (xdevent) {
+				.on('touchend click.xdsoft', 'td', function (xdevent) {
 					xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 					timerclick += 1;
 					var $this = $(this),
@@ -1821,7 +1820,7 @@
 				});
 
 			timebox
-				.on('click.xdsoft', 'div', function (xdevent) {
+				.on('touchend click.xdsoft', 'div', function (xdevent) {
 					xdevent.stopPropagation();
 					var $this = $(this),
 						currentTime = _xdsoft_datetime.currentTime;
@@ -1962,9 +1961,9 @@
 							.on('resize.xdsoft', setPos);
 
 						if (options.closeOnWithoutClick) {
-							$([document.body, window]).on('mousedown.xdsoft', function arguments_callee6() {
+							$([document.body, window]).on('touchstart mousedown.xdsoft', function arguments_callee6() {
 								datetimepicker.trigger('close.xdsoft');
-								$([document.body, window]).off('mousedown.xdsoft', arguments_callee6);
+								$([document.body, window]).off('touchstart mousedown.xdsoft', arguments_callee6);
 							});
 						}
 					}
@@ -2030,7 +2029,7 @@
 
 			input
 				.data('xdsoft_datetimepicker', datetimepicker)
-				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function (event) {
+				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', function (event) {
 					if (input.is(':disabled') || (input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick)) {
 						return;
 					}
@@ -2070,7 +2069,7 @@
 					.data('xdsoft_datetimepicker', null)
 					.off('.xdsoft');
 				$(window).off('resize.xdsoft');
-				$([window, document.body]).off('mousedown.xdsoft');
+				$([window, document.body]).off('mousedown.xdsoft touchstart');
 				if (input.unmousewheel) {
 					input.unmousewheel();
 				}
