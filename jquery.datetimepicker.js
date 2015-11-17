@@ -1156,6 +1156,7 @@
 					if ($.type(options.mask) === 'string') {
 						if (!isValidValue(options.mask, input.val())) {
 							input.val(options.mask.replace(/[0-9]/g, '_'));
+							setCaretPos(input[0], 0);
 						}
 
 						input.on('keydown.xdsoft', function (event) {
