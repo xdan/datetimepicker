@@ -2050,7 +2050,7 @@
 					var val = this.value, elementSelector,
 						key = event.which;
 					if ([ENTER].indexOf(key) !== -1 && options.enterLikeTab) {
-						elementSelector = $("input:visible,textarea:visible");
+						elementSelector = $("input:visible,textarea:visible,button:visible,a:visible");
 						datetimepicker.trigger('close.xdsoft');
 						elementSelector.eq(elementSelector.index(this) + 1).focus();
 						return false;
