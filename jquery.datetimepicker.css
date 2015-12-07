@@ -67,7 +67,7 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 224px;
+	width: 310px;
 	float: left;
 	margin-left: 8px;
 }
@@ -273,7 +273,7 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar th {
-	height: 25px;
+	height: 28px;
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar td,.xdsoft_datetimepicker .xdsoft_calendar th {
@@ -520,4 +520,8 @@
   /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4f8fa', endColorstr='#FFF',GradientType=0 );
   /* IE6-9 */
+}
+
+.xdsoft_count_on_day {
+	color: #33aaff;
 }
