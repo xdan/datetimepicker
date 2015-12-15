@@ -1682,7 +1682,7 @@
 						time = '';
 						h = '';
 						m = '';
-						
+
 						line_time = function line_time(h, m) {
 							var now = _xdsoft_datetime.now(), optionDateTime, current_time,
 								isALlowTimesInit = options.allowTimes && $.isArray(options.allowTimes) && options.allowTimes.length;
@@ -1703,7 +1703,7 @@
 
 							current_time = new Date(_xdsoft_datetime.currentTime);
 							current_time.setHours(parseInt(_xdsoft_datetime.currentTime.getHours(), 10));
-							
+
 							if (!isALlowTimesInit) {
 								current_time.setMinutes(Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes() / options.step) * options.step);
 							}
@@ -1915,7 +1915,7 @@
 			current_time_index = 0;
 
 			setPos = function () {
-				var offset = datetimepicker.data('input').offset(), top = offset.top + datetimepicker.data('input')[0].offsetHeight - 1, left = offset.left, position = "absolute", node;
+				var offset = datetimepicker.data('input').offset(), datetimepickerelement = datetimepicker.data('input')[0], top = offset.top + datetimepickerelement.offsetHeight - 1, left = offset.left, position = "absolute", node;
 				if (datetimepicker.data('input').parent().css('direction') == 'rtl')
 					left -= (datetimepicker.outerWidth() - datetimepicker.data('input').outerWidth());
 				if (options.fixed) {
@@ -1923,14 +1923,14 @@
 					left -= $(window).scrollLeft();
 					position = "fixed";
 				} else {
-					if (top + datetimepicker[0].offsetHeight > $(window).height() + $(window).scrollTop()) {
-						top = offset.top - datetimepicker[0].offsetHeight + 1;
+					if (top + datetimepickerelement.offsetHeight > $(window).height() + $(window).scrollTop()) {
+						top = offset.top - datetimepickerelement.offsetHeight + 1;
 					}
 					if (top < 0) {
 						top = 0;
 					}
-					if (left + datetimepicker[0].offsetWidth > $(window).width()) {
-						left = $(window).width() - datetimepicker[0].offsetWidth;
+					if (left + datetimepickerelement.offsetWidth > $(window).width()) {
+						left = $(window).width() - datetimepickerelement.offsetWidth;
 					}
 				}
 
