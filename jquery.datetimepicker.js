@@ -613,7 +613,16 @@
 			// Override Parse and Format Library entities
 			Date.monthNames = default_options.i18n[globalLocale].months;
 			Date.dayNames = default_options.i18n[globalLocale].dayOfWeek;
-		}
+		},
+		RFC_2822: 'D, d M Y H:i:s O',
+		ATOM: 'Y-m-d\TH:i:sP',
+		ISO_8601: 'Y-m-d\TH:i:sO',
+		RFC_822: 'D, d M y H:i:s O',
+		RFC_850: 'l, d-M-y H:i:s T',
+		RFC_1036: 'D, d M y H:i:s O',
+		RFC_1123: 'D, d M Y H:i:s O',
+		RSS: 'D, d M Y H:i:s O',
+		W3C: 'Y-m-d\TH:i:sP'
 	};
 
 	// fix for ie8
