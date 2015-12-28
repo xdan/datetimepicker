@@ -5,7 +5,7 @@
   "main": "jquery.datetimepicker.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "concat": "concat-cli -f jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js bower_components/date-functions/date-functions.js -o build/jquery.datetimepicker.full.js",
+    "concat": "concat-cli -f bower_components/php-date-formatter/js/php-date-formatter.js jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
     "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js",
     "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
     "build": "npm run minify && npm run concat && npm run minifyconcat"
