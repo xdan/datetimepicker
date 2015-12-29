@@ -1,3 +1,580 @@
+/*!
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
+ * @version 1.3.3
+ *
+ * Date formatter utility library that allows formatting date/time variables or Date objects using PHP DateTime format.
+ * @see http://php.net/manual/en/function.date.php
+ *
+ * For more JQuery plugins visit http://plugins.krajee.com
+ * For more Yii related demos visit http://demos.krajee.com
+ */
+var DateFormatter;
+(function () {
+    "use strict";
+
+    var _compare, _lpad, _extend, defaultSettings, DAY, HOUR;
+    DAY = 1000 * 60 * 60 * 24;
+    HOUR = 3600;
+
+    _compare = function (str1, str2) {
+        return typeof(str1) === 'string' && typeof(str2) === 'string' && str1.toLowerCase() === str2.toLowerCase();
+    };
+    _lpad = function (value, length, char) {
+        var chr = char || '0', val = value.toString();
+        return val.length < length ? _lpad(chr + val, length) : val;
+    };
+    _extend = function (out) {
+        var i, obj;
+        out = out || {};
+        for (i = 1; i < arguments.length; i++) {
+            obj = arguments[i];
+            if (!obj) {
+                continue;
+            }
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (typeof obj[key] === 'object') {
+                        _extend(out[key], obj[key]);
+                    } else {
+                        out[key] = obj[key];
+                    }
+                }
+            }
+        }
+        return out;
+    };
+    defaultSettings = {
+        dateSettings: {
+            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            months: [
+                'January', 'February', 'March', 'April', 'May', 'June', 'July',
+                'August', 'September', 'October', 'November', 'December'
+            ],
+            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            meridiem: ['AM', 'PM'],
+            ordinal: function (number) {
+                var n = number % 10, suffixes = {1: 'st', 2: 'nd', 3: 'rd'};
+                return Math.floor(number % 100 / 10) === 1 || !suffixes[n] ? 'th' : suffixes[n];
+            }
+        },
+        separators: /[ \-+\/\.T:@]/g,
+        validParts: /[dDjlNSwzWFmMntLoYyaABgGhHisueTIOPZcrU]/g,
+        intParts: /[djwNzmnyYhHgGis]/g,
+        tzParts: /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
+        tzClip: /[^-+\dA-Z]/g
+    };
+
+    DateFormatter = function (options) {
+        var self = this, config = _extend(defaultSettings, options);
+        self.dateSettings = config.dateSettings;
+        self.separators = config.separators;
+        self.validParts = config.validParts;
+        self.intParts = config.intParts;
+        self.tzParts = config.tzParts;
+        self.tzClip = config.tzClip;
+    };
+
+    DateFormatter.prototype = {
+        constructor: DateFormatter,
+        parseDate: function (vDate, vFormat) {
+            var self = this, vFormatParts, vDateParts, i, vDateFlag = false, vTimeFlag = false, vDatePart, iDatePart,
+                vSettings = self.dateSettings, vMonth, vMeriIndex, vMeriOffset, len, mer,
+                out = {date: null, year: null, month: null, day: null, hour: 0, min: 0, sec: 0};
+            if (!vDate) {
+                return undefined;
+            }
+            if (vDate instanceof Date) {
+                return vDate;
+            }
+            if (typeof vDate === 'number') {
+                return new Date(vDate);
+            }
+            if (vFormat === 'U') {
+                i = parseInt(vDate);
+                return i ? new Date(i * 1000) : vDate;
+            }
+            if (typeof vDate !== 'string') {
+                return '';
+            }
+            vFormatParts = vFormat.match(self.validParts);
+            if (!vFormatParts || vFormatParts.length === 0) {
+                throw new Error("Invalid date format definition.");
+            }
+            vDateParts = vDate.replace(self.separators, '\0').split('\0');
+            for (i = 0; i < vDateParts.length; i++) {
+                vDatePart = vDateParts[i];
+                iDatePart = parseInt(vDatePart);
+                switch (vFormatParts[i]) {
+                    case 'y':
+                    case 'Y':
+                        len = vDatePart.length;
+                        if (len === 2) {
+                            out.year = parseInt((iDatePart < 70 ? '20' : '19') + vDatePart);
+                        } else if (len === 4) {
+                            out.year = iDatePart;
+                        }
+                        vDateFlag = true;
+                        break;
+                    case 'm':
+                    case 'n':
+                    case 'M':
+                    case 'F':
+                        if (isNaN(vDatePart)) {
+                            vMonth = vSettings.monthsShort.indexOf(vDatePart);
+                            if (vMonth > -1) {
+                                out.month = vMonth + 1;
+                            }
+                            vMonth = vSettings.months.indexOf(vDatePart);
+                            if (vMonth > -1) {
+                                out.month = vMonth + 1;
+                            }
+                        } else {
+                            if (iDatePart >= 1 && iDatePart <= 12) {
+                                out.month = iDatePart;
+                            }
+                        }
+                        vDateFlag = true;
+                        break;
+                    case 'd':
+                    case 'j':
+                        if (iDatePart >= 1 && iDatePart <= 31) {
+                            out.day = iDatePart;
+                        }
+                        vDateFlag = true;
+                        break;
+                    case 'g':
+                    case 'h':
+                        vMeriIndex = (vFormatParts.indexOf('a') > -1) ? vFormatParts.indexOf('a') :
+                            (vFormatParts.indexOf('A') > -1) ? vFormatParts.indexOf('A') : -1;
+                        mer = vDateParts[vMeriIndex];
+                        if (vMeriIndex > -1) {
+                            vMeriOffset = _compare(mer, vSettings.meridiem[0]) ? 0 :
+                                (_compare(mer, vSettings.meridiem[1]) ? 12 : -1);
+                            if (iDatePart >= 1 && iDatePart <= 12 && vMeriOffset > -1) {
+                                out.hour = iDatePart + vMeriOffset - 1;
+                            } else if (iDatePart >= 0 && iDatePart <= 23) {
+                                out.hour = iDatePart;
+                            }
+                        } else if (iDatePart >= 0 && iDatePart <= 23) {
+                            out.hour = iDatePart;
+                        }
+                        vTimeFlag = true;
+                        break;
+                    case 'G':
+                    case 'H':
+                        if (iDatePart >= 0 && iDatePart <= 23) {
+                            out.hour = iDatePart;
+                        }
+                        vTimeFlag = true;
+                        break;
+                    case 'i':
+                        if (iDatePart >= 0 && iDatePart <= 59) {
+                            out.min = iDatePart;
+                        }
+                        vTimeFlag = true;
+                        break;
+                    case 's':
+                        if (iDatePart >= 0 && iDatePart <= 59) {
+                            out.sec = iDatePart;
+                        }
+                        vTimeFlag = true;
+                        break;
+                }
+            }
+            if (vDateFlag === true && out.year && out.month && out.day) {
+                out.date = new Date(out.year, out.month - 1, out.day, out.hour, out.min, out.sec, 0);
+            } else {
+                if (vTimeFlag !== true) {
+                    return false;
+                }
+                out.date = new Date(0, 0, 0, out.hour, out.min, out.sec, 0);
+            }
+            return out.date;
+        },
+        guessDate: function (vDateStr, vFormat) {
+            if (typeof vDateStr !== 'string') {
+                return vDateStr;
+            }
+            var self = this, vParts = vDateStr.replace(self.separators, '\0').split('\0'), vPattern = /^[djmn]/g,
+                vFormatParts = vFormat.match(self.validParts), vDate = new Date(), vDigit = 0, vYear, i, iPart, iSec;
+
+            if (!vPattern.test(vFormatParts[0])) {
+                return vDateStr;
+            }
+
+            for (i = 0; i < vParts.length; i++) {
+                vDigit = 2;
+                iPart = vParts[i];
+                iSec = parseInt(iPart.substr(0, 2));
+                switch (i) {
+                    case 0:
+                        if (vFormatParts[0] === 'm' || vFormatParts[0] === 'n') {
+                            vDate.setMonth(iSec - 1);
+                        } else {
+                            vDate.setDate(iSec);
+                        }
+                        break;
+                    case 1:
+                        if (vFormatParts[0] === 'm' || vFormatParts[0] === 'n') {
+                            vDate.setDate(iSec);
+                        } else {
+                            vDate.setMonth(iSec - 1);
+                        }
+                        break;
+                    case 2:
+                        vYear = vDate.getFullYear();
+                        if (iPart.length < 4) {
+                            vDate.setFullYear(parseInt(vYear.toString().substr(0, 4 - iPart.length) + iPart));
+                            vDigit = iPart.length;
+                        } else {
+                            vDate.setFullYear = parseInt(iPart.substr(0, 4));
+                            vDigit = 4;
+                        }
+                        break;
+                    case 3:
+                        vDate.setHours(iSec);
+                        break;
+                    case 4:
+                        vDate.setMinutes(iSec);
+                        break;
+                    case 5:
+                        vDate.setSeconds(iSec);
+                        break;
+                }
+                if (iPart.substr(vDigit).length > 0) {
+                    vParts.splice(i + 1, 0, iPart.substr(vDigit));
+                }
+            }
+            return vDate;
+        },
+        parseFormat: function (vChar, vDate) {
+            var self = this, vSettings = self.dateSettings, fmt, backspace = /\\?(.?)/gi, doFormat = function (t, s) {
+                return fmt[t] ? fmt[t]() : s;
+            };
+            fmt = {
+                /////////
+                // DAY //
+                /////////
+                /**
+                 * Day of month with leading 0: `01..31`
+                 * @return {string}
+                 */
+                d: function () {
+                    return _lpad(fmt.j(), 2);
+                },
+                /**
+                 * Shorthand day name: `Mon...Sun`
+                 * @return {string}
+                 */
+                D: function () {
+                    return vSettings.daysShort[fmt.w()];
+                },
+                /**
+                 * Day of month: `1..31`
+                 * @return {number}
+                 */
+                j: function () {
+                    return vDate.getDate();
+                },
+                /**
+                 * Full day name: `Monday...Sunday`
+                 * @return {number}
+                 */
+                l: function () {
+                    return vSettings.days[fmt.w()];
+                },
+                /**
+                 * ISO-8601 day of week: `1[Mon]..7[Sun]`
+                 * @return {number}
+                 */
+                N: function () {
+                    return fmt.w() || 7;
+                },
+                /**
+                 * Day of week: `0[Sun]..6[Sat]`
+                 * @return {number}
+                 */
+                w: function () {
+                    return vDate.getDay();
+                },
+                /**
+                 * Day of year: `0..365`
+                 * @return {number}
+                 */
+                z: function () {
+                    var a = new Date(fmt.Y(), fmt.n() - 1, fmt.j()), b = new Date(fmt.Y(), 0, 1);
+                    return Math.round((a - b) / DAY);
+                },
+
+                //////////
+                // WEEK //
+                //////////
+                /**
+                 * ISO-8601 week number
+                 * @return {number}
+                 */
+                W: function () {
+                    var a = new Date(fmt.Y(), fmt.n() - 1, fmt.j() - fmt.N() + 3), b = new Date(a.getFullYear(), 0, 4);
+                    return _lpad(1 + Math.round((a - b) / DAY / 7), 2);
+                },
+
+                ///////////
+                // MONTH //
+                ///////////
+                /**
+                 * Full month name: `January...December`
+                 * @return {string}
+                 */
+                F: function () {
+                    return vSettings.months[vDate.getMonth()];
+                },
+                /**
+                 * Month w/leading 0: `01..12`
+                 * @return {string}
+                 */
+                m: function () {
+                    return _lpad(fmt.n(), 2);
+                },
+                /**
+                 * Shorthand month name; `Jan...Dec`
+                 * @return {string}
+                 */
+                M: function () {
+                    return vSettings.monthsShort[vDate.getMonth()];
+                },
+                /**
+                 * Month: `1...12`
+                 * @return {number}
+                 */
+                n: function () {
+                    return vDate.getMonth() + 1;
+                },
+                /**
+                 * Days in month: `28...31`
+                 * @return {number}
+                 */
+                t: function () {
+                    return (new Date(fmt.Y(), fmt.n(), 0)).getDate();
+                },
+
+                //////////
+                // YEAR //
+                //////////
+                /**
+                 * Is leap year? `0 or 1`
+                 * @return {number}
+                 */
+                L: function () {
+                    var Y = fmt.Y();
+                    return (Y % 4 === 0 && Y % 100 !== 0 || Y % 400 === 0) ? 1 : 0;
+                },
+                /**
+                 * ISO-8601 year
+                 * @return {number}
+                 */
+                o: function () {
+                    var n = fmt.n(), W = fmt.W(), Y = fmt.Y();
+                    return Y + (n === 12 && W < 9 ? 1 : n === 1 && W > 9 ? -1 : 0);
+                },
+                /**
+                 * Full year: `e.g. 1980...2010`
+                 * @return {number}
+                 */
+                Y: function () {
+                    return vDate.getFullYear();
+                },
+                /**
+                 * Last two digits of year: `00...99`
+                 * @return {string}
+                 */
+                y: function () {
+                    return fmt.Y().toString().slice(-2);
+                },
+
+                //////////
+                // TIME //
+                //////////
+                /**
+                 * Meridian lower: `am or pm`
+                 * @return {string}
+                 */
+                a: function () {
+                    return fmt.A().toLowerCase();
+                },
+                /**
+                 * Meridian upper: `AM or PM`
+                 * @return {string}
+                 */
+                A: function () {
+                    var n = fmt.G() < 12 ? 0 : 1;
+                    return vSettings.meridiem[n];
+                },
+                /**
+                 * Swatch Internet time: `000..999`
+                 * @return {string}
+                 */
+                B: function () {
+                    var H = vDate.getUTCHours() * HOUR, i = vDate.getUTCMinutes() * 60, s = vDate.getUTCSeconds();
+                    return _lpad(Math.floor((H + i + s + HOUR) / 86.4) % 1000, 3);
+                },
+                /**
+                 * 12-Hours: `1..12`
+                 * @return {number}
+                 */
+                g: function () {
+                    return fmt.G() % 12 || 12;
+                },
+                /**
+                 * 24-Hours: `0..23`
+                 * @return {number}
+                 */
+                G: function () {
+                    return vDate.getHours();
+                },
+                /**
+                 * 12-Hours with leading 0: `01..12`
+                 * @return {string}
+                 */
+                h: function () {
+                    return _lpad(fmt.g(), 2);
+                },
+                /**
+                 * 24-Hours w/leading 0: `00..23`
+                 * @return {string}
+                 */
+                H: function () {
+                    return _lpad(fmt.G(), 2);
+                },
+                /**
+                 * Minutes w/leading 0: `00..59`
+                 * @return {string}
+                 */
+                i: function () {
+                    return _lpad(vDate.getMinutes(), 2);
+                },
+                /**
+                 * Seconds w/leading 0: `00..59`
+                 * @return {string}
+                 */
+                s: function () {
+                    return _lpad(vDate.getSeconds(), 2);
+                },
+                /**
+                 * Microseconds: `000000-999000`
+                 * @return {string}
+                 */
+                u: function () {
+                    return _lpad(vDate.getMilliseconds() * 1000, 6);
+                },
+
+                //////////////
+                // TIMEZONE //
+                //////////////
+                /**
+                 * Timezone identifier: `e.g. Atlantic/Azores, ...`
+                 * @return {string}
+                 */
+                e: function () {
+                    var str = /\((.*)\)/.exec(String(vDate))[1];
+                    return str || 'Coordinated Universal Time';
+                },
+                /**
+                 * Timezone abbreviation: `e.g. EST, MDT, ...`
+                 * @return {string}
+                 */
+                T: function () {
+                    var str = (String(vDate).match(self.tzParts) || [""]).pop().replace(self.tzClip, "");
+                    return str || 'UTC';
+                },
+                /**
+                 * DST observed? `0 or 1`
+                 * @return {number}
+                 */
+                I: function () {
+                    var a = new Date(fmt.Y(), 0), c = Date.UTC(fmt.Y(), 0),
+                        b = new Date(fmt.Y(), 6), d = Date.UTC(fmt.Y(), 6);
+                    return ((a - c) !== (b - d)) ? 1 : 0;
+                },
+                /**
+                 * Difference to GMT in hour format: `e.g. +0200`
+                 * @return {string}
+                 */
+                O: function () {
+                    var tzo = vDate.getTimezoneOffset(), a = Math.abs(tzo);
+                    return (tzo > 0 ? '-' : '+') + _lpad(Math.floor(a / 60) * 100 + a % 60, 4);
+                },
+                /**
+                 * Difference to GMT with colon: `e.g. +02:00`
+                 * @return {string}
+                 */
+                P: function () {
+                    var O = fmt.O();
+                    return (O.substr(0, 3) + ':' + O.substr(3, 2));
+                },
+                /**
+                 * Timezone offset in seconds: `-43200...50400`
+                 * @return {number}
+                 */
+                Z: function () {
+                    return -vDate.getTimezoneOffset() * 60;
+                },
+
+                ////////////////////
+                // FULL DATE TIME //
+                ////////////////////
+                /**
+                 * ISO-8601 date
+                 * @return {string}
+                 */
+                c: function () {
+                    return 'Y-m-d\\TH:i:sP'.replace(backspace, doFormat);
+                },
+                /**
+                 * RFC 2822 date
+                 * @return {string}
+                 */
+                r: function () {
+                    return 'D, d M Y H:i:s O'.replace(backspace, doFormat);
+                },
+                /**
+                 * Seconds since UNIX epoch
+                 * @return {number}
+                 */
+                U: function () {
+                    return vDate.getTime() / 1000 || 0;
+                }
+            };
+            return doFormat(vChar, vChar);
+        },
+        formatDate: function (vDate, vFormat) {
+            var self = this, i, n, len, str, vChar, vDateStr = '';
+            if (typeof vDate === 'string') {
+                vDate = self.parseDate(vDate, vFormat);
+                if (vDate === false) {
+                    return false;
+                }
+            }
+            if (vDate instanceof Date) {
+                len = vFormat.length;
+                for (i = 0; i < len; i++) {
+                    vChar = vFormat.charAt(i);
+                    if (vChar === 'S') {
+                        continue;
+                    }
+                    str = self.parseFormat(vChar, vDate);
+                    if (i !== (len - 1) && self.intParts.test(vChar) && vFormat.charAt(i + 1) === 'S') {
+                        n = parseInt(str);
+                        str += self.dateSettings.ordinal(n);
+                    }
+                    vDateStr += str;
+                }
+                return vDateStr;
+            }
+            return '';
+        }
+    };
+})();/* global DateFormatter */
 /**
  * @preserve jQuery DateTimePicker plugin v2.4.5
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
@@ -493,17 +1070,28 @@
 				],
 				dayOfWeek: ["Կիրակի", "Երկուշաբթի", "Երեքշաբթի", "Չորեքշաբթի", "Հինգշաբթի", "Ուրբաթ", "Շաբաթ"]
 			},
-            kg: { // Kyrgyz
-                months: [
-                    'Үчтүн айы', 'Бирдин айы', 'Жалган Куран', 'Чын Куран', 'Бугу', 'Кулжа', 'Теке', 'Баш Оона', 'Аяк Оона', 'Тогуздун айы', 'Жетинин айы', 'Бештин айы'
-                ],
-                dayOfWeekShort: [
-                    "Жек", "Дүй", "Шей", "Шар", "Бей", "Жум", "Ише"
-                ],
+			kg: { // Kyrgyz
+				months: [
+					'Үчтүн айы', 'Бирдин айы', 'Жалган Куран', 'Чын Куран', 'Бугу', 'Кулжа', 'Теке', 'Баш Оона', 'Аяк Оона', 'Тогуздун айы', 'Жетинин айы', 'Бештин айы'
+				],
+				dayOfWeekShort: [
+					"Жек", "Дүй", "Шей", "Шар", "Бей", "Жум", "Ише"
+				],
 				dayOfWeek: [
-                    "Жекшемб", "Дүйшөмб", "Шейшемб", "Шаршемб", "Бейшемби", "Жума", "Ишенб"
-                ]
-            }
+					"Жекшемб", "Дүйшөмб", "Шейшемб", "Шаршемб", "Бейшемби", "Жума", "Ишенб"
+				]
+			},
+			rm: { // Romansh
+				months: [
+					"Schaner", "Favrer", "Mars", "Avrigl", "Matg", "Zercladur", "Fanadur", "Avust", "Settember", "October", "November", "December"
+				],
+				dayOfWeekShort: [
+					"Du", "Gli", "Ma", "Me", "Gie", "Ve", "So"
+				],
+				dayOfWeek: [
+					"Dumengia", "Glindesdi", "Mardi", "Mesemna", "Gievgia", "Venderdi", "Sonda"
+				]
+			},
 		},
 		value: '',
 		rtl: false,
@@ -593,17 +1181,51 @@
         showApplyButton: false
 	};
 
-	var globalLocaleDefault = 'en',
+	var dateHelper = null,
+		globalLocaleDefault = 'en',
 		globalLocale = 'en';
+	
+	var dateFormatterOptionsDefault = {
+		meridiem: ['AM', 'PM']
+	};
+	
+	var initDateFormatter = function(){
+		var locale = default_options.i18n[globalLocale],
+			opts = {
+				days: locale.dayOfWeek,
+				daysShort: locale.dayOfWeekShort,
+				months: locale.months,
+				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) }),			
+			};
+		
+	 	dateHelper = new DateFormatter({
+			dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
+		});
+	};
+		
 	// for locale settings
 	$.datetimepicker = {
 		setLocale: function(locale){
-			globalLocale = default_options.i18n[locale]?locale:globalLocaleDefault;
-			// Override Parse and Format Library entities
-			Date.monthNames = default_options.i18n[globalLocale].months;
-			Date.dayNames = default_options.i18n[globalLocale].dayOfWeek;
-		}
+			var newLocale = default_options.i18n[locale]?locale:globalLocaleDefault;
+			if(globalLocale != newLocale){
+				globalLocale = newLocale;
+				// reinit date formatter
+				initDateFormatter();
+			}
+		},
+		RFC_2822: 'D, d M Y H:i:s O',
+		ATOM: 'Y-m-d\TH:i:sP',
+		ISO_8601: 'Y-m-d\TH:i:sO',
+		RFC_822: 'D, d M y H:i:s O',
+		RFC_850: 'l, d-M-y H:i:s T',
+		RFC_1036: 'D, d M y H:i:s O',
+		RFC_1123: 'D, d M Y H:i:s O',
+		RSS: 'D, d M Y H:i:s O',
+		W3C: 'Y-m-d\TH:i:sP'
 	};
+	
+	// first init date formatter
+	initDateFormatter();
 
 	// fix for ie8
 	if (!window.getComputedStyle) {
@@ -700,12 +1322,12 @@
 						startTopScroll = parseInt(scroller.css('margin-top'), 10);
 						h1 = scrollbar[0].offsetHeight;
 
-						if (event.type === 'mousedown') {
+						if (event.type === 'mousedown' || event.type === 'touchstart') {
 							if (document) {
 								$(document.body).addClass('xdsoft_noselect');
 							}
-							$([document.body, window]).on('mouseup.xdsoft_scroller', function arguments_callee() {
-								$([document.body, window]).off('mouseup.xdsoft_scroller', arguments_callee)
+							$([document.body, window]).on('touchend mouseup.xdsoft_scroller', function arguments_callee() {
+								$([document.body, window]).off('touchend mouseup.xdsoft_scroller', arguments_callee)
 									.off('mousemove.xdsoft_scroller', calcOffset)
 									.removeClass('xdsoft_noselect');
 							});
@@ -823,7 +1445,7 @@
 
 			lazyInit = function (input) {
 				input
-					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function initOnActionCallback(event) {
+					.on('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', function initOnActionCallback(event) {
 						if (input.is(':disabled') || input.data('xdsoft_datetimepicker')) {
 							return;
 						}
@@ -834,7 +1456,7 @@
 								createDateTimePicker(input);
 							}
 							input
-								.off('open.xdsoft focusin.xdsoft mousedown.xdsoft', initOnActionCallback)
+								.off('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', initOnActionCallback)
 								.trigger('open.xdsoft');
 						}, 100);
 					});
@@ -893,7 +1515,7 @@
 
 			mounth_picker
 				.find('.xdsoft_month,.xdsoft_year')
-					.on('mousedown.xdsoft', function (event) {
+					.on('touchstart mousedown.xdsoft', function (event) {
 					var select = $(this).find('.xdsoft_select').eq(0),
 						val = 0,
 						top = 0,
@@ -925,12 +1547,11 @@
 			mounth_picker
 				.find('.xdsoft_select')
 					.xdsoftScroller()
-				.on('mousedown.xdsoft', function (event) {
+				.on('touchstart mousedown.xdsoft', function (event) {
 					event.stopPropagation();
 					event.preventDefault();
 				})
-				.on('mousedown.xdsoft', '.xdsoft_option', function (event) {
-
+				.on('touchstart mousedown.xdsoft', '.xdsoft_option', function (event) {
 					if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
 						_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 					}
@@ -1009,8 +1630,8 @@
 					$.each(_options.highlightedDates, function (index, value) {
 						var splitData = $.map(value.split(','), $.trim),
 							exDesc,
-							hDate = new HighlightedDate(Date.parseDate(splitData[0], options.formatDate), splitData[1], splitData[2]), // date, desc, style
-							keyDate = hDate.date.dateFormat(options.formatDate);
+							hDate = new HighlightedDate(dateHelper.parseDate(splitData[0], options.formatDate), splitData[1], splitData[2]), // date, desc, style
+							keyDate = dateHelper.formatDate(hDate.date, options.formatDate);
 						if (highlightedDates[keyDate] !== undefined) {
 							exDesc = highlightedDates[keyDate].desc;
 							if (exDesc && exDesc.length && hDate.desc && hDate.desc.length) {
@@ -1042,15 +1663,15 @@
 						}
 						else {
 							var splitData = $.map(value.split(','), $.trim);
-							dateTest = Date.parseDate(splitData[0], options.formatDate);
-							dateEnd = Date.parseDate(splitData[1], options.formatDate);
+							dateTest = dateHelper.parseDate(splitData[0], options.formatDate);
+							dateEnd = dateHelper.parseDate(splitData[1], options.formatDate);
 							desc = splitData[2];
 							style = splitData[3];
 						}
 
 						while (dateTest <= dateEnd) {
 							hDate = new HighlightedDate(dateTest, desc, style);
-							keyDate = dateTest.dateFormat(options.formatDate);
+							keyDate = dateHelper.formatDate(dateTest, options.formatDate);
 							dateTest.setDate(dateTest.getDate() + 1);
 							if (highlightedDates[keyDate] !== undefined) {
 								exDesc = highlightedDates[keyDate].desc;
@@ -1119,11 +1740,11 @@
 				}
 
 				if (options.minDate && /^[\+\-](.*)$/.test(options.minDate)) {
-					options.minDate = _xdsoft_datetime.strToDateTime(options.minDate).dateFormat(options.formatDate);
+					options.minDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.minDate), options.formatDate);
 				}
 
 				if (options.maxDate &&  /^[\+\-](.*)$/.test(options.maxDate)) {
-					options.maxDate = _xdsoft_datetime.strToDateTime(options.maxDate).dateFormat(options.formatDate);
+					options.maxDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.maxDate), options.formatDate);
 				}
 
 				applyButton.toggle(options.showApplyButton);
@@ -1157,6 +1778,7 @@
 					if ($.type(options.mask) === 'string') {
 						if (!isValidValue(options.mask, input.val())) {
 							input.val(options.mask.replace(/[0-9]/g, '_'));
+							setCaretPos(input[0], 0);
 						}
 
 						input.on('keydown.xdsoft', function (event) {
@@ -1219,7 +1841,7 @@
 							if (options.allowBlank && !$.trim($(this).val()).length) {
 								$(this).val(null);
 								datetimepicker.data('xdsoft_datetime').empty();
-							} else if (!Date.parseDate($(this).val(), options.format)) {
+							} else if (!dateHelper.parseDate($(this).val(), options.format)) {
 								var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
 									splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
 
@@ -1229,7 +1851,7 @@
 										return item > 9 ? item : '0' + item;
 									}).join(':'));
 								} else {
-									$(this).val((_xdsoft_datetime.now()).dateFormat(options.format));
+									$(this).val(dateHelper.formatDate(_xdsoft_datetime.now(), options.format));
 								}
 
 								datetimepicker.data('xdsoft_datetime').setCurrentTime($(this).val());
@@ -1249,7 +1871,7 @@
 
 			datetimepicker
 				.data('options', options)
-				.on('mousedown.xdsoft', function (event) {
+				.on('touchstart mousedown.xdsoft', function (event) {
 					event.stopPropagation();
 					event.preventDefault();
 					yearselect.hide();
@@ -1402,13 +2024,13 @@
 
 					tmpDate = /^(\+|\-)(.*)$/.exec(sDateTime);
 					if (tmpDate) {
-						tmpDate[2] = Date.parseDate(tmpDate[2], options.formatDate);
+						tmpDate[2] = dateHelper.parseDate(tmpDate[2], options.formatDate);
 					}
 					if (tmpDate  && tmpDate[2]) {
 						timeOffset = tmpDate[2].getTime() - (tmpDate[2].getTimezoneOffset()) * 60000;
 						currentTime = new Date((_this.now(true)).getTime() + parseInt(tmpDate[1] + '1', 10) * timeOffset);
 					} else {
-						currentTime = sDateTime ? Date.parseDate(sDateTime, options.format) : _this.now();
+						currentTime = sDateTime ? dateHelper.parseDate(sDateTime, options.format) : _this.now();
 					}
 
 					if (!_this.isValidDate(currentTime)) {
@@ -1423,7 +2045,7 @@
 						return sDate;
 					}
 
-					var currentTime = sDate ? Date.parseDate(sDate, options.formatDate) : _this.now(true);
+					var currentTime = sDate ? dateHelper.parseDate(sDate, options.formatDate) : _this.now(true);
 					if (!_this.isValidDate(currentTime)) {
 						currentTime = _this.now(true);
 					}
@@ -1434,7 +2056,7 @@
 					if (sTime && sTime instanceof Date && _this.isValidDate(sTime)) {
 						return sTime;
 					}
-					var currentTime = sTime ? Date.parseDate(sTime, options.formatTime) : _this.now(true);
+					var currentTime = sTime ? dateHelper.parseDate(sTime, options.formatTime) : _this.now(true);
 					if (!_this.isValidDate(currentTime)) {
 						currentTime = _this.now(true);
 					}
@@ -1442,14 +2064,14 @@
 				};
 
 				_this.str = function () {
-					return _this.currentTime.dateFormat(options.format);
+					return dateHelper.formatDate(_this.currentTime, options.format);
 				};
 				_this.currentTime = this.now();
 			};
 
 			_xdsoft_datetime = new XDSoft_datetime();
 
-			applyButton.on('click', function (e) {//pathbrite
+			applyButton.on('touchend click', function (e) {//pathbrite
                 e.preventDefault();
                 datetimepicker.data('changed', true);
                 _xdsoft_datetime.setCurrentTime(getCurrentValue());
@@ -1458,7 +2080,7 @@
             });
 			mounth_picker
 				.find('.xdsoft_today_button')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					datetimepicker.data('changed', true);
 					_xdsoft_datetime.setCurrentTime(0);
 					datetimepicker.trigger('afterOpen.xdsoft');
@@ -1481,7 +2103,7 @@
 				});
 			mounth_picker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false;
@@ -1499,16 +2121,16 @@
 						}
 					}(500));
 
-					$([document.body, window]).on('mouseup.xdsoft', function arguments_callee2() {
+					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee2() {
 						clearTimeout(timer);
 						stop = true;
-						$([document.body, window]).off('mouseup.xdsoft', arguments_callee2);
+						$([document.body, window]).off('touchend mouseup.xdsoft', arguments_callee2);
 					});
 				});
 
 			timepicker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('mousedown.xdsoft', function () {
+				.on('touchend mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false,
@@ -1528,11 +2150,11 @@
 							timer = setTimeout(arguments_callee4, v || period);
 						}
 					}(500));
-					$([document.body, window]).on('mouseup.xdsoft', function arguments_callee5() {
+					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee5() {
 						clearTimeout(timer);
 						stop = true;
 						$([document.body, window])
-							.off('mouseup.xdsoft', arguments_callee5);
+							.off('touchend mouseup.xdsoft', arguments_callee5);
 					});
 				});
 
@@ -1616,7 +2238,7 @@
 
 							if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
-							} else if (options.disabledDates.indexOf(start.dateFormat(options.formatDate)) !== -1) {
+							} else if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
 							    classes.push('xdsoft_disabled');
@@ -1630,20 +2252,20 @@
 								classes.push('xdsoft_other_month');
 							}
 
-							if ((options.defaultSelect || datetimepicker.data('changed')) && _xdsoft_datetime.currentTime.dateFormat(options.formatDate) === start.dateFormat(options.formatDate)) {
+							if ((options.defaultSelect || datetimepicker.data('changed')) && dateHelper.formatDate(_xdsoft_datetime.currentTime, options.formatDate) === dateHelper.formatDate(start, options.formatDate)) {
 								classes.push('xdsoft_current');
 							}
 
-							if (today.dateFormat(options.formatDate) === start.dateFormat(options.formatDate)) {
+							if (dateHelper.formatDate(today, options.formatDate) === dateHelper.formatDate(start, options.formatDate)) {
 								classes.push('xdsoft_today');
 							}
 
-							if (start.getDay() === 0 || start.getDay() === 6 || options.weekends.indexOf(start.dateFormat(options.formatDate)) !== -1) {
+							if (start.getDay() === 0 || start.getDay() === 6 || options.weekends.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_weekend');
 							}
 
-							if (options.highlightedDates[start.dateFormat(options.formatDate)] !== undefined) {
-								hDate = options.highlightedDates[start.dateFormat(options.formatDate)];
+							if (options.highlightedDates[dateHelper.formatDate(start, options.formatDate)] !== undefined) {
+								hDate = options.highlightedDates[dateHelper.formatDate(start, options.formatDate)];
 								classes.push(hDate.style === undefined ? 'xdsoft_highlighted_default' : hDate.style);
 								description = hDate.desc === undefined ? '' : hDate.desc;
 							}
@@ -1682,7 +2304,7 @@
 						time = '';
 						h = '';
 						m = '';
-						
+
 						line_time = function line_time(h, m) {
 							var now = _xdsoft_datetime.now(), optionDateTime, current_time,
 								isALlowTimesInit = options.allowTimes && $.isArray(options.allowTimes) && options.allowTimes.length;
@@ -1703,7 +2325,7 @@
 
 							current_time = new Date(_xdsoft_datetime.currentTime);
 							current_time.setHours(parseInt(_xdsoft_datetime.currentTime.getHours(), 10));
-							
+
 							if (!isALlowTimesInit) {
 								current_time.setMinutes(Math[options.roundTime](_xdsoft_datetime.currentTime.getMinutes() / options.step) * options.step);
 							}
@@ -1718,7 +2340,7 @@
 							if (parseInt(today.getHours(), 10) === parseInt(h, 10) && parseInt(today.getMinutes(), 10) === parseInt(m, 10)) {
 								classes.push('xdsoft_today');
 							}
-							time += '<div class="xdsoft_time ' + classes.join(' ') + '" data-hour="' + h + '" data-minute="' + m + '">' + now.dateFormat(options.formatTime) + '</div>';
+							time += '<div class="xdsoft_time ' + classes.join(' ') + '" data-hour="' + h + '" data-minute="' + m + '">' + dateHelper.formatDate(now, options.formatTime) + '</div>';
 						};
 
 						if (!options.allowTimes || !$.isArray(options.allowTimes) || !options.allowTimes.length) {
@@ -1781,7 +2403,7 @@
 
 			timerclick = 0;
 			calendar
-				.on('click.xdsoft', 'td', function (xdevent) {
+				.on('touchend click.xdsoft', 'td', function (xdevent) {
 					xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 					timerclick += 1;
 					var $this = $(this),
@@ -1821,7 +2443,7 @@
 				});
 
 			timebox
-				.on('click.xdsoft', 'div', function (xdevent) {
+				.on('touchend click.xdsoft', 'div', function (xdevent) {
 					xdevent.stopPropagation();
 					var $this = $(this),
 						currentTime = _xdsoft_datetime.currentTime;
@@ -1915,7 +2537,7 @@
 			current_time_index = 0;
 
 			setPos = function () {
-				var offset = datetimepicker.data('input').offset(), top = offset.top + datetimepicker.data('input')[0].offsetHeight - 1, left = offset.left, position = "absolute", node;
+				var offset = datetimepicker.data('input').offset(), datetimepickerelement = datetimepicker.data('input')[0], top = offset.top + datetimepickerelement.offsetHeight - 1, left = offset.left, position = "absolute", node;
 				if (datetimepicker.data('input').parent().css('direction') == 'rtl')
 					left -= (datetimepicker.outerWidth() - datetimepicker.data('input').outerWidth());
 				if (options.fixed) {
@@ -1923,14 +2545,14 @@
 					left -= $(window).scrollLeft();
 					position = "fixed";
 				} else {
-					if (top + datetimepicker[0].offsetHeight > $(window).height() + $(window).scrollTop()) {
-						top = offset.top - datetimepicker[0].offsetHeight + 1;
+					if (top + datetimepickerelement.offsetHeight > $(window).height() + $(window).scrollTop()) {
+						top = offset.top - datetimepickerelement.offsetHeight + 1;
 					}
 					if (top < 0) {
 						top = 0;
 					}
-					if (left + datetimepicker[0].offsetWidth > $(window).width()) {
-						left = $(window).width() - datetimepicker[0].offsetWidth;
+					if (left + datetimepickerelement.offsetWidth > $(window).width()) {
+						left = $(window).width() - datetimepickerelement.offsetWidth;
 					}
 				}
 
@@ -1962,9 +2584,9 @@
 							.on('resize.xdsoft', setPos);
 
 						if (options.closeOnWithoutClick) {
-							$([document.body, window]).on('mousedown.xdsoft', function arguments_callee6() {
+							$([document.body, window]).on('touchstart mousedown.xdsoft', function arguments_callee6() {
 								datetimepicker.trigger('close.xdsoft');
-								$([document.body, window]).off('mousedown.xdsoft', arguments_callee6);
+								$([document.body, window]).off('touchstart mousedown.xdsoft', arguments_callee6);
 							});
 						}
 					}
@@ -2030,7 +2652,7 @@
 
 			input
 				.data('xdsoft_datetimepicker', datetimepicker)
-				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft', function (event) {
+				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', function (event) {
 					if (input.is(':disabled') || (input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick)) {
 						return;
 					}
@@ -2050,7 +2672,7 @@
 					var val = this.value, elementSelector,
 						key = event.which;
 					if ([ENTER].indexOf(key) !== -1 && options.enterLikeTab) {
-						elementSelector = $("input:visible,textarea:visible");
+						elementSelector = $("input:visible,textarea:visible,button:visible,a:visible");
 						datetimepicker.trigger('close.xdsoft');
 						elementSelector.eq(elementSelector.index(this) + 1).focus();
 						return false;
@@ -2070,7 +2692,7 @@
 					.data('xdsoft_datetimepicker', null)
 					.off('.xdsoft');
 				$(window).off('resize.xdsoft');
-				$([window, document.body]).off('mousedown.xdsoft');
+				$([window, document.body]).off('mousedown.xdsoft touchstart');
 				if (input.unmousewheel) {
 					input.unmousewheel();
 				}
@@ -2108,7 +2730,7 @@
 						break;
 					case 'reset':
 						this.value = this.defaultValue;
-						if (!this.value || !datetimepicker.data('xdsoft_datetime').isValidDate(Date.parseDate(this.value, options.format))) {
+						if (!this.value || !datetimepicker.data('xdsoft_datetime').isValidDate(dateHelper.parseDate(this.value, options.format))) {
 							datetimepicker.data('changed', false);
 						}
 						datetimepicker.data('xdsoft_datetime').setCurrentTime(this.value);
@@ -2363,395 +2985,4 @@
         return special.settings.adjustOldDeltas && orgEvent.type === 'mousewheel' && absDelta % 120 === 0;
     }
 
-}));
-/*
- * Copyright (C) 2004 Baron Schwartz <baron at sequent dot org>
- * Modified by Jonathan Gotti aka malko <jgotti at jgotti dot org>
- *
- * This program is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, version 2.1.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
- * details.
- */
-/* jshint laxbreak:true*/
-!(function (factory) {
-	if ( typeof define === 'function' && define.amd ) {
-		define([], factory);
-	} else if (typeof exports === 'object') {
-		module.exports = factory;
-	} else {
-		factory();
-	}
-}(function(){
-	"use strict";
-	var parseFunctions = {};
-	var parseRegexes = [];
-	var formatFunctions = {};
-	var charFormatters = {
-		d: function(date) { return stringLeftPad(date.getDate(), 2, '0'); },
-		D: function(date) { return Date.dayNames[date.getDay()].substring(0, 3); },
-		j: function(date) { return date.getDate(); },
-		l: function(date) { return Date.dayNames[date.getDay()]; },
-		S: function(date) { return date.getSuffix(); },
-		w: function(date) { return date.getDay(); },
-		z: function(date) { return date.getDayOfYear(); },
-		W: function(date) { return date.getWeekOfYear(); },
-		F: function(date) { return Date.monthNames[date.getMonth()]; },
-		m: function(date) { return stringLeftPad(date.getMonth() + 1, 2, '0'); },
-		M: function(date) { return Date.monthNames[date.getMonth()].substring(0, 3); },
-		n: function(date) { return (date.getMonth() + 1); },
-		t: function(date) { return date.getDaysInMonth(); },
-		L: function(date) { return (date.isLeapYear() ? 1 : 0); },
-		Y: function(date) { return date.getFullYear(); },
-		y: function(date) { return ('' + date.getFullYear()).substring(2, 4); },
-		a: function(date) { return (date.getHours() < 12 ? 'am' : 'pm'); },
-		A: function(date) { return (date.getHours() < 12 ? 'AM' : 'PM'); },
-		g: function(date) { return ((date.getHours() %12) ? date.getHours() % 12 : 12); },
-		G: function(date) { return date.getHours(); },
-		h: function(date) { return stringLeftPad((date.getHours() %12) ? date.getHours() % 12 : 12, 2, '0'); },
-		H: function(date) { return stringLeftPad(date.getHours(), 2, '0'); },
-		i: function(date) { return stringLeftPad(date.getMinutes(), 2, '0'); },
-		s: function(date) { return stringLeftPad(date.getSeconds(), 2, '0'); },
-		O: function(date) { return date.getGMTOffset(); },
-		T: function(date) { return date.getTimezone(); },
-		Z: function(date) { return (date.getTimezoneOffset() * -60); }
-	};
-
-	Date.prototype.dateFormat = function(format) {
-		formatFunctions[format]  || createNewFormat(format);
-		return formatFunctions[format](this);
-	};
-
-	function createNewFormat(format) {
-		var formatters = [];
-		var special = false;
-		var ch = '';
-		for (var i = 0; i < format.length; ++i) {
-			ch = format.charAt(i);
-			if (!special && ch === "\\") {
-				special = true;
-			} else if (special) {
-				special = false;
-				formatters.push(stringEscape(ch));
-			} else {
-				formatters.push(charFormatters[ch] || stringEscape(ch));
-			}
-		}
-		formatFunctions[format] = getFormatter(formatters);
-	}
-
-	function getFormatter(formatters) {
-		return function(date) {
-			var res = [];
-			for (var i=0, l=formatters.length; i < l; i++) {
-				res.push(typeof formatters[i] === 'string' ? formatters[i] : formatters[i](date));
-			}
-			return res.join('');
-		};
-	}
-
-	Date.parseDate = function(input, format) {
-		parseFunctions[format] || createParser(format);
-		return parseFunctions[format](input);
-	};
-
-	function getParser(format, regexNum, assigns) {
-		return function(input){
-			var d = new Date();
-			var results = input.match(parseRegexes[regexNum]);
-			if (results && results.length > 0) {
-				results.y = d.getFullYear();
-				results.m = d.getMonth();
-				results.d = d.getDate();
-				results.h = -1;
-				results.i = -1;
-				results.s = -1;
-				for ( var i = 0, l = assigns.length; i < l; i++) {
-					assigns[i](results);
-				}
-				if (results.y > 0 && results.m >= 0 && results.d > 0 && results.h >= 0 && results.i >= 0 && results.s >= 0){
-					return new Date(results.y, results.m, results.d, results.h, results.i, results.s);
-				} else if (results.y > 0 && results.m >= 0 && results.d > 0 && results.h >= 0 && results.i >= 0) {
-					return new Date(results.y, results.m, results.d, results.h, results.i);
-				} else if (results.y > 0 && results.m >= 0 && results.d > 0 && results.h >= 0) {
-					return new Date(results.y, results.m, results.d, results.h);
-				} else if (results.y > 0 && results.m >= 0 && results.d > 0) {
-					return new Date(results.y, results.m, results.d);
-				} else if (results.y > 0 && results.m >= 0) {
-					return new Date(results.y, results.m);
-				} else if (results.y > 0) {
-					return new Date(results.y);
-				}
-			}
-			return null;
-		};
-	}
-
-	function createParser(format) {
-		var regexNum = parseRegexes.length;
-		var currentGroup = 1;
-		var regex = "";
-		var special = false;
-		var ch = '';
-		var assigns=[];
-		var obj;
-		for (var i = 0; i < format.length; ++i) {
-			ch = format.charAt(i);
-			if (!special && ch === "\\") {
-				special = true;
-			} else if (special) {
-				special = false;
-				regex += stringEscape(ch);
-			} else {
-				obj = formatCodeToRegex(ch, currentGroup);
-				currentGroup += obj.g;
-				regex += obj.s;
-				if (obj.g && obj.a) {
-					assigns.push(obj.a);
-				}
-			}
-		}
-
-		parseRegexes[regexNum] = new RegExp("^" + regex + "$");
-		parseFunctions[format] = getParser(format, regexNum, assigns);
-	}
-
-	function formatCodeToRegex(character, currentGroup) {
-		switch (character) {
-		case "D":
-			return {g:0,
-			s:"(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)"};
-		case "j":
-		case "d":
-			return {g:1,
-				a: function(results){ results.d = parseInt(results[currentGroup], 10);},
-				s:"(\\d{1,2})"
-			};
-		case "l":
-			return {g:0,
-				s:"(?:" + Date.dayNames.join("|") + ")"};
-		case "S":
-			return {g:0,
-				s:"(?:st|nd|rd|th)"};
-		case "w":
-			return {g:0,
-				s:"\\d"};
-		case "z":
-			return {g:0,
-				s:"(?:\\d{1,3})"};
-		case "W":
-			return {g:0,
-				s:"(?:\\d{2})"};
-		case "F":
-			return {g:1,
-				a: function(results) { results.m = parseInt(Date.monthNumbers[results[currentGroup].substring(0, 3)], 10);},
-				s:"(" + Date.monthNames.join("|") + ")"};
-		case "M":
-			return {g:1,
-				a: function(results) { results.m = parseInt(Date.monthNumbers[results[currentGroup]], 10);},
-				s:"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"};
-		case "n":
-		case "m":
-			return {g:1,
-				a: function(results) { results.m = parseInt(results[currentGroup], 10) - 1;},
-				s:"(\\d{1,2})"};
-		case "t":
-			return {g:0,
-				s:"\\d{1,2}"};
-		case "L":
-			return {g:0,
-				s:"(?:1|0)"};
-		case "Y":
-			return {g:1,
-				a: function(results) { results.y = parseInt(results[currentGroup], 10);},
-				s:"(\\d{4})"};
-		case "y":
-			return {g:1,
-				a: function(results) {
-					var ty = parseInt(results[currentGroup], 10);
-					results.y = ty > Date.y2kYear ? 1900 + ty : 2000 + ty;
-				},
-				s:"(\\d{1,2})"};
-		case "a":
-			return {g:1,
-				a: function(results) {
-					if (results[currentGroup] === 'am') {
-						if (results.h == 12) { results.h = 0; }
-					} else {
-						if (results.h < 12) { results.h += 12; }
-					}
-				},
-				s:"(am|pm)"};
-		case "A":
-			return {g:1,
-				a: function(results){
-					if (results[currentGroup] === 'AM') {
-						if (results.h == 12) { results.h = 0; }
-					} else {
-						if (results.h < 12) { results.h += 12; }
-					}
-				},
-				s:"(AM|PM)"};
-		case "g":
-		case "G":
-		case "h":
-		case "H":
-			return {g:1,
-				a: function(results) {results.h = parseInt(results[currentGroup], 10);},
-				s:"(\\d{1,2})"};
-		case "i":
-			return {g:1,
-				a: function(results) {results.i = parseInt(results[currentGroup], 10);},
-				s:"(\\d{2})"};
-		case "s":
-			return {g:1,
-				a: function(results) {results.s = parseInt(results[currentGroup], 10);},
-				s:"(\\d{2})"};
-		case "O":
-			return {g:0,
-				s:"[+-]\\d{4}"};
-		case "T":
-			return {g:0,
-				s:"[A-Z]{3}"};
-		case "Z":
-			return {g:0,
-				s:"[+-]\\d{1,5}"};
-		default:
-			return {g:0,
-				s:stringEscape(character)};
-		 }
-	}
-
-	Date.prototype.getTimezone = function() {
-		return this.toString().replace(
-			/^.*? ([A-Z]{3}) [0-9]{4}.*$/, "$1").replace(
-			/^.*?\(([A-Z])[a-z]+ ([A-Z])[a-z]+ ([A-Z])[a-z]+\)$/, "$1$2$3");
-	};
-
-	Date.prototype.getGMTOffset = function() {
-		return (this.getTimezoneOffset() > 0 ? "-" : "+")
-			+ stringLeftPad(Math.floor(this.getTimezoneOffset() / 60), 2, "0")
-			+ stringLeftPad(this.getTimezoneOffset() % 60, 2, "0");
-	};
-
-	Date.prototype.getDayOfYear = function() {
-		var num = 0;
-		Date.daysInMonth[1] = this.isLeapYear() ? 29 : 28;
-		for (var i = 0; i < this.getMonth(); ++i) {
-			num += Date.daysInMonth[i];
-		}
-		return num + this.getDate() - 1;
-	};
-
-	Date.prototype.getWeekOfYear = function() {
-		// Skip to Thursday of this week
-		var now = this.getDayOfYear() + (4 - this.getDay());
-		// Find the first Thursday of the year
-		var jan1 = new Date(this.getFullYear(), 0, 1);
-		var then = (7 - jan1.getDay() + 4);
-		return stringLeftPad(((now - then) / 7) + 1, 2, "0");
-	};
-
-	Date.prototype.isLeapYear = function() {
-		var year = this.getFullYear();
-		return !!((year & 3) === 0 && (year % 100 || (year % 400 === 0 && year)));
-	};
-
-	Date.prototype.getFirstDayOfMonth = function() {
-		var day = (this.getDay() - (this.getDate() - 1)) % 7;
-		return (day < 0) ? (day + 7) : day;
-	};
-
-	Date.prototype.getLastDayOfMonth = function() {
-		var day = (this.getDay() + (Date.daysInMonth[this.getMonth()] - this.getDate())) % 7;
-		return (day < 0) ? (day + 7) : day;
-	};
-
-	Date.prototype.getDaysInMonth = function() {
-		Date.daysInMonth[1] = this.isLeapYear() ? 29 : 28;
-		return Date.daysInMonth[this.getMonth()];
-	};
-
-	Date.prototype.getSuffix = function() {
-		switch (this.getDate()) {
-			case 1:
-			case 21:
-			case 31:
-				return "st";
-			case 2:
-			case 22:
-				return "nd";
-			case 3:
-			case 23:
-				return "rd";
-			default:
-				return "th";
-		}
-	};
-
-	function stringEscape(string) {
-		return string.replace(/('|\\)/g, "\\$1");
-	}
-
-	function stringLeftPad(val, size, ch) {
-		var result = "" + val;
-		ch = ("" + ch) || " ";
-		while (result.length < size) {
-			result = ch + result;
-		}
-		return result;
-	}
-
-	Date.daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-	Date.monthNames =
-		["January",
-			"February",
-			"March",
-			"April",
-			"May",
-			"June",
-			"July",
-			"August",
-			"September",
-			"October",
-			"November",
-			"December"];
-	Date.dayNames =
-		["Sunday",
-			"Monday",
-			"Tuesday",
-			"Wednesday",
-			"Thursday",
-			"Friday",
-			"Saturday"];
-	Date.y2kYear = 50;
-	Date.monthNumbers = {
-		Jan:0,
-		Feb:1,
-		Mar:2,
-		Apr:3,
-		May:4,
-		Jun:5,
-		Jul:6,
-		Aug:7,
-		Sep:8,
-		Oct:9,
-		Nov:10,
-		Dec:11};
-	Date.patterns = {
-		ISO8601LongPattern:"Y-m-d H:i:s",
-		ISO8601ShortPattern:"Y-m-d",
-		ShortDatePattern: "n/j/Y",
-		LongDatePattern: "l, F d, Y",
-		FullDateTimePattern: "l, F d, Y g:i:s A",
-		MonthDayPattern: "F d",
-		ShortTimePattern: "g:i A",
-		LongTimePattern: "g:i:s A",
-		SortableDateTimePattern: "Y-m-d\\TH:i:s",
-		UniversalSortableDateTimePattern: "Y-m-d H:i:sO",
-		YearMonthPattern: "F, Y"};
 }));
