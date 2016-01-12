@@ -596,6 +596,7 @@
 		weekends: [],
 		highlightedDates: [],
 		highlightedPeriods: [],
+		allowDates : [],
 		disabledDates : [],
 		disabledWeekDays: [],
 		yearOffset: 0,
@@ -1050,6 +1051,10 @@
 					options.weekends = $.extend(true, [], _options.weekends);
 				}
 
+				if (_options.allowDates && $.isArray(_options.allowDates) && _options.allowDates.length) {
+					options.allowDates = $.extend(true, [], _options.allowDates);
+				}
+				
 				if (_options.highlightedDates && $.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
 					$.each(_options.highlightedDates, function (index, value) {
 						var splitData = $.map(value.split(','), $.trim),
@@ -1660,7 +1665,11 @@
 								customDateSettings = null;
 							}
 
-							if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+							if(options.allowDates&&options.allowDates.length>0){
+								if(options.allowDates.indexOf(start.dateFormat(options.formatDate)) === -1){
+									classes.push('xdsoft_disabled');
+								}
+							} else if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
