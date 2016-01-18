@@ -597,6 +597,7 @@
 		highlightedDates: [],
 		highlightedPeriods: [],
 		allowDates : [],
+		allowDateRe : null,
 		disabledDates : [],
 		disabledWeekDays: [],
 		yearOffset: 0,
@@ -1053,6 +1054,10 @@
 
 				if (_options.allowDates && $.isArray(_options.allowDates) && _options.allowDates.length) {
 					options.allowDates = $.extend(true, [], _options.allowDates);
+				}
+
+				if (_options.allowDateRe && Object.prototype.toString.call(_options.allowDateRe)==="[object String]") {
+					options.allowDateRe = new RegExp(_options.allowDateRe);
 				}
 				
 				if (_options.highlightedDates && $.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
@@ -1665,7 +1670,11 @@
 								customDateSettings = null;
 							}
 
-							if(options.allowDates&&options.allowDates.length>0){
+							if(options.allowDateRe && Object.prototype.toString.call(options.allowDateRe) === "[object RegExp]"){
+								if(!options.allowDateRe.test(start.dateFormat(options.formatDate))){
+									classes.push('xdsoft_disabled');
+								}
+							} else if(options.allowDates && options.allowDates.length>0){
 								if(options.allowDates.indexOf(start.dateFormat(options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
