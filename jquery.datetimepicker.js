@@ -480,6 +480,7 @@
 		onSelectDate: function () {},
 		onSelectTime: function () {},
 		onChangeMonth: function () {},
+		onGetWeekOfYear: function () {},
 		onChangeYear: function () {},
 		onChangeDateTime: function () {},
 		onShow: function () {},
@@ -1297,6 +1298,12 @@
 				};
 
 				_this.getWeekOfYear = function (datetime) {
+					if (options.onGetWeekOfYear && $.isFunction(options.onGetWeekOfYear)) {
+						var week = options.onGetWeekOfYear.call(datetimepicker, datetime);
+						if (typeof week !== 'undefined') {
+							return week;
+						}
+					}
 					var onejan = new Date(datetime.getFullYear(), 0, 1);
 					return Math.ceil((((datetime - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 				};
