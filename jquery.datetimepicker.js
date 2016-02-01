@@ -1986,7 +1986,26 @@
 			current_time_index = 0;
 
 			setPos = function () {
-				var offset = datetimepicker.data('input').offset(), datetimepickerelement = datetimepicker.data('input')[0], top = offset.top + datetimepickerelement.offsetHeight - 1, left = offset.left, position = "absolute", node;
+				/**
+                 * 修复输入框在window最右边，且输入框的宽度小于日期控件宽度情况下，日期控件显示不全的bug。
+                 * Bug fixed - The datetimepicker will overflow-y when the width of the date input less than its, which
+                 * could causes part of the datetimepicker being hidden.
+                 * by Soon start
+                 */
+                var offset = datetimepicker.data('input').offset(),
+                    datetimepickerelement = datetimepicker.data('input')[0],
+                    top = offset.top + datetimepickerelement.offsetHeight - 1,
+                    left = offset.left,
+                    position = "absolute",
+                    node;
+
+                if ((document.documentElement.clientWidth - offset.left) < datepicker.parent().outerWidth(true)) {
+                    var diff = datepicker.parent().outerWidth(true) - datetimepickerelement.offsetWidth;
+                    left = left - diff;
+                }
+                /**
+                 * by Soon end
+                 */
 				if (datetimepicker.data('input').parent().css('direction') == 'rtl')
 					left -= (datetimepicker.outerWidth() - datetimepicker.data('input').outerWidth());
 				if (options.fixed) {
