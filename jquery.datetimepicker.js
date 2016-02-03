@@ -1453,6 +1453,9 @@
 						}
 					}
 					var onejan = new Date(datetime.getFullYear(), 0, 1);
+					//First week of the year is th one with the first Thursday according to ISO8601
+					if(onejan.getDay()!=4)
+						onejan.setMonth(0, 1 + ((4 - onejan.getDay()+ 7) % 7));
 					return Math.ceil((((datetime - onejan) / 86400000) + onejan.getDay() + 1) / 7);
 				};
 
