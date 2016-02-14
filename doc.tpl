@@ -507,8 +507,8 @@ jQuery(function(){
 <br /><strong>kr</strong> -  Korean
 <br /><strong>lt</strong> -  Lithuanian (lietuviu)
 <br /><strong>lv</strong> -  Latvian (Latviesu)
-<br /><strong>mk</strong> -  Macedonian (Македонски)
-<br /><strong>mn</strong> -  Mongolian (Монгол)
+<br /><strong>mk</strong> -  Macedonian (РњР°РєРµРґРѕРЅСЃРєРё)
+<br /><strong>mn</strong> -  Mongolian (РњРѕРЅРіРѕР»)
 <br /><strong>nl</strong> -  Dutch
 <br /><strong>no</strong> -  Norwegian
 <br /><strong>pl</strong> -  Polish
@@ -520,7 +520,7 @@ jQuery(function(){
 <br /><strong>sk</strong> -  Slovencina
 <br /><strong>sl</strong> -  Slovenscina
 <br /><strong>sq</strong> -  Albanian (Shqip)
-<br /><strong>sr</strong> -  Serbian Cyrillic (Српски)
+<br /><strong>sr</strong> -  Serbian Cyrillic (РЎСЂРїСЃРєРё)
 <br /><strong>sr-YU</strong> -  Serbian (Srpski)
 <br /><strong>sv</strong> -  Svenska
 <br /><strong>th</strong> -  Thai
@@ -540,7 +540,7 @@ jQuery(function(){
 <tr id="format">
 <td><a href="#format">format</a></td>
 <td>Y/m/d H:i</td>
-<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>  Also there is a special type of <a href="#unixtime"><em>«unixtime»</em></a></td>
+<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>  Also there is a special type of <a href="#unixtime"><em>В«unixtimeВ»</em></a></td>
 <td>
 <pre><code data-language="javascript">{format:'H'}
 {format:'Y'}{format:'unixtime'}</code></pre>
