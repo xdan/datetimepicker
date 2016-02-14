@@ -65,7 +65,7 @@ jQuery('#datetimepicker1').datetimepicker({
  i18n:{
   de:{
    months:[
-    'Januar','Februar','Marz','April',
+    'Januar','Februar','März','April',
     'Mai','Juni','Juli','August',
     'September','Oktober','November','Dezember',
    ],
@@ -482,12 +482,12 @@ jQuery(function(){
 <br /><strong>az</strong> -  Azerbaijanian (Azeri)
 <br /><strong>bg</strong> -  Bulgarian
 <br /><strong>bs</strong> -  Bosanski
-<br /><strong>ca</strong> -  Catala
+<br /><strong>ca</strong> -  Català
 <br /><strong>ch</strong> -  Simplified Chinese
-<br /><strong>cs</strong> -  Cestina
+<br /><strong>cs</strong> -  Čeština
 <br /><strong>da</strong> -  Dansk
 <br /><strong>de</strong> -  German
-<br /><strong>el</strong> -  ????????
+<br /><strong>el</strong> -  Ελληνικά
 <br /><strong>en</strong> -  English
 <br /><strong>en-GB</strong> -  English (British)
 <br /><strong>es</strong> -  Spanish
@@ -497,28 +497,28 @@ jQuery(function(){
 <br /><strong>fi</strong> -  Finnish (Suomi)
 <br /><strong>fr</strong> -  French
 <br /><strong>gl</strong> -  Galego
-<br /><strong>he</strong> -  Hebrew (?????)
+<br /><strong>he</strong> -  Hebrew (עברית)
 <br /><strong>hr</strong> -  Hrvatski
 <br /><strong>hu</strong> -  Hungarian
 <br /><strong>id</strong> -  Indonesian
 <br /><strong>it</strong> -  Italian
 <br /><strong>ja</strong> -  Japanese
-<br /><strong>ko</strong> -  Korean (???)
+<br /><strong>ko</strong> -  Korean (한국어)
 <br /><strong>kr</strong> -  Korean
-<br /><strong>lt</strong> -  Lithuanian (lietuviu)
-<br /><strong>lv</strong> -  Latvian (Latviesu)
+<br /><strong>lt</strong> -  Lithuanian (lietuvių)
+<br /><strong>lv</strong> -  Latvian (Latviešu)
 <br /><strong>mk</strong> -  Macedonian (Македонски)
 <br /><strong>mn</strong> -  Mongolian (Монгол)
 <br /><strong>nl</strong> -  Dutch
 <br /><strong>no</strong> -  Norwegian
 <br /><strong>pl</strong> -  Polish
 <br /><strong>pt</strong> -  Portuguese
-<br /><strong>pt-BR</strong> -  Portugues(Brasil)
+<br /><strong>pt-BR</strong> -  Português(Brasil)
 <br /><strong>ro</strong> -  Romanian
 <br /><strong>ru</strong> -  Russian
 <br /><strong>se</strong> -  Swedish
-<br /><strong>sk</strong> -  Slovencina
-<br /><strong>sl</strong> -  Slovenscina
+<br /><strong>sk</strong> -  Slovenčina
+<br /><strong>sl</strong> -  Slovenščina
 <br /><strong>sq</strong> -  Albanian (Shqip)
 <br /><strong>sr</strong> -  Serbian Cyrillic (Српски)
 <br /><strong>sr-YU</strong> -  Serbian (Srpski)
@@ -527,8 +527,8 @@ jQuery(function(){
 <br /><strong>tr</strong> -  Turkish
 <br /><strong>uk</strong> -  Ukrainian
 <br /><strong>vi</strong> -  Vietnamese
-<br /><strong>zh</strong> -  Simplified Chinese (????)
-<br /><strong>zh-TW</strong> -  Traditional Chinese (????)
+<br /><strong>zh</strong> -  Simplified Chinese (简体中文)
+<br /><strong>zh-TW</strong> -  Traditional Chinese (繁體中文)
 <br />
 
   
