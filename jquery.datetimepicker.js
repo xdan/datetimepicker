@@ -1,10 +1,9 @@
-/* global DateFormatter */
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.5
+ * @preserve jQuery DateTimePicker plugin v2.4.6
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
- * (c) 2014, Chupurnov Valeriy.
+ * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
-/*global document,window,jQuery,setTimeout,clearTimeout,HighlightedDate,getCurrentValue*/
+/*global DateFormatter, document,window,jQuery,setTimeout,clearTimeout,HighlightedDate,getCurrentValue*/
 ;(function (factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD. Register as an anonymous module.
