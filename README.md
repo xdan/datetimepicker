@@ -1,3 +1,7 @@
+# PLEASE. Help me update documetation.
+[Doc.tpl](https://github.com/xdan/datetimepicker/blob/master/doc.tpl)
+This file will be automatically displayed on the site
+
 # datetimepicker
 ==============
 
