@@ -237,7 +237,7 @@ jQuery('#_datetimepicker6').datetimepicker({
  timepicker:false,
  formatDate:'Y/m/d',
  minDate:'-1970/01/02',//yesterday is minimum date(for today use 0 or -1970/01/01)
- maxDate:'+1970/01/02'//tommorow is maximum date calendar
+ maxDate:'+1970/01/02'//tomorrow is maximum date calendar
 });</code></pre>
 <p><strong>Result</strong></p>
 <p><input id="_datetimepicker7" type="text" value="" /></p>
@@ -247,7 +247,7 @@ jQuery('#_datetimepicker7').datetimepicker({
   timepicker:false,
   formatDate:'Y/m/d',
   minDate:'-1970/01/02', // yesterday is minimum date
-  maxDate:'+1970/01/02' // and tommorow is maximum date calendar
+  maxDate:'+1970/01/02' // and tomorrow is maximum date calendar
 });
 });
 // ]]></script>
@@ -644,7 +644,7 @@ jQuery(function(){
 <td>
 <pre><code data-language="javascript">{maxDate:0}
 {maxDate:'2013/12/03'}
-{maxDate:'+1970/01/02'} // tommorrow
+{maxDate:'+1970/01/02'} // tomorrow
 {maxDate:'05.12.2013',formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
@@ -655,7 +655,7 @@ jQuery(function(){
 <td>
 <pre><code data-language="javascript">{startDate:'1987/12/03'}
 {startDate:new Date()}
-{startDate:'+1970/01/02'} // tommorrow
+{startDate:'+1970/01/02'} // tomorrow
 {startDate:'08.12.1986',formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
@@ -667,7 +667,7 @@ jQuery(function(){
 <td>
 <pre><code data-language="javascript">{defaultDate:'1987/12/03'}
 {defaultDate:new Date()}
-{defaultDate:'+1970/01/02'} // tommorrow
+{defaultDate:'+1970/01/02'} // tomorrow
 {defaultDate:'08.12.1986',formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>  
