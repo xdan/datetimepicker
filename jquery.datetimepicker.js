@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.6
+ * @preserve jQuery DateTimePicker plugin v2.4.7
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
