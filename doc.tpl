@@ -910,6 +910,22 @@ jQuery(function(){
 <pre><code data-language="javascript">{disabledDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
+<tr id="allowDates">
+<td><a href="#allowDates">allowDates</a></td>
+<td>[]</td>
+<td><p>Allow all dates in list</p></td>
+<td>
+<pre><code data-language="javascript">{allowDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
+</td>
+</tr>
+<tr id="allowDateRe">
+<td><a href="#allowDateRe">allowDateRe</a></td>
+<td>[]</td>
+<td><p>Use Regex to check dates</p></td>
+<td>
+<pre><code data-language="javascript">{format:'Y-m-d',allowDateRe:'\d{4}-(03-31|06-30|09-30|12-31)' }</code></pre>
+</td>
+</tr>
 <tr id="id">
 <td>id</td>
 <td> </td>
