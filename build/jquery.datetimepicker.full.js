@@ -152,7 +152,7 @@ var DateFormatter;
                             vMeriOffset = _compare(mer, vSettings.meridiem[0]) ? 0 :
                                 (_compare(mer, vSettings.meridiem[1]) ? 12 : -1);
                             if (iDatePart >= 1 && iDatePart <= 12 && vMeriOffset > -1) {
-                                out.hour = iDatePart + vMeriOffset;
+                                out.hour = iDatePart + vMeriOffset - 1;
                             } else if (iDatePart >= 0 && iDatePart <= 23) {
                                 out.hour = iDatePart;
                             }
@@ -575,7 +575,7 @@ var DateFormatter;
         }
     };
 })();/**
- * @preserve jQuery DateTimePicker plugin v2.4.7
+ * @preserve jQuery DateTimePicker plugin v2.4.8
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
@@ -583,7 +583,7 @@ var DateFormatter;
 ;(function (factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD. Register as an anonymous module.
-		define(['jquery', 'jquery-mousewheel', 'date-functions'], factory);
+		define(['jquery', 'jquery-mousewheel'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS style for Browserify
 		module.exports = factory;

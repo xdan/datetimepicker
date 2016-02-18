@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.7
+ * @preserve jQuery DateTimePicker plugin v2.4.8
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
@@ -7,7 +7,7 @@
 ;(function (factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD. Register as an anonymous module.
-		define(['jquery', 'jquery-mousewheel', 'date-functions'], factory);
+		define(['jquery', 'jquery-mousewheel'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS style for Browserify
 		module.exports = factory;
