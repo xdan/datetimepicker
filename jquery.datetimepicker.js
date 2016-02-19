@@ -1,5 +1,5 @@
 /**
- * @preserve jQuery DateTimePicker plugin v2.4.8
+ * @preserve jQuery DateTimePicker plugin v2.4.9
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
@@ -841,8 +841,9 @@
 		});
 	};
 
-	$.fn.datetimepicker = function (opt) {
-		var KEY0 = 48,
+	$.fn.datetimepicker = function (opt, opt2) {
+		var result = this,
+            KEY0 = 48,
 			KEY9 = 57,
 			_KEY0 = 96,
 			_KEY9 = 105,
@@ -901,13 +902,12 @@
 				timeboxparent = timepicker.find('.xdsoft_time_box').eq(0),
 				timebox = $('<div class="xdsoft_time_variant"></div>'),
                 applyButton = $('<button type="button" class="xdsoft_save_selected blue-gradient-button">Save Selected</button>'),
-				/*scrollbar = $('<div class="xdsoft_scrollbar"></div>'),
-				scroller = $('<div class="xdsoft_scroller"></div>'),*/
+
 				monthselect = $('<div class="xdsoft_select xdsoft_monthselect"><div></div></div>'),
 				yearselect = $('<div class="xdsoft_select xdsoft_yearselect"><div></div></div>'),
 				triggerAfterOpen = false,
 				XDSoft_datetime,
-				//scroll_element,
+	
 				xchangeTimer,
 				timerclick,
 				current_time_index,
@@ -998,6 +998,10 @@
 						options.onChangeYear.call(datetimepicker, _xdsoft_datetime.currentTime, datetimepicker.data('input'));
 					}
 				});
+
+			datetimepicker.getValue = function () {
+                return _xdsoft_datetime.getCurrentTime();
+            };
 
 			datetimepicker.setOptions = function (_options) {
 				var highlightedDates = {},
@@ -2180,7 +2184,8 @@
 					ctrlDown = false;
 				}
 			});
-		return this.each(function () {
+		
+        this.each(function () {
 			var datetimepicker = $(this).data('xdsoft_datetimepicker'), $input;
 			if (datetimepicker) {
 				if ($.type(opt) === 'string') {
@@ -2209,6 +2214,10 @@
 						$input = datetimepicker.data('input');
 						$input.trigger('blur.xdsoft');
 						break;
+                    default:
+                        if (datetimepicker[opt] && $.isFunction(datetimepicker[opt])) {
+                            result = datetimepicker[opt](opt2);
+                        }
 					}
 				} else {
 					datetimepicker
@@ -2224,6 +2233,8 @@
 				}
 			}
 		});
+
+        return result;
 	};
 	$.fn.datetimepicker.defaults = default_options;
 

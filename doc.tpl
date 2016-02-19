@@ -940,3 +940,56 @@ jQuery(function(){
 </tr>
 </tbody>
 </table>
+<hr>
+<h2 id="methods">Methods</h2>
+<h3>show</h3>
+<p>Show Datetimepicker</p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('button.somebutton').on('click', function () {
+    $('#input').datetimepicker('show');
+});</code></pre>
+<h3>hide</h3>
+<p>Hide Datetimepicker</p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$(window).on('resize', function () {
+    $('#input').datetimepicker('hide');
+});</code></pre>
+<h3>toggle</h3>
+<p>Sgow/Hide Datetimepicker</p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('button.trigger').on('click', function () {
+    $('#input').datetimepicker('toggle');
+});</code></pre>
+<h3>destroy</h3>
+<p>Destroy datetimepicker</p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('#input').datetimepicker('destroy');
+</code></pre>
+<h3>reset</h3>
+<p>Reset datetimepicker's value</p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('#input').val('12/01/2006');
+$('#input')
+    .datetimepicker('show')
+    .datetimepicker('reset')
+</code></pre>
+<h3>validate</h3>
+<p>Validate datetimepicker's value </p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('#input').datetimepicker(validate)
+</code></pre>
+<h3>setOptions</h3>
+<p>Set datetimepicker's options </p>
+<pre><code data-language="javascript">$('#input').datetimepicker({format: 'd.m.Y'});
+$('#input').datetimepicker('setOptions', {format: 'd/m/Y'});
+//or
+$('#input').datetimepicker({format: 'd/m/Y'});
+</code></pre>
+<h3>getValue</h3>
+<p>Get current datetimepicker's value (Date object) </p>
+<pre><code data-language="javascript">$('#input').datetimepicker();
+$('button.somebutton').on('click', function () {
+    var d = $('#input').datetimepicker('getValue');
+    console.log(d.getFullYear());
+});
+</code></pre>
