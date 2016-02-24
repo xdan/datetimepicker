@@ -1,0 +1,40 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'github' ]
+2 info using npm@2.14.7
+3 info using node@v5.7.0
+4 verbose run-script [ 'pregithub', 'github', 'postgithub' ]
+5 info pregithub jquery-datetimepicker@2.4.9
+6 info github jquery-datetimepicker@2.4.9
+7 verbose unsafe-perm in lifecycle true
+8 info jquery-datetimepicker@2.4.9 Failed to exec github script
+9 verbose stack Error: jquery-datetimepicker@2.4.9 github: `git add --all  && git commit -m "New version %npm_package_version%" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish`
+9 verbose stack Exit status 128
+9 verbose stack     at EventEmitter.<anonymous> (c:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:214:16)
+9 verbose stack     at emitTwo (events.js:100:13)
+9 verbose stack     at EventEmitter.emit (events.js:185:7)
+9 verbose stack     at ChildProcess.<anonymous> (c:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:24:14)
+9 verbose stack     at emitTwo (events.js:100:13)
+9 verbose stack     at ChildProcess.emit (events.js:185:7)
+9 verbose stack     at maybeClose (internal/child_process.js:827:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid jquery-datetimepicker@2.4.9
+11 verbose cwd c:\WebServers\home\analize\datetimepicker
+12 error Windows_NT 6.1.7601
+13 error argv "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "github"
+14 error node v5.7.0
+15 error npm  v2.14.7
+16 error code ELIFECYCLE
+17 error jquery-datetimepicker@2.4.9 github: `git add --all  && git commit -m "New version %npm_package_version%" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish`
+17 error Exit status 128
+18 error Failed at the jquery-datetimepicker@2.4.9 github script 'git add --all  && git commit -m "New version %npm_package_version%" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish'.
+18 error This is most likely a problem with the jquery-datetimepicker package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     git add --all  && git commit -m "New version %npm_package_version%" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish
+18 error You can get their info via:
+18 error     npm owner ls jquery-datetimepicker
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]
