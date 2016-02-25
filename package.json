@@ -2,7 +2,7 @@
   "name": "jquery-datetimepicker",
   "version": "2.5.1",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
-  "main": "jquery.datetimepicker.js",
+  "main": "build/jquery.datetimepicker.full.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "concat": "concat-cli -f bower_components/php-date-formatter/js/php-date-formatter.js jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
