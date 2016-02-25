@@ -1203,14 +1203,25 @@
 					input.off('keydown.xdsoft');
 
 					if (options.mask === true) {
-						options.mask = options.format
-							.replace(/Y/g, '9999')
-							.replace(/F/g, '9999')
-							.replace(/m/g, '19')
-							.replace(/d/g, '39')
-							.replace(/H/g, '29')
-							.replace(/i/g, '59')
-							.replace(/s/g, '59');
+			                        if (typeof moment != 'undefined') {
+		                            		options.mask = options.format
+				                                .replace(/Y{4}/g, '9999')
+				                                .replace(/Y{2}/g, '99')
+				                                .replace(/M{2}/g, '19')
+				                                .replace(/D{2}/g, '39')
+				                                .replace(/H{2}/g, '29')
+				                                .replace(/m{2}/g, '59')
+				                                .replace(/s{2}/g, '59');
+			                        } else {
+		                            		options.mask = options.format
+				                                .replace(/Y/g, '9999')
+				                                .replace(/F/g, '9999')
+				                                .replace(/m/g, '19')
+				                                .replace(/d/g, '39')
+				                                .replace(/H/g, '29')
+				                                .replace(/i/g, '59')
+				                                .replace(/s/g, '59');
+			                        }
 					}
 
 					if ($.type(options.mask) === 'string') {
