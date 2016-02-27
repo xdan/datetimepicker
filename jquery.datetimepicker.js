@@ -1695,11 +1695,11 @@
 							}
 
 							if(options.allowDateRe && Object.prototype.toString.call(options.allowDateRe) === "[object RegExp]"){
-								if(!options.allowDateRe.test(start.dateFormat(options.formatDate))){
+								if(!options.allowDateRe.test(dateHelper.formatDate(start, options.formatDate))){
 									classes.push('xdsoft_disabled');
 								}
 							} else if(options.allowDates && options.allowDates.length>0){
-								if(options.allowDates.indexOf(start.dateFormat(options.formatDate)) === -1){
+								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
 							} else if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
