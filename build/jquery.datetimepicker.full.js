@@ -575,7 +575,7 @@ var DateFormatter;
         }
     };
 })();/**
- * @preserve jQuery DateTimePicker plugin v2.4.9
+ * @preserve jQuery DateTimePicker plugin v2.5.1
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
@@ -1186,25 +1186,25 @@ var DateFormatter;
 	var dateHelper = null,
 		globalLocaleDefault = 'en',
 		globalLocale = 'en';
-	
+
 	var dateFormatterOptionsDefault = {
 		meridiem: ['AM', 'PM']
 	};
-	
+
 	var initDateFormatter = function(){
 		var locale = default_options.i18n[globalLocale],
 			opts = {
 				days: locale.dayOfWeek,
 				daysShort: locale.dayOfWeekShort,
 				months: locale.months,
-				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) }),			
+				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) }),
 			};
-		
+
 	 	dateHelper = new DateFormatter({
 			dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
 		});
 	};
-		
+
 	// for locale settings
 	$.datetimepicker = {
 		setLocale: function(locale){
@@ -1225,7 +1225,7 @@ var DateFormatter;
 		RSS: 'D, d M Y H:i:s O',
 		W3C: 'Y-m-d\TH:i:sP'
 	};
-	
+
 	// first init date formatter
 	initDateFormatter();
 
@@ -1483,7 +1483,7 @@ var DateFormatter;
 				yearselect = $('<div class="xdsoft_select xdsoft_yearselect"><div></div></div>'),
 				triggerAfterOpen = false,
 				XDSoft_datetime,
-	
+
 				xchangeTimer,
 				timerclick,
 				current_time_index,
@@ -1580,48 +1580,9 @@ var DateFormatter;
             };
 
 			datetimepicker.setOptions = function (_options) {
-				var highlightedDates = {},
-					getCaretPos = function (input) {
-						try {
-							if (document.selection && document.selection.createRange) {
-								var range = document.selection.createRange();
-								return range.getBookmark().charCodeAt(2) - 2;
-							}
-							if (input.setSelectionRange) {
-								return input.selectionStart;
-							}
-						} catch (e) {
-							return 0;
-						}
-					},
-					setCaretPos = function (node, pos) {
-						node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
-						if (!node) {
-							return false;
-						}
-						if (node.createTextRange) {
-							var textRange = node.createTextRange();
-							textRange.collapse(true);
-							textRange.moveEnd('character', pos);
-							textRange.moveStart('character', pos);
-							textRange.select();
-							return true;
-						}
-						if (node.setSelectionRange) {
-							node.setSelectionRange(pos, pos);
-							return true;
-						}
-						return false;
-					},
-					isValidValue = function (mask, value) {
-						var reg = mask
-							.replace(/([\[\]\/\{\}\(\)\-\.\+]{1})/g, '\\$1')
-							.replace(/_/g, '{digit+}')
-							.replace(/([0-9]{1})/g, '{digit$1}')
-							.replace(/\{digit([0-9]{1})\}/g, '[0-$1_]{1}')
-							.replace(/\{digit[\+]\}/g, '[0-9_]{1}');
-						return (new RegExp(reg)).test(value);
-					};
+				var highlightedDates = {};
+
+
 				options = $.extend(true, {}, options, _options);
 
 				if (_options.allowTimes && $.isArray(_options.allowTimes) && _options.allowTimes.length) {
@@ -1639,7 +1600,7 @@ var DateFormatter;
 				if (_options.allowDateRe && Object.prototype.toString.call(_options.allowDateRe)==="[object String]") {
 					options.allowDateRe = new RegExp(_options.allowDateRe);
 				}
-				
+
 				if (_options.highlightedDates && $.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
 					$.each(_options.highlightedDates, function (index, value) {
 						var splitData = $.map(value.split(','), $.trim),
@@ -1775,84 +1736,13 @@ var DateFormatter;
 					.find('.' + options.next)
 						.css('visibility', !options.nextButton ? 'hidden' : 'visible');
 
-				if (options.mask) {
-					input.off('keydown.xdsoft');
+				setMask(options);
 
-					if (options.mask === true) {
-						options.mask = options.format
-							.replace(/Y/g, '9999')
-							.replace(/F/g, '9999')
-							.replace(/m/g, '19')
-							.replace(/d/g, '39')
-							.replace(/H/g, '29')
-							.replace(/i/g, '59')
-							.replace(/s/g, '59');
-					}
-
-					if ($.type(options.mask) === 'string') {
-						if (!isValidValue(options.mask, input.val())) {
-							input.val(options.mask.replace(/[0-9]/g, '_'));
-							setCaretPos(input[0], 0);
-						}
-
-						input.on('keydown.xdsoft', function (event) {
-							var val = this.value,
-								key = event.which,
-								pos,
-								digit;
-
-							if (((key >= KEY0 && key <= KEY9) || (key >= _KEY0 && key <= _KEY9)) || (key === BACKSPACE || key === DEL)) {
-								pos = getCaretPos(this);
-								digit = (key !== BACKSPACE && key !== DEL) ? String.fromCharCode((_KEY0 <= key && key <= _KEY9) ? key - KEY0 : key) : '_';
-
-								if ((key === BACKSPACE || key === DEL) && pos) {
-									pos -= 1;
-									digit = '_';
-								}
-
-								while (/[^0-9_]/.test(options.mask.substr(pos, 1)) && pos < options.mask.length && pos > 0) {
-									pos += (key === BACKSPACE || key === DEL) ? -1 : 1;
-								}
-
-								val = val.substr(0, pos) + digit + val.substr(pos + 1);
-								if ($.trim(val) === '') {
-									val = options.mask.replace(/[0-9]/g, '_');
-								} else {
-									if (pos === options.mask.length) {
-										event.preventDefault();
-										return false;
-									}
-								}
-
-								pos += (key === BACKSPACE || key === DEL) ? 0 : 1;
-								while (/[^0-9_]/.test(options.mask.substr(pos, 1)) && pos < options.mask.length && pos > 0) {
-									pos += (key === BACKSPACE || key === DEL) ? -1 : 1;
-								}
-
-								if (isValidValue(options.mask, val)) {
-									this.value = val;
-									setCaretPos(this, pos);
-								} else if ($.trim(val) === '') {
-									this.value = options.mask.replace(/[0-9]/g, '_');
-								} else {
-									input.trigger('error_input.xdsoft');
-								}
-							} else {
-								if (([AKEY, CKEY, VKEY, ZKEY, YKEY].indexOf(key) !== -1 && ctrlDown) || [ESC, ARROWUP, ARROWDOWN, ARROWLEFT, ARROWRIGHT, F5, CTRLKEY, TAB, ENTER].indexOf(key) !== -1) {
-									return true;
-								}
-							}
-
-							event.preventDefault();
-							return false;
-						});
-					}
-				}
 				if (options.validateOnBlur) {
 					input
 						.off('blur.xdsoft')
 						.on('blur.xdsoft', function () {
-							if (options.allowBlank && !$.trim($(this).val()).length) {
+							if (options.allowBlank && (!$.trim($(this).val()).length || $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_'))) {
 								$(this).val(null);
 								datetimepicker.data('xdsoft_datetime').empty();
 							} else if (!dateHelper.parseDate($(this).val(), options.format)) {
@@ -1874,6 +1764,7 @@ var DateFormatter;
 							}
 
 							datetimepicker.trigger('changedatetime.xdsoft');
+							datetimepicker.trigger('close.xdsoft');
 						});
 				}
 				options.dayOfWeekStartPrev = (options.dayOfWeekStart === 0) ? 6 : options.dayOfWeekStart - 1;
@@ -2260,11 +2151,11 @@ var DateFormatter;
 							}
 
 							if(options.allowDateRe && Object.prototype.toString.call(options.allowDateRe) === "[object RegExp]"){
-								if(!options.allowDateRe.test(start.dateFormat(options.formatDate))){
+								if(!options.allowDateRe.test(dateHelper.formatDate(start, options.formatDate))){
 									classes.push('xdsoft_disabled');
 								}
 							} else if(options.allowDates && options.allowDates.length>0){
-								if(options.allowDates.indexOf(start.dateFormat(options.formatDate)) === -1){
+								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
 							} else if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
@@ -2698,6 +2589,134 @@ var DateFormatter;
 				return ct || 0;
 			}
 
+			function setMask(options) {
+
+				var isValidValue = function (mask, value) {
+					var reg = mask
+						.replace(/([\[\]\/\{\}\(\)\-\.\+]{1})/g, '\\$1')
+						.replace(/_/g, '{digit+}')
+						.replace(/([0-9]{1})/g, '{digit$1}')
+						.replace(/\{digit([0-9]{1})\}/g, '[0-$1_]{1}')
+						.replace(/\{digit[\+]\}/g, '[0-9_]{1}');
+					return (new RegExp(reg)).test(value);
+				},
+				getCaretPos = function (input) {
+					try {
+						if (document.selection && document.selection.createRange) {
+							var range = document.selection.createRange();
+							return range.getBookmark().charCodeAt(2) - 2;
+						}
+						if (input.setSelectionRange) {
+							return input.selectionStart;
+						}
+					} catch (e) {
+						return 0;
+					}
+				},
+				setCaretPos = function (node, pos) {
+					node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
+					if (!node) {
+						return false;
+					}
+					if (node.createTextRange) {
+						var textRange = node.createTextRange();
+						textRange.collapse(true);
+						textRange.moveEnd('character', pos);
+						textRange.moveStart('character', pos);
+						textRange.select();
+						return true;
+					}
+					if (node.setSelectionRange) {
+						node.setSelectionRange(pos, pos);
+						return true;
+					}
+					return false;
+				};
+				if(options.mask) {
+					input.off('keydown.xdsoft');
+				}
+				if (options.mask === true) {
+														if (typeof moment != 'undefined') {
+																	options.mask = options.format
+																			.replace(/Y{4}/g, '9999')
+																			.replace(/Y{2}/g, '99')
+																			.replace(/M{2}/g, '19')
+																			.replace(/D{2}/g, '39')
+																			.replace(/H{2}/g, '29')
+																			.replace(/m{2}/g, '59')
+																			.replace(/s{2}/g, '59');
+														} else {
+																	options.mask = options.format
+																			.replace(/Y/g, '9999')
+																			.replace(/F/g, '9999')
+																			.replace(/m/g, '19')
+																			.replace(/d/g, '39')
+																			.replace(/H/g, '29')
+																			.replace(/i/g, '59')
+																			.replace(/s/g, '59');
+														}
+				}
+
+				if ($.type(options.mask) === 'string') {
+					if (!isValidValue(options.mask, input.val())) {
+						input.val(options.mask.replace(/[0-9]/g, '_'));
+						setCaretPos(input[0], 0);
+					}
+
+					input.on('keydown.xdsoft', function (event) {
+						var val = this.value,
+							key = event.which,
+							pos,
+							digit;
+
+						if (((key >= KEY0 && key <= KEY9) || (key >= _KEY0 && key <= _KEY9)) || (key === BACKSPACE || key === DEL)) {
+							pos = getCaretPos(this);
+							digit = (key !== BACKSPACE && key !== DEL) ? String.fromCharCode((_KEY0 <= key && key <= _KEY9) ? key - KEY0 : key) : '_';
+
+							if ((key === BACKSPACE || key === DEL) && pos) {
+								pos -= 1;
+								digit = '_';
+							}
+
+							while (/[^0-9_]/.test(options.mask.substr(pos, 1)) && pos < options.mask.length && pos > 0) {
+								pos += (key === BACKSPACE || key === DEL) ? -1 : 1;
+							}
+
+							val = val.substr(0, pos) + digit + val.substr(pos + 1);
+							if ($.trim(val) === '') {
+								val = options.mask.replace(/[0-9]/g, '_');
+							} else {
+								if (pos === options.mask.length) {
+									event.preventDefault();
+									return false;
+								}
+							}
+
+							pos += (key === BACKSPACE || key === DEL) ? 0 : 1;
+							while (/[^0-9_]/.test(options.mask.substr(pos, 1)) && pos < options.mask.length && pos > 0) {
+								pos += (key === BACKSPACE || key === DEL) ? -1 : 1;
+							}
+
+							if (isValidValue(options.mask, val)) {
+								this.value = val;
+								setCaretPos(this, pos);
+							} else if ($.trim(val) === '') {
+								this.value = options.mask.replace(/[0-9]/g, '_');
+							} else {
+								input.trigger('error_input.xdsoft');
+							}
+						} else {
+							if (([AKEY, CKEY, VKEY, ZKEY, YKEY].indexOf(key) !== -1 && ctrlDown) || [ESC, ARROWUP, ARROWDOWN, ARROWLEFT, ARROWRIGHT, F5, CTRLKEY, TAB, ENTER].indexOf(key) !== -1) {
+								return true;
+							}
+						}
+
+						event.preventDefault();
+						return false;
+					});
+				}
+			}
+
 			_xdsoft_datetime.setCurrentTime(getCurrentValue());
 
 			input
@@ -2714,7 +2733,9 @@ var DateFormatter;
 
 						triggerAfterOpen = true;
 						_xdsoft_datetime.setCurrentTime(getCurrentValue());
-
+						if(options.mask) {
+							setMask(options);
+						}
 						datetimepicker.trigger('open.xdsoft');
 					}, 100);
 				})
@@ -2731,6 +2752,9 @@ var DateFormatter;
 						datetimepicker.trigger('close.xdsoft');
 						return true;
 					}
+				})
+				.on('blur.xdsoft', function () {
+					datetimepicker.trigger('close.xdsoft');
 				});
 		};
 		destroyDateTimePicker = function (input) {
@@ -2760,7 +2784,7 @@ var DateFormatter;
 					ctrlDown = false;
 				}
 			});
-		
+
         this.each(function () {
 			var datetimepicker = $(this).data('xdsoft_datetimepicker'), $input;
 			if (datetimepicker) {
