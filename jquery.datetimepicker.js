@@ -1588,7 +1588,9 @@
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
 							    classes.push('xdsoft_disabled');
-							}
+							}else if (input.is('[readonly]')) {
+				                classes.push('xdsoft_disabled');
+				            }
 
 							if (customDateSettings && customDateSettings[1] !== "") {
 								classes.push(customDateSettings[1]);
@@ -1661,13 +1663,14 @@
 							optionDateTime = new Date(_xdsoft_datetime.currentTime);
 							optionDateTime.setHours(h);
 							optionDateTime.setMinutes(m);
-							classes = [];
+							classes = [];			
 							if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || (options.maxTime !== false && _xdsoft_datetime.strtotime(options.maxTime).getTime() < now.getTime()) || (options.minTime !== false && _xdsoft_datetime.strtotime(options.minTime).getTime() > now.getTime())) {
-								classes.push('xdsoft_disabled');
-							}
-							if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
-								classes.push('xdsoft_disabled');
-							}
+				                classes.push('xdsoft_disabled');
+				            } else if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
+				                classes.push('xdsoft_disabled');
+				            } else if (input.is('[readonly]')) {
+				                classes.push('xdsoft_disabled');
+				            }
 
 							current_time = new Date(_xdsoft_datetime.currentTime);
 							current_time.setHours(parseInt(_xdsoft_datetime.currentTime.getHours(), 10));
