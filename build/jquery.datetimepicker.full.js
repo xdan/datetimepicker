@@ -2572,8 +2572,10 @@ var DateFormatter;
 				});
 
 				datetimepickerCss = {
+					position: position,
 					left: left,
-					position: position
+					top: '',  //Initialize to prevent previous values interfering with new ones.
+					bottom: ''  //Initialize to prevent previous values interfering with new ones.
 				};
 
 				datetimepickerCss[verticalAnchorEdge] = verticalPosition;
