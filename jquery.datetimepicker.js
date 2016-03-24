@@ -639,6 +639,9 @@
 				initDateFormatter();
 			}
 		},
+		setDateFormatter: function(dateFormatter) {
+			dateHelper = dateFormatter;
+		},
 		RFC_2822: 'D, d M Y H:i:s O',
 		ATOM: 'Y-m-d\TH:i:sP',
 		ISO_8601: 'Y-m-d\TH:i:sO',
