@@ -362,41 +362,18 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 });
 // ]]></script>
 <hr id="use_other_date_parser" />
-<h4>Use other date parser<a href="#use_other_date_parser">#</a></h4>
-<p><a href="http://www.xaprb.com/blog/2005/12/12/javascript-closures-for-runtime-efficiency/" target="_blanc" rel="nofollow">Date-functions library</a>, Baron Schwartz, used  in DateTimePicker for parse and format datetime  certainly good, but it is licensed under the LGPL. It is not bad and not good. In this example, you see how use other date parse library</p>
-<p>Before start, remove code below jquery.datetimepicker.js. Remove all after comment </p>
-<pre><code data-language="javascript">// Parse and Format Library</code></pre>
-<p>After this add in page next code, as previously </p>
-<pre><code data-language="html">&lt;script src="jquery.datetimepicker.js"&gt;&lt;/script&gt;</code></pre>
-<p>After this you must define two methods for Date object</p>
-<pre><code data-language="javascript">Date.parseDate = function( input, format ){
-  // you code for convert string to date object
-  // simplest variant - use native Date.parse, not given format parametr
-return Date.parse(input);
-};
-Date.prototype.dateFormat = function( format ){
-  //you code for convert date object to format string
-  //for example
-  switch( format ){
-    case 'd': return this.getDate();
-    case 'H:i:s': return this.getHours()+':'+this.getMinutes()+':'+this.getSeconds();
-    case 'h:i a': return ((this.getHours() %12) ? this.getHours() % 12 : 12)+':'+this.getMinutes()+(this.getHours() &lt; 12 ? 'am' : 'pm');
-  }
-  // or default format
-  return this.getDate()+'.'+(this.getMonth()+ 1)+'.'+this.getFullYear();
-};</code></pre>
-<p>It is only example, it is not real code. For real project this.getDate() must be replace to (this.getDate()&lt;0:'0':'')+this.getDate()</p>
-<p>This approach will work in a particular project, but does not work in another. Therefore use the other libraries for working with dates - <a href="http://momentjs.com/" target="_blanc" rel="nofollow" title="Other library for parse time">Moment.js</a>.</p>
-<h3>How to use moment.js with jquery datetimepicker</h3>
-<p> Add this code in page</p>
-<pre><code data-language="html">&lt;script src="http://momentjs.com/downloads/moment.min.js"&gt;&lt;/script&gt;</code></pre>
-<p>After this, again re-define 2 methods</p>
-<pre><code data-language="javascript">Date.parseDate = function( input, format ){
-  return moment(input,format).toDate();
-};
-Date.prototype.dateFormat = function( format ){
-  return moment(this).format(format);
-};</code></pre>
+<h4>Use another date parser/formatter<a href="#use_other_date_parser">#</a></h4>
+<p>By default, datetimepicker uses <a href="https://github.com/kartik-v/php-date-formatter">php-date-formatter</a> for parsing and formatting the date and time displayed. You can replace the library by setting a custom DateFormatter. Simply supply an object that implements the <tt>parseDate</tt> and <tt>formatDate</tt> methods. This example uses the popular <a href="http://momentjs.com/">MomentJS</a> library:</p>
+<pre><code data-language="javascript">$.datetimepicker.setDateFormatter({
+    parseDate: function (date, format) {
+        return moment(date, format);
+    },
+    
+    formatDate: function (date, format) {
+        return moment(date).format(format);
+    }
+});
+</code></pre>
 <p>After this, you can init datetimepicker with moment.js <a href="http://momentjs.com/docs/#/parsing/string-format/" target="_blanc" rel="nofollow">format</a></p>
 <pre><code data-language="javascript">jQuery('#datetimepicker').datetimepicker({
   format:'DD.MM.YYYY h:mm a',
