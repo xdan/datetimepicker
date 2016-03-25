@@ -1492,7 +1492,20 @@
 						} else if ($this.hasClass(options.prev) && top - options.timeHeightInTimePicker >= 0) {
 							timebox.css('marginTop', '-' + (top - options.timeHeightInTimePicker) + 'px');
 						}
-						timeboxparent.trigger('scroll_element.xdsoft_scroller', [Math.abs(parseInt(timebox.css('marginTop'), 10) / (height - pheight))]);
+                        /**
+                         * Fixed bug:
+                         * When using css3 transition, it will cause a bug that you cannot scroll the timepicker list.
+                         * The reason is that the transition-duration time, if you set it to 0, all things fine, otherwise, this
+                         * would cause a bug when you use jquery.css method.
+                         * Let's say: * { transition: all .5s ease; }
+                         * jquery timebox.css('marginTop') will return the original value which is before you clicking the next/prev button,
+                         * meanwhile the timebox[0].style.marginTop will return the right value which is after you clicking the
+                         * next/prev button.
+                         * 
+                         * What we should do:
+                         * Replace timebox.css('marginTop') with timebox[0].style.marginTop.
+                         */
+                        timeboxparent.trigger('scroll_element.xdsoft_scroller', [Math.abs(parseInt(timebox[0].style.marginTop, 10) / (height - pheight))]);
 						period = (period > 10) ? 10 : period - 10;
 						if (!stop) {
 							timer = setTimeout(arguments_callee4, v || period);
