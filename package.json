@@ -1,6 +1,6 @@
 {
   "name": "jquery-datetimepicker",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "build/jquery.datetimepicker.full.min.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "concat": "concat-cli -f bower_components/php-date-formatter/js/php-date-formatter.js jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
     "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js",
     "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
-    "github": "git add --all  && git commit -m \"New version %npm_package_version%\" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
+    "github": "git add --all  && git commit -m \"New version %npm_package_version% Fix devDependencies with concat-cli\" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
     "build": "npm run minify && npm run concat && npm run minifyconcat"
   },
   "repository": {
@@ -36,7 +36,8 @@
     "php-date-formatter": ">= 1.3.3"
   },
   "devDependencies": {
-    "concat-cli": "~4.0",
+    "concat": "azer/concat",
+    "concat-cli": "^4.0.0",
     "uglifyjs": "^2.4.10"
   }
 }

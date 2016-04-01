@@ -1,0 +1,35 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'c:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'github' ]
+2 info using npm@2.14.7
+3 info using node@v5.7.0
+4 verbose stack Error: Failed to parse json
+4 verbose stack Unexpected token '.' at 11:84
+4 verbose stack "git add --all  && git commit -m \"New version %npm_package_version%\. Fix devD
+4 verbose stack                                                                      ^
+4 verbose stack     at parseError (c:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:379:11)
+4 verbose stack     at parseJson (c:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:68:23)
+4 verbose stack     at c:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:48:5
+4 verbose stack     at c:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:76:16
+4 verbose stack     at tryToString (fs.js:414:3)
+4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:401:12)
+5 verbose cwd c:\WebServers\home\analize\datetimepicker
+6 error Windows_NT 6.1.7601
+7 error argv "c:\\Program Files\\nodejs\\node.exe" "c:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "github"
+8 error node v5.7.0
+9 error npm  v2.14.7
+10 error file c:\WebServers\home\analize\datetimepicker\package.json
+11 error code EJSONPARSE
+12 error Failed to parse json
+12 error Unexpected token '.' at 11:84
+12 error "git add --all  && git commit -m \"New version %npm_package_version%\. Fix devD
+12 error                                                                      ^
+13 error File: c:\WebServers\home\analize\datetimepicker\package.json
+14 error Failed to parse package.json data.
+14 error package.json must be actual JSON, not just JavaScript.
+14 error
+14 error This is not a bug in npm.
+14 error Tell the package author to fix their package.json file. JSON.parse
+15 verbose exit [ 1, true ]

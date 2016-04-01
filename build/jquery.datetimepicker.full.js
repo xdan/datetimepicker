@@ -1091,6 +1091,15 @@ var DateFormatter;
 					"Dumengia", "Glindesdi", "Mardi", "Mesemna", "Gievgia", "Venderdi", "Sonda"
 				]
 			},
+			ka: { // Georgian
+				months: [
+					'იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი', 'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი'
+				],
+				dayOfWeekShort: [
+					"კვ", "ორშ", "სამშ", "ოთხ", "ხუთ", "პარ", "შაბ"
+				],
+				dayOfWeek: ["კვირა", "ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი"]
+			},
 		},
 		value: '',
 		rtl: false,
@@ -1214,6 +1223,9 @@ var DateFormatter;
 				// reinit date formatter
 				initDateFormatter();
 			}
+		},
+		setDateFormatter: function(dateFormatter) {
+			dateHelper = dateFormatter;
 		},
 		RFC_2822: 'D, d M Y H:i:s O',
 		ATOM: 'Y-m-d\TH:i:sP',
@@ -1740,7 +1752,7 @@ var DateFormatter;
 					input
 						.off('blur.xdsoft')
 						.on('blur.xdsoft', function () {
-							if (options.allowBlank && (!$.trim($(this).val()).length || $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_'))) {
+							if (options.allowBlank && (!$.trim($(this).val()).length || (typeof options.mask == "string" && $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_')))) {
 								$(this).val(null);
 								datetimepicker.data('xdsoft_datetime').empty();
 							} else if (!dateHelper.parseDate($(this).val(), options.format)) {
@@ -2056,7 +2068,20 @@ var DateFormatter;
 						} else if ($this.hasClass(options.prev) && top - options.timeHeightInTimePicker >= 0) {
 							timebox.css('marginTop', '-' + (top - options.timeHeightInTimePicker) + 'px');
 						}
-						timeboxparent.trigger('scroll_element.xdsoft_scroller', [Math.abs(parseInt(timebox.css('marginTop'), 10) / (height - pheight))]);
+                        /**
+                         * Fixed bug:
+                         * When using css3 transition, it will cause a bug that you cannot scroll the timepicker list.
+                         * The reason is that the transition-duration time, if you set it to 0, all things fine, otherwise, this
+                         * would cause a bug when you use jquery.css method.
+                         * Let's say: * { transition: all .5s ease; }
+                         * jquery timebox.css('marginTop') will return the original value which is before you clicking the next/prev button,
+                         * meanwhile the timebox[0].style.marginTop will return the right value which is after you clicking the
+                         * next/prev button.
+                         * 
+                         * What we should do:
+                         * Replace timebox.css('marginTop') with timebox[0].style.marginTop.
+                         */
+                        timeboxparent.trigger('scroll_element.xdsoft_scroller', [Math.abs(parseInt(timebox[0].style.marginTop, 10) / (height - pheight))]);
 						period = (period > 10) ? 10 : period - 10;
 						if (!stop) {
 							timer = setTimeout(arguments_callee4, v || period);
