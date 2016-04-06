@@ -366,7 +366,8 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 <p>By default, datetimepicker uses <a href="https://github.com/kartik-v/php-date-formatter">php-date-formatter</a> for parsing and formatting the date and time displayed. You can replace the library by setting a custom DateFormatter. Simply supply an object that implements the <tt>parseDate</tt> and <tt>formatDate</tt> methods. This example uses the popular <a href="http://momentjs.com/">MomentJS</a> library:</p>
 <pre><code data-language="javascript">$.datetimepicker.setDateFormatter({
     parseDate: function (date, format) {
-        return moment(date, format);
+        var d = moment(date, format);
+        return d.isValid() ? d : false;
     },
     
     formatDate: function (date, format) {
