@@ -367,7 +367,7 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 <pre><code data-language="javascript">$.datetimepicker.setDateFormatter({
     parseDate: function (date, format) {
         var d = moment(date, format);
-        return d.isValid() ? d : false;
+        return d.isValid() ? d.toDate() : false;
     },
     
     formatDate: function (date, format) {
