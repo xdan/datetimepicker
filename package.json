@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "concat": "concat-cli -f bower_components/php-date-formatter/js/php-date-formatter.js jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
-    "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js",
+    "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js && uglifycss jquery.datetimepicker.css > build/jquery.datetimepicker.min.css",
     "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
     "github": "git add --all  && git commit -m \"New version %npm_package_version% Fix devDependencies with concat-cli\" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
     "build": "npm run minify && npm run concat && npm run minifyconcat"
@@ -38,6 +38,7 @@
   "devDependencies": {
     "concat": "azer/concat",
     "concat-cli": "^4.0.0",
+    "uglifycss": "0.0.20",
     "uglifyjs": "^2.4.10"
   }
 }
