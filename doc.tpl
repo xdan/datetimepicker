@@ -904,6 +904,14 @@ jQuery(function(){
 <pre><code data-language="javascript">{format:'Y-m-d',allowDateRe:'\d{4}-(03-31|06-30|09-30|12-31)' }</code></pre>
 </td>
 </tr>
+<tr id="disabledWeekDays">
+<td><a href="#disabledWeekDays">disabledWeekDays</a></td>
+<td>[]</td>
+<td><p>Disable days listed by index</p></td>
+<td>
+<pre><code data-language="javascript">[0, 3, 4]</code></pre>
+</td>
+</tr>
 <tr id="id">
 <td>id</td>
 <td> </td>
