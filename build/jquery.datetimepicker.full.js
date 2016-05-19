@@ -575,7 +575,7 @@ var DateFormatter;
         }
     };
 })();/**
- * @preserve jQuery DateTimePicker plugin v2.5.3
+ * @preserve jQuery DateTimePicker plugin v2.5.4
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
  */
@@ -1501,7 +1501,8 @@ var DateFormatter;
 				setPos,
 				timer = 0,
 				_xdsoft_datetime,
-				forEachAncestorOf;
+				forEachAncestorOf,
+				throttle;
 
 			if (options.id) {
 				datetimepicker.attr('id', options.id);
@@ -1854,8 +1855,20 @@ var DateFormatter;
 					return !isNaN(d.getTime());
 				};
 
-				_this.setCurrentTime = function (dTime) {
-					_this.currentTime = (typeof dTime === 'string') ? _this.strToDateTime(dTime) : _this.isValidDate(dTime) ? dTime : _this.now();
+				_this.setCurrentTime = function (dTime, requireValidDate) {
+					if (typeof dTime === 'string') {
+						_this.currentTime = _this.strToDateTime(dTime);
+					}
+					else if (_this.isValidDate(dTime)) {
+						_this.currentTime = dTime;
+					}
+					else if (!dTime && !requireValidDate && options.allowBlank) {
+						_this.currentTime = null;
+					}
+					else {
+						_this.currentTime = _this.now();
+					}
+					
 					datetimepicker.trigger('xchange.xdsoft');
 				};
 
@@ -2008,7 +2021,7 @@ var DateFormatter;
 				.find('.xdsoft_today_button')
 				.on('touchend mousedown.xdsoft', function () {
 					datetimepicker.data('changed', true);
-					_xdsoft_datetime.setCurrentTime(0);
+					_xdsoft_datetime.setCurrentTime(0, true);
 					datetimepicker.trigger('afterOpen.xdsoft');
 				}).on('dblclick.xdsoft', function () {
 					var currentDate = _xdsoft_datetime.getCurrentTime(), minDate, maxDate;
@@ -2105,6 +2118,10 @@ var DateFormatter;
 					xchangeTimer = setTimeout(function () {
 
 						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+							//In case blanks are allowed, delay construction until we have a valid date 
+							if (options.allowBlank)
+								return;
+								
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
 
@@ -2830,7 +2847,7 @@ var DateFormatter;
 						}
 
 						triggerAfterOpen = true;
-						_xdsoft_datetime.setCurrentTime(getCurrentValue());
+						_xdsoft_datetime.setCurrentTime(getCurrentValue(), true);
 						if(options.mask) {
 							setMask(options);
 						}
