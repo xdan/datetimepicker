@@ -611,7 +611,6 @@
 		disabledWeekDays: [],
 		yearOffset: 0,
 		beforeShowDay: null,
-		scrollSensitivity: 180, // milliseconds
 
 		enterLikeTab: true,
 		showApplyButton: false
@@ -1865,42 +1864,8 @@
 					}
 				});
 
-			/**
-			 * Returns a function, that, when invoked, will only be triggered at most once during a given window of time.
-			 *
-			 * Taken from underscore.js (https://github.com/jashkenas/underscore).
-			 *
-			 * @param {Function} func
-			 * @param {number} wait
-			 * @returns {Function}
-			 */
-			throttle = function(func, wait) {
-				var context, args, timeout, result;
-				var previous = 0;
-				var later = function() {
-					previous = new Date;
-					timeout = null;
-					result = func.apply(context, args);
-				};
-				return function() {
-					var now = new Date;
-					var remaining = wait - (now - previous);
-					context = this;
-					args = arguments;
-					if (remaining <= 0) {
-						clearTimeout(timeout);
-						timeout = null;
-						previous = now;
-						result = func.apply(context, args);
-					} else if (!timeout) {
-						timeout = setTimeout(later, remaining);
-					}
-					return result;
-				};
-			};
-
 			datepicker
-				.on('mousewheel.xdsoft', throttle(function (event) {
+				.on('mousewheel.xdsoft', function (event) {
 					if (!options.scrollMonth) {
 						return true;
 					}
@@ -1910,10 +1875,10 @@
 						_xdsoft_datetime.prevMonth();
 					}
 					return false;
-				}, options.scrollSensitivity));
+				});
 
 			input
-				.on('mousewheel.xdsoft', throttle(function (event) {
+				.on('mousewheel.xdsoft', function (event) {
 					if (!options.scrollInput) {
 						return true;
 					}
@@ -1935,7 +1900,7 @@
 						datetimepicker.trigger('changedatetime.xdsoft');
 						return false;
 					}
-				}, options.scrollSensitivity));
+				});
 
 			datetimepicker
 				.on('changedatetime.xdsoft', function (event) {
