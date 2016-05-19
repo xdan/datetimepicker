@@ -926,7 +926,8 @@
 				setPos,
 				timer = 0,
 				_xdsoft_datetime,
-				forEachAncestorOf;
+				forEachAncestorOf,
+				throttle;
 
 			if (options.id) {
 				datetimepicker.attr('id', options.id);
