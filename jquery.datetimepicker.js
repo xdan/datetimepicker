@@ -904,7 +904,7 @@
 			var datetimepicker = $('<div class="xdsoft_datetimepicker xdsoft_noselect"></div>'),
 				xdsoft_copyright = $('<div class="xdsoft_copyright"><a target="_blank" href="http://xdsoft.net/jqplugins/datetimepicker/">xdsoft.net</a></div>'),
 				datepicker = $('<div class="xdsoft_datepicker active"></div>'),
-				mounth_picker = $('<div class="xdsoft_mounthpicker"><button type="button" class="xdsoft_prev"></button><button type="button" class="xdsoft_today_button"></button>' +
+				month_picker = $('<div class="xdsoft_monthpicker"><button type="button" class="xdsoft_prev"></button><button type="button" class="xdsoft_today_button"></button>' +
 					'<div class="xdsoft_label xdsoft_month"><span></span><i></i></div>' +
 					'<div class="xdsoft_label xdsoft_year"><span></span><i></i></div>' +
 					'<button type="button" class="xdsoft_next"></button></div>'),
@@ -944,14 +944,14 @@
 			datetimepicker.addClass('xdsoft_' + options.theme);
 			datetimepicker.addClass(options.className);
 
-			mounth_picker
+			month_picker
 				.find('.xdsoft_month span')
 					.after(monthselect);
-			mounth_picker
+			month_picker
 				.find('.xdsoft_year span')
 					.after(yearselect);
 
-			mounth_picker
+			month_picker
 				.find('.xdsoft_month,.xdsoft_year')
 					.on('touchstart mousedown.xdsoft', function (event) {
 					var select = $(this).find('.xdsoft_select').eq(0),
@@ -961,7 +961,7 @@
 						items,
 						i;
 
-					mounth_picker
+					month_picker
 						.find('.xdsoft_select')
 							.hide();
 					if (_xdsoft_datetime.currentTime) {
@@ -982,7 +982,7 @@
 					return false;
 				});
 
-			mounth_picker
+			month_picker
 				.find('.xdsoft_select')
 					.xdsoftScroller()
 				.on('touchstart mousedown.xdsoft', function (event) {
@@ -1159,15 +1159,15 @@
 
 				applyButton.toggle(options.showApplyButton);
 
-				mounth_picker
+				month_picker
 					.find('.xdsoft_today_button')
 						.css('visibility', !options.todayButton ? 'hidden' : 'visible');
 
-				mounth_picker
+				month_picker
 					.find('.' + options.prev)
 						.css('visibility', !options.prevButton ? 'hidden' : 'visible');
 
-				mounth_picker
+				month_picker
 					.find('.' + options.next)
 						.css('visibility', !options.nextButton ? 'hidden' : 'visible');
 
@@ -1239,7 +1239,7 @@
 			}
 
 			datepicker
-				.append(mounth_picker)
+				.append(month_picker)
 				.append(calendar)
 				.append(applyButton);
 
@@ -1441,7 +1441,7 @@
 				input.val(_xdsoft_datetime.str());
 				datetimepicker.trigger('close.xdsoft');
 			});
-			mounth_picker
+			month_picker
 				.find('.xdsoft_today_button')
 				.on('touchend mousedown.xdsoft', function () {
 					datetimepicker.data('changed', true);
@@ -1464,7 +1464,7 @@
 					input.trigger('change');
 					datetimepicker.trigger('close.xdsoft');
 				});
-			mounth_picker
+			month_picker
 				.find('.xdsoft_prev,.xdsoft_next')
 				.on('touchend mousedown.xdsoft', function () {
 					var $this = $(this),
@@ -1687,8 +1687,8 @@
 
 						calendar.html(table);
 
-						mounth_picker.find('.xdsoft_label span').eq(0).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
-						mounth_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear());
+						month_picker.find('.xdsoft_label span').eq(0).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
+						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear());
 
 						// generate timebox
 						time = '';
@@ -2074,7 +2074,7 @@
 				})
 				.on('close.xdsoft', function (event) {
 					var onClose = true;
-					mounth_picker
+					month_picker
 						.find('.xdsoft_month,.xdsoft_year')
 							.find('.xdsoft_select')
 								.hide();
