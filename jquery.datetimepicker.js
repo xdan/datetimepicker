@@ -925,8 +925,7 @@
 				setPos,
 				timer = 0,
 				_xdsoft_datetime,
-				forEachAncestorOf,
-				throttle;
+				forEachAncestorOf;
 
 			if (options.id) {
 				datetimepicker.attr('id', options.id);
@@ -1286,7 +1285,7 @@
 					else if (_this.isValidDate(dTime)) {
 						_this.currentTime = dTime;
 					}
-					else if (!dTime && !requireValidDate && options.allowBlank) {
+					else if (!dTime && !requireValidDate && options.allowBlank && !options.inline) {
 						_this.currentTime = null;
 					}
 					else {
