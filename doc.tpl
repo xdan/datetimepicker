@@ -924,6 +924,18 @@ jQuery(function(){
 <td> </td>
 <td> </td>
 </tr>
+<tr id="ownerDocument">
+<td>ownerDocument</td>
+<td>document</td>
+<td>The ownerDocument object for the datetimepicker to properly attach events and calc position (iframe support).</td>
+<td> </td>
+</tr>
+<tr id="contentWindow">
+<td>contentWindow</td>
+<td>window</td>
+<td>The contentWindow object that contains the datetimepicker to properly attach events (iframe support).</td>
+<td> </td>
+</tr>
 </tbody>
 </table>
 <hr>
