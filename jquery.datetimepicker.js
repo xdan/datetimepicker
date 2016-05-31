@@ -523,8 +523,12 @@
 					"კვ", "ორშ", "სამშ", "ოთხ", "ხუთ", "პარ", "შაბ"
 				],
 				dayOfWeek: ["კვირა", "ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი"]
-			},
+			}
 		},
+
+		ownerDocument: document,
+		contentWindow: window,
+
 		value: '',
 		rtl: false,
 
@@ -630,12 +634,14 @@
 				days: locale.dayOfWeek,
 				daysShort: locale.dayOfWeekShort,
 				months: locale.months,
-				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) }),
+				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) })
 			};
 
-	 	dateHelper = new DateFormatter({
-			dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
-		});
+		if (typeof DateFormatter === 'function') {
+			dateHelper = new DateFormatter({
+				dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
+			});
+		}
 	};
 
 	// for locale settings
@@ -696,7 +702,7 @@
 	Date.prototype.countDaysInMonth = function () {
 		return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
 	};
-	$.fn.xdsoftScroller = function (percent) {
+	$.fn.xdsoftScroller = function (options, percent) {
 		return this.each(function () {
 			var timeboxparent = $(this),
 				pointerEventToXY = function (e) {
@@ -760,15 +766,15 @@
 						h1 = scrollbar[0].offsetHeight;
 
 						if (event.type === 'mousedown' || event.type === 'touchstart') {
-							if (document) {
-								$(document.body).addClass('xdsoft_noselect');
+							if (options.ownerDocument) {
+								$(options.ownerDocument.body).addClass('xdsoft_noselect');
 							}
-							$([document.body, window]).on('touchend mouseup.xdsoft_scroller', function arguments_callee() {
-								$([document.body, window]).off('touchend mouseup.xdsoft_scroller', arguments_callee)
+							$([options.ownerDocument.body, options.contentWindow]).on('touchend mouseup.xdsoft_scroller', function arguments_callee() {
+								$([options.ownerDocument.body, options.contentWindow]).off('touchend mouseup.xdsoft_scroller', arguments_callee)
 									.off('mousemove.xdsoft_scroller', calcOffset)
 									.removeClass('xdsoft_noselect');
 							});
-							$(document.body).on('mousemove.xdsoft_scroller', calcOffset);
+							$(options.ownerDocument.body).on('mousemove.xdsoft_scroller', calcOffset);
 						} else {
 							touchStart = true;
 							event.stopPropagation();
@@ -977,14 +983,14 @@
 						}
 					}
 
-					select.xdsoftScroller(top / (select.children()[0].offsetHeight - (select[0].clientHeight)));
+					select.xdsoftScroller(options, top / (select.children()[0].offsetHeight - (select[0].clientHeight)));
 					event.stopPropagation();
 					return false;
 				});
 
 			month_picker
 				.find('.xdsoft_select')
-					.xdsoftScroller()
+					.xdsoftScroller(options)
 				.on('touchstart mousedown.xdsoft', function (event) {
 					event.stopPropagation();
 					event.preventDefault();
@@ -1146,7 +1152,7 @@
 				}
 
 				if (!options.timepickerScrollbar) {
-					timeboxparent.xdsoftScroller('hide');
+					timeboxparent.xdsoftScroller(options, 'hide');
 				}
 
 				if (options.minDate && /^[\+\-](.*)$/.test(options.minDate)) {
@@ -1223,10 +1229,10 @@
 
 			//scroll_element = timepicker.find('.xdsoft_time_box');
 			timeboxparent.append(timebox);
-			timeboxparent.xdsoftScroller();
+			timeboxparent.xdsoftScroller(options);
 
 			datetimepicker.on('afterOpen.xdsoft', function () {
-				timeboxparent.xdsoftScroller();
+				timeboxparent.xdsoftScroller(options);
 			});
 
 			datetimepicker
@@ -1484,10 +1490,10 @@
 						}
 					}(500));
 
-					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee2() {
+					$([options.ownerDocument.body, options.contentWindow]).on('touchend mouseup.xdsoft', function arguments_callee2() {
 						clearTimeout(timer);
 						stop = true;
-						$([document.body, window]).off('touchend mouseup.xdsoft', arguments_callee2);
+						$([options.ownerDocument.body, options.contentWindow]).off('touchend mouseup.xdsoft', arguments_callee2);
 					});
 				});
 
@@ -1526,10 +1532,10 @@
 							timer = setTimeout(arguments_callee4, v || period);
 						}
 					}(500));
-					$([document.body, window]).on('touchend mouseup.xdsoft', function arguments_callee5() {
+					$([options.ownerDocument.body, options.contentWindow]).on('touchend mouseup.xdsoft', function arguments_callee5() {
 						clearTimeout(timer);
 						stop = true;
-						$([document.body, window])
+						$([options.ownerDocument.body, options.contentWindow])
 							.off('touchend mouseup.xdsoft', arguments_callee5);
 					});
 				});
@@ -1974,11 +1980,11 @@
 				left = dateInputOffset.left;
 				position = "absolute";
 
-				windowWidth = $(window).width();
-				windowHeight = $(window).height();
-				windowScrollTop = $(window).scrollTop();
+				windowWidth = $(options.contentWindow).width();
+				windowHeight = $(options.contentWindow).height();
+				windowScrollTop = $(options.contentWindow).scrollTop();
 
-				if ((document.documentElement.clientWidth - dateInputOffset.left) < datepicker.parent().outerWidth(true)) {
+				if ((options.ownerDocument.documentElement.clientWidth - dateInputOffset.left) < datepicker.parent().outerWidth(true)) {
 					var diff = datepicker.parent().outerWidth(true) - dateInputElem.offsetWidth;
 					left = left - diff;
 				}
@@ -1989,13 +1995,13 @@
 
 				if (options.fixed) {
 					verticalPosition -= windowScrollTop;
-					left -= $(window).scrollLeft();
+					left -= $(options.contentWindow).scrollLeft();
 					position = "fixed";
 				} else {
 					dateInputHasFixedAncestor = false;
 
 					forEachAncestorOf(dateInputElem, function (ancestorNode) {
-						if (window.getComputedStyle(ancestorNode).getPropertyValue('position') === 'fixed') {
+						if (options.contentWindow.getComputedStyle(ancestorNode).getPropertyValue('position') === 'fixed') {
 							dateInputHasFixedAncestor = true;
 							return false;
 						}
@@ -2031,7 +2037,7 @@
 				forEachAncestorOf(datetimepickerElem, function (ancestorNode) {
 					var ancestorNodePosition;
 
-					ancestorNodePosition = window.getComputedStyle(ancestorNode).getPropertyValue('position');
+					ancestorNodePosition = options.contentWindow.getComputedStyle(ancestorNode).getPropertyValue('position');
 
 					if (ancestorNodePosition === 'relative' && windowWidth >= ancestorNode.offsetWidth) {
 						left = left - ((windowWidth - ancestorNode.offsetWidth) / 2);
@@ -2060,14 +2066,14 @@
 					if (onShow !== false) {
 						datetimepicker.show();
 						setPos();
-						$(window)
+						$(options.contentWindow)
 							.off('resize.xdsoft', setPos)
 							.on('resize.xdsoft', setPos);
 
 						if (options.closeOnWithoutClick) {
-							$([document.body, window]).on('touchstart mousedown.xdsoft', function arguments_callee6() {
+							$([options.ownerDocument.body, options.contentWindow]).on('touchstart mousedown.xdsoft', function arguments_callee6() {
 								datetimepicker.trigger('close.xdsoft');
-								$([document.body, window]).off('touchstart mousedown.xdsoft', arguments_callee6);
+								$([options.ownerDocument.body, options.contentWindow]).off('touchstart mousedown.xdsoft', arguments_callee6);
 							});
 						}
 					}
@@ -2141,8 +2147,8 @@
 				},
 				getCaretPos = function (input) {
 					try {
-						if (document.selection && document.selection.createRange) {
-							var range = document.selection.createRange();
+						if (options.ownerDocument.selection && options.ownerDocument.selection.createRange) {
+							var range = options.ownerDocument.selection.createRange();
 							return range.getBookmark().charCodeAt(2) - 2;
 						}
 						if (input.setSelectionRange) {
@@ -2153,7 +2159,7 @@
 					}
 				},
 				setCaretPos = function (node, pos) {
-					node = (typeof node === "string" || node instanceof String) ? document.getElementById(node) : node;
+					node = (typeof node === "string" || node instanceof String) ? options.ownerDocument.getElementById(node) : node;
 					if (!node) {
 						return false;
 					}
@@ -2304,14 +2310,14 @@
 				input
 					.data('xdsoft_datetimepicker', null)
 					.off('.xdsoft');
-				$(window).off('resize.xdsoft');
-				$([window, document.body]).off('mousedown.xdsoft touchstart');
+				$(options.contentWindow).off('resize.xdsoft');
+				$([options.contentWindow, options.ownerDocument.body]).off('mousedown.xdsoft touchstart');
 				if (input.unmousewheel) {
 					input.unmousewheel();
 				}
 			}
 		};
-		$(document)
+		$(options.ownerDocument)
 			.off('keydown.xdsoftctrl keyup.xdsoftctrl')
 			.on('keydown.xdsoftctrl', function (e) {
 				if (e.keyCode === CTRLKEY) {
