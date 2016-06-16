@@ -593,6 +593,9 @@ var DateFormatter;
 	}
 }(function ($) {
 	'use strict';
+	
+	var currentlyScrollingTimeDiv = false;
+	
 	var default_options  = {
 		i18n: {
 			ar: { // Arabic
@@ -2410,8 +2413,13 @@ var DateFormatter;
 				});
 
 			timebox
+				.on('touchmove', 'div', function () { currentlyScrollingTimeDiv = true; })
 				.on('touchend click.xdsoft', 'div', function (xdevent) {
 					xdevent.stopPropagation();
+					if (currentlyScrollingTimeDiv) {
+				        	currentlyScrollingTimeDiv = false;
+				        	return;
+				    	}
 					var $this = $(this),
 						currentTime = _xdsoft_datetime.currentTime;
 
