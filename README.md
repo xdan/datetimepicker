@@ -9,7 +9,7 @@ This file will be automatically displayed on the site
 
 Use this:
 ```javascript
-$.datetimepicker.setLocale('en');
+jQuery.datetimepicker.setLocale('en');
 ```
 [Documentation][doc]
 
