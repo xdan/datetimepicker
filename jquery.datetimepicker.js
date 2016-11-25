@@ -304,7 +304,7 @@
 				],
 				dayOfWeek: ["Diumenge", "Dilluns", "Dimarts", "Dimecres", "Dijous", "Divendres", "Dissabte"]
 			},
-			'en-GB': { //English (British)
+			'en-gb': { //English (British)
 				months: [
 					"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 				],
@@ -403,7 +403,7 @@
 				],
 				dayOfWeek: ["Даваа", "Мягмар", "Лхагва", "Пүрэв", "Баасан", "Бямба", "Ням"]
 			},
-			'pt-BR': { //Português(Brasil)
+			'pt-br': { //Português(Brasil)
 				months: [
 					"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 				],
@@ -430,7 +430,7 @@
 				],
 				dayOfWeek: ["E Diel", "E Hënë", "E Martē", "E Mërkurë", "E Enjte", "E Premte", "E Shtunë"]
 			},
-			'sr-YU': { //Serbian (Srpski)
+			'sr-yu': { //Serbian (Srpski)
 				months: [
 					"Januar", "Februar", "Mart", "April", "Maj", "Jun", "Jul", "Avgust", "Septembar", "Oktobar", "Novembar", "Decembar"
 				],
@@ -457,7 +457,7 @@
 				],
 				dayOfWeek: ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"]
 			},
-			'zh-TW': { //Traditional Chinese (繁體中文)
+			'zh-tw': { //Traditional Chinese (繁體中文)
 				months: [
 					"一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"
 				],
