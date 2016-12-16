@@ -217,7 +217,7 @@
 			},
 			da: { // Dansk
 				months: [
-					"January", "Februar", "Marts", "April", "Maj", "Juni", "July", "August", "September", "Oktober", "November", "December"
+					"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"
 				],
 				dayOfWeekShort: [
 					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
