@@ -3,7 +3,7 @@
  * @version 1.3.3
  *
  * Date formatter utility library that allows formatting date/time variables or Date objects using PHP DateTime format.
- * @see http://php.net/manual/en/function.date.phpXDSoft_datetime
+ * @see http://php.net/manual/en/function.date.php
  *
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
