@@ -3,7 +3,7 @@
  * @version 1.3.3
  *
  * Date formatter utility library that allows formatting date/time variables or Date objects using PHP DateTime format.
- * @see http://php.net/manual/en/function.date.php
+ * @see http://php.net/manual/en/function.date.phpXDSoft_datetime
  *
  * For more JQuery plugins visit http://plugins.krajee.com
  * For more Yii related demos visit http://demos.krajee.com
@@ -1834,6 +1834,7 @@ var DateFormatter;
 
 					if (!norecursion && options.defaultDate) {
 						date = _this.strToDateTime(options.defaultDate);
+						d.setDate(0);
 						d.setFullYear(date.getFullYear());
 						d.setMonth(date.getMonth());
 						d.setDate(date.getDate());
