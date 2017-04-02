@@ -1834,7 +1834,7 @@ var DateFormatter;
 
 					if (!norecursion && options.defaultDate) {
 						date = _this.strToDateTime(options.defaultDate);
-						d.setDate(0);
+						d.setDate(1);
 						d.setFullYear(date.getFullYear());
 						d.setMonth(date.getMonth());
 						d.setDate(date.getDate());
