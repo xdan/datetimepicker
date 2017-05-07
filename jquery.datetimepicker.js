@@ -2001,6 +2001,10 @@
 					dateInputHasFixedAncestor = false;
 
 					forEachAncestorOf(dateInputElem, function (ancestorNode) {
+                        if (ancestorNode === null) {
+                            return false;
+                        }
+
 						if (options.contentWindow.getComputedStyle(ancestorNode).getPropertyValue('position') === 'fixed') {
 							dateInputHasFixedAncestor = true;
 							return false;
