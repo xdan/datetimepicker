@@ -2018,8 +2018,8 @@
 							verticalPosition -= windowScrollTop;
 						}
 					} else {
-						if (verticalPosition + dateInputElem.offsetHeight > windowHeight + windowScrollTop) {
-							verticalPosition = dateInputOffset.top - dateInputElem.offsetHeight + 1;
+						if (verticalPosition + datetimepicker[0].offsetHeight > windowHeight + windowScrollTop) {
+							verticalPosition = dateInputOffset.top - datetimepicker[0].offsetHeight + 1;
 						}
 					}
 
