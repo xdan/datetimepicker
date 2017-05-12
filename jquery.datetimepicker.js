@@ -1945,7 +1945,7 @@
 				do {
 					node = node.parentNode;
 
-					if (callback(node) === false) {
+					if (!node || callback(node) === false) {
 						break;
 					}
 				} while (node.nodeName !== 'HTML');
