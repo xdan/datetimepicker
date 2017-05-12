@@ -1,3 +1,8 @@
+/*! Changed by Vladyslav Pilhui 06/10/2016
+ *  Added processing 12-hour clock. 
+ *  Line 157-167
+ */
+
 /*!
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2015
  * @version 1.3.3
@@ -149,17 +154,21 @@ var DateFormatter;
                             (vFormatParts.indexOf('A') > -1) ? vFormatParts.indexOf('A') : -1;
                         mer = vDateParts[vMeriIndex];
                         if (vMeriIndex > -1) {
-                            vMeriOffset = _compare(mer, vSettings.meridiem[0]) ? 0 :
-                                (_compare(mer, vSettings.meridiem[1]) ? 12 : -1);
-                            if (iDatePart >= 1 && iDatePart <= 12 && vMeriOffset > -1) {
-                                out.hour = iDatePart + vMeriOffset;
-                            } else if (iDatePart >= 0 && iDatePart <= 23) {
-                                out.hour = iDatePart;
-                            }
+                          vMeriOffset = _compare(mer, vSettings.meridiem[0]) ? 0 :
+                              (_compare(mer, vSettings.meridiem[1]) ? 12 : -1);
+                          if (iDatePart === 12 && vMeriOffset === 0) {
+                            out.hour = 0;
+                          }
+                          else if (iDatePart === 12 && vMeriOffset === 12) {
+                            out.hour = 12;
+                          }
+                          else if (iDatePart >= 1 && iDatePart < 12) {
+                            out.hour = iDatePart + vMeriOffset;
+                          }
                         } else if (iDatePart >= 0 && iDatePart <= 23) {
-                            out.hour = iDatePart;
-                        }
-                        vTimeFlag = true;
+                        out.hour = iDatePart;
+                      }
+                      vTimeFlag = true;
                         break;
                     case 'G':
                     case 'H':
