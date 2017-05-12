@@ -1651,7 +1651,7 @@
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
-							}else if (input.is('[readonly]')) {
+							}else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
@@ -1731,7 +1731,7 @@
 								classes.push('xdsoft_disabled');
 							} else if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
 								classes.push('xdsoft_disabled');
-							} else if (input.is('[readonly]')) {
+							} else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
