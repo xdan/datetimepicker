@@ -617,8 +617,7 @@ var DateFormatter;
             return '';
         }
     };
-})();
-/**
+})();/**
  * @preserve jQuery DateTimePicker plugin v2.5.4
  * @homepage http://xdsoft.net/jqplugins/datetimepicker/
  * @author Chupurnov Valeriy (<chupurnov@gmail.com>)
@@ -817,12 +816,12 @@ var DateFormatter;
 					"Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
 				]
 			},
-			km: { // Khmer
+			km: { // Khmer (ភាសាខ្មែរ)
     		months: [
-    			"មករា​", "កុម្ភៈ", "មិនា​", "មេសា​", "ឧសភា​", "មិថុនា​", "កក្កដា​", "សីហា​", "កញ្ញា​", "តុលា​", "វិច្ឋិកា​", "ធ្នូ​"
+    			"មករា​", "កុម្ភៈ", "មិនា​", "មេសា​", "ឧសភា​", "មិថុនា​", "កក្កដា​", "សីហា​", "កញ្ញា​", "តុលា​", "វិច្ឆិកា", "ធ្នូ​"
     		],
-    		dayOfWeekShort: ["អាទិ​", "ចន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហ​​", "សុក្រ​", "សៅរ៍"],
-    		dayOfWeek: ["អាទិត្យ​", "ចន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហស្បតិ៍​", "សុក្រ​", "សៅរ៍"]
+    		dayOfWeekShort: ["អាទិ​", "ច័ន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហ​​", "សុក្រ​", "សៅរ៍"],
+    		dayOfWeek: ["អាទិត្យ​", "ច័ន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហស្បតិ៍​", "សុក្រ​", "សៅរ៍"]
     	},
 			kr: { // Korean
 				months: [
@@ -844,7 +843,7 @@ var DateFormatter;
 			},
 			da: { // Dansk
 				months: [
-					"January", "Februar", "Marts", "April", "Maj", "Juni", "July", "August", "September", "Oktober", "November", "December"
+					"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"
 				],
 				dayOfWeekShort: [
 					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
@@ -1101,6 +1100,14 @@ var DateFormatter;
 					"日", "一", "二", "三", "四", "五", "六"
 				],
 				dayOfWeek: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+			},
+			ug:{ // Uyghur(ئۇيغۇرچە)
+				months: [
+					"1-ئاي","2-ئاي","3-ئاي","4-ئاي","5-ئاي","6-ئاي","7-ئاي","8-ئاي","9-ئاي","10-ئاي","11-ئاي","12-ئاي"
+				],
+				dayOfWeek: [
+					"يەكشەنبە", "دۈشەنبە","سەيشەنبە","چارشەنبە","پەيشەنبە","جۈمە","شەنبە"
+				]
 			},
 			he: { //Hebrew (עברית)
 				months: [
@@ -1558,8 +1565,7 @@ var DateFormatter;
 				setPos,
 				timer = 0,
 				_xdsoft_datetime,
-				forEachAncestorOf,
-				throttle;
+				forEachAncestorOf;
 
 			if (options.id) {
 				datetimepicker.attr('id', options.id);
@@ -1888,7 +1894,6 @@ var DateFormatter;
 
 					if (!norecursion && options.defaultDate) {
 						date = _this.strToDateTime(options.defaultDate);
-						d.setDate(1);
 						d.setFullYear(date.getFullYear());
 						d.setMonth(date.getMonth());
 						d.setDate(date.getDate());
@@ -1920,7 +1925,7 @@ var DateFormatter;
 					else if (_this.isValidDate(dTime)) {
 						_this.currentTime = dTime;
 					}
-					else if (!dTime && !requireValidDate && options.allowBlank) {
+					else if (!dTime && !requireValidDate && options.allowBlank && !options.inline) {
 						_this.currentTime = null;
 					}
 					else {
@@ -2264,7 +2269,7 @@ var DateFormatter;
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
-							}else if (input.is('[readonly]')) {
+							}else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
@@ -2344,7 +2349,7 @@ var DateFormatter;
 								classes.push('xdsoft_disabled');
 							} else if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
 								classes.push('xdsoft_disabled');
-							} else if (input.is('[readonly]')) {
+							} else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
@@ -2629,6 +2634,10 @@ var DateFormatter;
 					dateInputHasFixedAncestor = false;
 
 					forEachAncestorOf(dateInputElem, function (ancestorNode) {
+                        if (ancestorNode === null) {
+                            return false;
+                        }
+
 						if (options.contentWindow.getComputedStyle(ancestorNode).getPropertyValue('position') === 'fixed') {
 							dateInputHasFixedAncestor = true;
 							return false;
@@ -2646,8 +2655,8 @@ var DateFormatter;
 							verticalPosition -= windowScrollTop;
 						}
 					} else {
-						if (verticalPosition + dateInputElem.offsetHeight > windowHeight + windowScrollTop) {
-							verticalPosition = dateInputOffset.top - dateInputElem.offsetHeight + 1;
+						if (verticalPosition + datetimepicker[0].offsetHeight > windowHeight + windowScrollTop) {
+							verticalPosition = dateInputOffset.top - datetimepicker[0].offsetHeight + 1;
 						}
 					}
 
@@ -3019,7 +3028,6 @@ var DateFormatter;
 		this.style = style;
 	}
 }));
-
 /*!
  * jQuery Mousewheel 3.1.13
  *
