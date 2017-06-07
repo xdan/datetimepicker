@@ -1562,10 +1562,6 @@
 					xchangeTimer = setTimeout(function () {
 
 						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
-							//In case blanks are allowed, delay construction until we have a valid date
-							if (options.allowBlank)
-								return;
-
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
 
