@@ -197,6 +197,13 @@
 					"Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"
 				]
 			},
+			km: { // Khmer
+    		months: [
+    			"មករា​", "កុម្ភៈ", "មិនា​", "មេសា​", "ឧសភា​", "មិថុនា​", "កក្កដា​", "សីហា​", "កញ្ញា​", "តុលា​", "វិច្ឋិកា​", "ធ្នូ​"
+    		],
+    		dayOfWeekShort: ["អាទិ​", "ចន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហ​​", "សុក្រ​", "សៅរ៍"],
+    		dayOfWeek: ["អាទិត្យ​", "ចន្ទ​", "អង្គារ​", "ពុធ​", "ព្រហស្បតិ៍​", "សុក្រ​", "សៅរ៍"]
+    	},
 			kr: { // Korean
 				months: [
 					"1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"
@@ -217,7 +224,7 @@
 			},
 			da: { // Dansk
 				months: [
-					"January", "Februar", "Marts", "April", "Maj", "Juni", "July", "August", "September", "Oktober", "November", "December"
+					"Januar", "Februar", "Marts", "April", "Maj", "Juni", "Juli", "August", "September", "Oktober", "November", "December"
 				],
 				dayOfWeekShort: [
 					"Søn", "Man", "Tir", "Ons", "Tor", "Fre", "Lør"
@@ -474,6 +481,14 @@
 					"日", "一", "二", "三", "四", "五", "六"
 				],
 				dayOfWeek: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+			},
+			ug:{ // Uyghur(ئۇيغۇرچە)
+				months: [
+					"1-ئاي","2-ئاي","3-ئاي","4-ئاي","5-ئاي","6-ئاي","7-ئاي","8-ئاي","9-ئاي","10-ئاي","11-ئاي","12-ئاي"
+				],
+				dayOfWeek: [
+					"يەكشەنبە", "دۈشەنبە","سەيشەنبە","چارشەنبە","پەيشەنبە","جۈمە","شەنبە"
+				]
 			},
 			he: { //Hebrew (עברית)
 				months: [
@@ -931,8 +946,7 @@
 				setPos,
 				timer = 0,
 				_xdsoft_datetime,
-				forEachAncestorOf,
-				throttle;
+				forEachAncestorOf;
 
 			if (options.id) {
 				datetimepicker.attr('id', options.id);
@@ -1193,7 +1207,7 @@
 								} else {
 									var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
 										splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
-	
+
 									// parse the numbers as 0312 => 03:12
 									if (!options.datepicker && options.timepicker && splittedHours >= 0 && splittedHours < 24 && splittedMinutes >= 0 && splittedMinutes < 60) {
 										$(this).val([splittedHours, splittedMinutes].map(function (item) {
@@ -1292,13 +1306,13 @@
 					else if (_this.isValidDate(dTime)) {
 						_this.currentTime = dTime;
 					}
-					else if (!dTime && !requireValidDate && options.allowBlank) {
+					else if (!dTime && !requireValidDate && options.allowBlank && !options.inline) {
 						_this.currentTime = null;
 					}
 					else {
 						_this.currentTime = _this.now();
 					}
-					
+
 					datetimepicker.trigger('xchange.xdsoft');
 				};
 
@@ -1522,7 +1536,7 @@
                          * jquery timebox.css('marginTop') will return the original value which is before you clicking the next/prev button,
                          * meanwhile the timebox[0].style.marginTop will return the right value which is after you clicking the
                          * next/prev button.
-                         * 
+                         *
                          * What we should do:
                          * Replace timebox.css('marginTop') with timebox[0].style.marginTop.
                          */
@@ -1548,10 +1562,10 @@
 					xchangeTimer = setTimeout(function () {
 
 						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
-							//In case blanks are allowed, delay construction until we have a valid date 
+							//In case blanks are allowed, delay construction until we have a valid date
 							if (options.allowBlank)
 								return;
-								
+
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
 
@@ -1636,7 +1650,7 @@
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
-							}else if (input.is('[readonly]')) {
+							}else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
@@ -1711,12 +1725,12 @@
 							optionDateTime = new Date(_xdsoft_datetime.currentTime);
 							optionDateTime.setHours(h);
 							optionDateTime.setMinutes(m);
-							classes = [];			
+							classes = [];
 							if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || (options.maxTime !== false && _xdsoft_datetime.strtotime(options.maxTime).getTime() < now.getTime()) || (options.minTime !== false && _xdsoft_datetime.strtotime(options.minTime).getTime() > now.getTime())) {
 								classes.push('xdsoft_disabled');
 							} else if ((options.minDateTime !== false && options.minDateTime > optionDateTime) || ((options.disabledMinTime !== false && now.getTime() > _xdsoft_datetime.strtotime(options.disabledMinTime).getTime()) && (options.disabledMaxTime !== false && now.getTime() < _xdsoft_datetime.strtotime(options.disabledMaxTime).getTime()))) {
 								classes.push('xdsoft_disabled');
-							} else if (input.is('[readonly]')) {
+							} else if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
@@ -2001,6 +2015,10 @@
 					dateInputHasFixedAncestor = false;
 
 					forEachAncestorOf(dateInputElem, function (ancestorNode) {
+                        if (ancestorNode === null) {
+                            return false;
+                        }
+
 						if (options.contentWindow.getComputedStyle(ancestorNode).getPropertyValue('position') === 'fixed') {
 							dateInputHasFixedAncestor = true;
 							return false;
@@ -2018,8 +2036,8 @@
 							verticalPosition -= windowScrollTop;
 						}
 					} else {
-						if (verticalPosition + dateInputElem.offsetHeight > windowHeight + windowScrollTop) {
-							verticalPosition = dateInputOffset.top - dateInputElem.offsetHeight + 1;
+						if (verticalPosition + datetimepicker[0].offsetHeight > windowHeight + windowScrollTop) {
+							verticalPosition = dateInputOffset.top - datetimepicker[0].offsetHeight + 1;
 						}
 					}
 
