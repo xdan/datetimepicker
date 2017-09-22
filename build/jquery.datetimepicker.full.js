@@ -217,7 +217,11 @@ var DateFormatter;
                         break;
                 }
             }
-            if (vDateFlag === true && out.year && out.month && out.day) {
+            if (vDateFlag === true) {
+                // Set month and day to 1 if they are null
+                out.month = out.month || 1;
+                out.day = out.day || 1;
+
                 out.date = new Date(out.year, out.month - 1, out.day, out.hour, out.min, out.sec, 0);
             } else {
                 if (vTimeFlag !== true) {
