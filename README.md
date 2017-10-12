@@ -5,9 +5,9 @@ This file will be automatically displayed on the site
 # Installation
 
 ```
-npm install datetimepicker-jquery
+npm install jquery-datetimepicker
 OR
-yarn add datetimepicker-jquery
+yarn add jquery-datetimepicker
 ```
 
 # datetimepicker

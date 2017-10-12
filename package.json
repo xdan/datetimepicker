@@ -1,6 +1,6 @@
 {
   "name": "jquery-datetimepicker",
-  "version": "2.5.4",
+  "version": "2.5.5",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "build/jquery.datetimepicker.full.min.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js && uglifycss jquery.datetimepicker.css > build/jquery.datetimepicker.min.css",
     "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
     "github": "git add --all  && git commit -m \"New version %npm_package_version% \" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
-    "build": "npm run minify && npm run concat && npm run minifyconcat"
+    "build": "npm run minify && npm run concat && npm run minifyconcat",
+    "public": "npm version patch --no-git-tag-version && npm run build && npm run github && npm run newversiongit && npm publish ./"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,7 @@
   "devDependencies": {
     "concat": "azer/concat",
     "concat-cli": "^4.0.0",
-    "uglifycss": "0.0.20",
+    "uglifycss": "^0.0.27",
     "uglifyjs": "^2.4.10"
   }
 }
