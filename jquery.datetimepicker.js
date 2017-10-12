@@ -564,6 +564,8 @@ var datetimepickerFactory = function ($) {
 		maxDate: false,
 		minTime: false,
 		maxTime: false,
+        minDateTime: false,
+
 		disabledMinTime: false,
 		disabledMaxTime: false,
 
@@ -1176,6 +1178,10 @@ var datetimepickerFactory = function ($) {
 					options.maxDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.maxDate), options.formatDate);
 				}
 
+                if (options.minDateTime &&  /^\+(.*)$/.test(options.minDateTime)) {
+                	options.minDateTime = _xdsoft_datetime.strToDateTime(options.minDateTime).dateFormat(options.formatDate);
+                }
+
 				applyButton.toggle(options.showApplyButton);
 
 				month_picker
@@ -1577,6 +1583,7 @@ var datetimepickerFactory = function ($) {
 							today = _xdsoft_datetime.now(),
 							maxDate = false,
 							minDate = false,
+                            minDateTime = false,
 							hDate,
 							day,
 							d,
@@ -1618,6 +1625,11 @@ var datetimepickerFactory = function ($) {
 							minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 						}
 
+                        if (options.minDateTime !== false) {
+							minDateTime = _xdsoft_datetime.strToDate(options.minDateTime);
+							minDateTime = new Date(minDateTime.getFullYear(), minDateTime.getMonth(), minDateTime.getDate(), minDateTime.getHours(), minDateTime.getMinutes(), minDateTime.getSeconds());
+						}
+
 						while (i < _xdsoft_datetime.currentTime.countDaysInMonth() || start.getDay() !== options.dayOfWeekStart || _xdsoft_datetime.currentTime.getMonth() === start.getMonth()) {
 							classes = [];
 							i += 1;
@@ -1645,7 +1657,7 @@ var datetimepickerFactory = function ($) {
 								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
-							} else if ((maxDate !== false && start > maxDate) || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+							} else if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
 							} else if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
