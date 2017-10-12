@@ -69,7 +69,7 @@ var DateFormatter;
                 return Math.floor(number % 100 / 10) === 1 || !suffixes[n] ? 'th' : suffixes[n];
             }
         },
-        separators: /[ \-+\/\.T:@]/g,
+        separators: /[ \-+,\/\.T:@]/g,
         validParts: /[dDjlNSwzWFmMntLoYyaABgGhHisueTIOPZcrU]/g,
         intParts: /[djwNzmnyYhHgGis]/g,
         tzParts: /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
