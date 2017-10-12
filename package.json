@@ -10,7 +10,7 @@
     "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js && rm -f build/jquery.datetimepicker.full.js",
     "github": "git add --all  && git commit -m \"New version %npm_package_version% \" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
     "build": "npm run minify && npm run concat && npm run minifyconcat",
-    "public": "npm version patch --no-git-tag-version && npm run build && npm run github/"
+    "public": "npm version patch --no-git-tag-version && npm run build && npm run github"
   },
   "repository": {
     "type": "git",
