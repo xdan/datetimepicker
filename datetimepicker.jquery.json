@@ -1,20 +1,36 @@
 {
     "name": "datetimepicker",
-    "title": "jQuery Date and Time picker",
+    "version": "2.5.4",
+	"title": "jQuery Date and Time picker",
     "description": "jQuery plugin for date, time, or datetime manipulation in form",
     "keywords": [
-        "date",
-        "time",
-        "datetime",
-        "datepicker",
-        "timepicker",
-        "datetimepicker"
+			"calendar",
+			"date",
+			"time",
+			"form",
+			"datetime",
+			"datepicker",
+			"timepicker",
+			"datetimepicker",
+			"validation",
+			"ui",
+			"scroller",
+			"picker",
+			"i18n",
+			"input",
+			"jquery",
+			"touch"
     ],
-    "version": "1.0.1",
-    "author": {
-        "name": "Chupurnov Valeriy",
-        "url": "http://xdsoft.net/contacts.html"
-    },
+   "author": {
+		"name": 	"Chupurnov Valeriy",
+		"email": 	"chupurnov@gmail.com",
+		"url": 		"http://xdsoft.net/contacts.html"
+	},
+	"maintainers": [{
+		"name": 	"Chupurnov Valeriy",
+		"email": 	"chupurnov@gmail.com",
+		"url": 		"http://xdsoft.net"
+	}],
     "licenses": [
         {
             "type": "MIT",
@@ -26,6 +42,6 @@
     "docs": "http://xdsoft.net/jqplugins/datetimepicker/",
     "download": "https://github.com/xdan/datetimepicker/archive/master.zip",
     "dependencies": {
-        "jquery": ">=1.5"
+        "jquery": ">=1.7"
     }
 }
