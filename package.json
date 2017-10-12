@@ -1,16 +1,16 @@
 {
   "name": "jquery-datetimepicker",
-  "version": "2.5.5",
+  "version": "2.5.7",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "build/jquery.datetimepicker.full.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "concat": "concat-cli -f bower_components/php-date-formatter/js/php-date-formatter.js jquery.datetimepicker.js bower_components/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
+    "concat": "concat-cli -f node_modules/php-date-formatter/js/php-date-formatter.min.js jquery.datetimepicker.js node_modules/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
     "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js && uglifycss jquery.datetimepicker.css > build/jquery.datetimepicker.min.css",
-    "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
+    "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js && rm -f build/jquery.datetimepicker.full.js",
     "github": "git add --all  && git commit -m \"New version %npm_package_version% \" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
     "build": "npm run minify && npm run concat && npm run minifyconcat",
-    "public": "npm version patch --no-git-tag-version && npm run build && npm run github && npm run newversiongit && npm publish ./"
+    "public": "npm version patch --no-git-tag-version && npm run build && npm run github/"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,7 @@
   "dependencies": {
     "jquery": ">= 1.7.2",
     "jquery-mousewheel": ">= 3.1.13",
-    "php-date-formatter": ">= 1.3.3"
+    "php-date-formatter": "^1.3.4"
   },
   "devDependencies": {
     "concat": "azer/concat",

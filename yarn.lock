@@ -113,7 +113,7 @@ parallel-loop@azer/parallel-loop:
   version "0.0.2"
   resolved "https://codeload.github.com/azer/parallel-loop/tar.gz/054b0d3fe633483a3a6b94104c8343473208d5fb"
 
-"php-date-formatter@>= 1.3.3":
+php-date-formatter@^1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/php-date-formatter/-/php-date-formatter-1.3.4.tgz#09a15ae0766ba0beb1900c27c1ec319ef2e4563e"
 
