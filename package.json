@@ -1,13 +1,13 @@
 {
   "name": "jquery-datetimepicker",
-  "version": "2.5.10",
+  "version": "2.5.11",
   "description": "jQuery Plugin DateTimePicker it is DatePicker and TimePicker in one",
   "main": "build/jquery.datetimepicker.full.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "concat": "concat-cli -f node_modules/php-date-formatter/js/php-date-formatter.min.js jquery.datetimepicker.js node_modules/jquery-mousewheel/jquery.mousewheel.js -o build/jquery.datetimepicker.full.js",
     "minify": "uglifyjs jquery.datetimepicker.js -c -m -o build/jquery.datetimepicker.min.js && uglifycss jquery.datetimepicker.css > build/jquery.datetimepicker.min.css",
-    "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js && rm -f build/jquery.datetimepicker.full.js",
+    "minifyconcat": "uglifyjs build/jquery.datetimepicker.full.js -c -m -o build/jquery.datetimepicker.full.min.js",
     "github": "git add --all  && git commit -m \"New version %npm_package_version% \" && git tag %npm_package_version% && git push --tags origin HEAD:master && npm publish",
     "build": "npm run minify && npm run concat && npm run minifyconcat",
     "public": "npm version patch --no-git-tag-version && npm run build && npm run github"
