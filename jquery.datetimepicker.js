@@ -1653,17 +1653,27 @@ var datetimepickerFactory = function ($) {
 								if(!options.allowDateRe.test(dateHelper.formatDate(start, options.formatDate))){
 									classes.push('xdsoft_disabled');
 								}
-							} else if(options.allowDates && options.allowDates.length>0){
+							}
+							
+							if(options.allowDates && options.allowDates.length>0){
 								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
-							} else if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
+							}
+							
+							if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
-							} else if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
+							}
+							
+							if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
-							} else if (options.disabledWeekDays.indexOf(day) !== -1) {
+							}
+							
+							if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
-							}else if (input.is('[disabled]')) {
+							}
+							
+							if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
 
