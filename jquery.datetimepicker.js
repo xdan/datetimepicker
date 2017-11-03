@@ -1771,7 +1771,7 @@ var datetimepickerFactory = function ($) {
 							for (i = 0, j = 0; i < (options.hours12 ? 12 : 24); i += 1) {
 								for (j = 0; j < 60; j += options.step) {
 									h = (i < 10 ? '0' : '') + i;
-									m = (j < 10 ? _xdsoft_datetime.now().getMinutes() : '') + j;
+									m = (j < 10 ? '0' : '') + j;
 									line_time(h, m);
 								}
 							}
