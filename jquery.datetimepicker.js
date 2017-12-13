@@ -2267,6 +2267,7 @@ var datetimepickerFactory = function ($) {
 					input.on('keydown.xdsoft', function (event) {
 						var val = this.value,
 							key = event.which,
+						    	selectionLength = this.selectionEnd - this.selectionStart,
 							pos,
 							digit;
 
@@ -2274,16 +2275,18 @@ var datetimepickerFactory = function ($) {
 							pos = getCaretPos(this);
 							digit = (key !== BACKSPACE && key !== DEL) ? String.fromCharCode((_KEY0 <= key && key <= _KEY9) ? key - KEY0 : key) : '_';
 
-							if ((key === BACKSPACE || key === DEL) && pos) {
+							if (key === BACKSPACE && pos) {
 								pos -= 1;
-								digit = '_';
+								if (selectionLength>0) pos += 1;
 							}
 
 							while (/[^0-9_]/.test(options.mask.substr(pos, 1)) && pos < options.mask.length && pos > 0) {
-								pos += (key === BACKSPACE || key === DEL) ? -1 : 1;
+								pos += (key === BACKSPACE) ? -1 : 1;
 							}
-
-							val = val.substr(0, pos) + digit + val.substr(pos + 1);
+							
+							var defaultBlank = options.mask.replace(/[0-9]/g, '_');
+							var selText = defaultBlank.substr(pos + 1, selectionLength -1);
+							val = val.substr(0, pos) + digit + selText + val.substr(pos + 1 + selectionLength);
 
 							if ($.trim(val) === '') {
 								val = options.mask.replace(/[0-9]/g, '_');
