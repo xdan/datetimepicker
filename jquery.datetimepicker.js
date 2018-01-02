@@ -574,6 +574,7 @@ var datetimepickerFactory = function ($) {
 		initTime: true,
 		inline: false,
 		theme: '',
+		touchMovedThreshold: 5,
 
 		onSelectDate: function () {},
 		onSelectTime: function () {},
@@ -1003,19 +1004,29 @@ var datetimepickerFactory = function ($) {
 					return false;
 				});
 
+			var handleTouchMoved = function (event) {
+				this.touchStartPosition = this.touchStartPosition || event.originalEvent.touches[0]
+				var touchPosition = event.originalEvent.touches[0]
+				var xMovement = Math.abs(this.touchStartPosition.clientX - touchPosition.clientX)
+				var yMovement = Math.abs(this.touchStartPosition.clientY - touchPosition.clientY)
+				var distance = Math.sqrt(xMovement * xMovement + yMovement * yMovement)
+				if(distance > options.touchMovedThreshold) {
+					this.touchMoved = true;
+				}
+			}
+
 			month_picker
 				.find('.xdsoft_select')
 				.xdsoftScroller(options)
 				.on('touchstart mousedown.xdsoft', function (event) {
-					this.touchmoved = false;
+					this.touchMoved = false;
+					this.touchStartPosition = event.originalEvent.touches[0]
 					event.stopPropagation();
 					event.preventDefault();
 				})
-				.on('touchmove', '.xdsoft_option', function () {
-					this.touchmoved = true;
-				})
+				.on('touchmove', '.xdsoft_option', handleTouchMoved)
 				.on('touchend mousedown.xdsoft', '.xdsoft_option', function () {
-					if (!this.touchmoved) {
+					if (!this.touchMoved) {
 						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
@@ -1883,13 +1894,11 @@ var datetimepickerFactory = function ($) {
 
 			timebox
 				.on('touchstart', 'div', function (xdevent) {
-					this.touchmoved = false;
+					this.touchMoved = false;
 				})
-				.on('touchmove', 'div', function (xdevent) {
-					this.touchmoved = true;
-				})
+				.on('touchmove', 'div', handleTouchMoved)
 				.on('touchend click.xdsoft', 'div', function (xdevent) {
-					if (!this.touchmoved) {
+					if (!this.touchMoved) {
 						xdevent.stopPropagation();
 						var $this = $(this),
 							currentTime = _xdsoft_datetime.currentTime;
