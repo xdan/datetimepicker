@@ -1311,6 +1311,8 @@ var datetimepickerFactory = function ($) {
 						time = _this.strtotime(options.defaultTime);
 						d.setHours(time.getHours());
 						d.setMinutes(time.getMinutes());
+						d.setSeconds(time.getSeconds());
+						d.setMilliseconds(time.getMilliseconds());
 					}
 					return d;
 				};
