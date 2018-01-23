@@ -552,6 +552,7 @@ var datetimepickerFactory = function ($) {
 		closeOnTimeSelect: true,
 		closeOnWithoutClick: true,
 		closeOnInputClick: true,
+		openOnFocus: true,
 
 		timepicker: true,
 		datepicker: true,
@@ -2419,6 +2420,9 @@ var datetimepickerFactory = function ($) {
 				.data('xdsoft_datetimepicker', datetimepicker)
 				.on('open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart', function () {
 					if (input.is(':disabled') || (input.data('xdsoft_datetimepicker').is(':visible') && options.closeOnInputClick)) {
+						return;
+					}
+					if (!options.openOnFocus) {
 						return;
 					}
 					clearTimeout(timer);
