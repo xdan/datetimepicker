@@ -39,7 +39,7 @@ jQuery('#datetimepicker_dark').datetimepicker({
 [include scripts/pp/reklama1.php]
 <h2>How do I use it?</h2>
 <p>First include to page css and js files</p>
-<pre><code data-language="html">&lt;!-- this should go after your &lt;/body&gt; --&gt;
+<pre><code class="language-html">&lt;!-- this should go after your &lt;/body&gt; --&gt;
 &lt;link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/ &gt;
 &lt;script src="jquery.js"&gt;&lt;/script&gt;
 &lt;script src="build/jquery.datetimepicker.full.min.js"&gt;&lt;/script&gt;</code></pre>
@@ -47,9 +47,9 @@ jQuery('#datetimepicker_dark').datetimepicker({
 <hr id="Simple" />
 <h4>Simple init DateTimePicker Example <a href="#Simple">#</a></h4>
 <p>HTML</p>
-<pre><code data-language="html">&lt;input id="datetimepicker" type="text" &gt;</code></pre>
+<pre><code class="language-html">&lt;input id="datetimepicker" type="text" &gt;</code></pre>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker').datetimepicker();</code></pre>
+<pre><code class="language-javascript">jQuery('#datetimepicker').datetimepicker();</code></pre>
 <p><strong>Result</strong></p>
 <p><input id="_datetimepicker" type="text" value="2014/03/15 05:06" /></p>
 <script type="text/javascript">// <![CDATA[
@@ -59,7 +59,7 @@ jQuery(function(){jQuery('#_datetimepicker').datetimepicker();});
 <h4>i18n DatePicker Example <a href="#i18n">#</a></h4>
 <p>All supported languages <a href="#lang">here</a></p>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery.datetimepicker.setLocale('de');
+<pre><code class="language-javascript">jQuery.datetimepicker.setLocale('de');
 
 jQuery('#datetimepicker1').datetimepicker({
  i18n:{
@@ -98,7 +98,7 @@ format:'d.m.Y'
 <hr id="TimePicker" />
 <h4>Only TimePicker Example <a href="#TimePicker">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker2').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker2').datetimepicker({
   datepicker:false,
   format:'H:i'
 });</code></pre>
@@ -114,7 +114,7 @@ jQuery('#_datetimepicker2').datetimepicker({
 // ]]></script>
 <h3 id="startdateex">Date Time Picker start date <a href="#startdateex">#</a></h3>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker_start_time').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker_start_time').datetimepicker({
   startDate:'+1971/05/01'//or 1986/12/08
 });</code></pre>
 <p><strong>Result</strong></p>
@@ -128,7 +128,7 @@ jQuery(function(){
 // ]]></script>
 <h3 id="unixtime">Date Time Picker from unixtime <a href="#unixtime">#</a></h3>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker_unixtime').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker_unixtime').datetimepicker({
   format:'unixtime'
 });</code></pre>
 <p><strong>Result</strong></p>
@@ -143,7 +143,7 @@ jQuery(function(){
 <hr id="Inline" />
 <h4>Inline DateTimePicker Example <a href="#Inline">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker3').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker3').datetimepicker({
   format:'d.m.Y H:i',
   inline:true,
   lang:'ru'
@@ -163,12 +163,12 @@ jQuery('#_datetimepicker3').datetimepicker({
 <h4>Icon trigger <a href="#trigger">#</a></h4>
 <p>Click the icon next to the input field to show the datetimepicker</p>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker4').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker4').datetimepicker({
   format:'d.m.Y H:i',
   lang:'ru'
 });</code></pre>
 <p>and handler onclick event</p>
-<pre><code data-language="javascript">jQuery('#image_button').click(function(){
+<pre><code class="language-javascript">jQuery('#image_button').click(function(){
   jQuery('#datetimepicker4').datetimepicker('show'); //support hide,show and destroy command
 });</code></pre>
 <p><strong>Result</strong></p>
@@ -192,7 +192,7 @@ jQuery('#image_button').click(function(){
 <hr id="allowTimes" />
 <h4>allowTimes options TimePicker Example <a href="#allowTimes">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker5').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker5').datetimepicker({
  datepicker:false,
  allowTimes:[
   '12:00', '13:00', '15:00', 
@@ -212,7 +212,7 @@ jQuery('#_datetimepicker5').datetimepicker({
 <hr id="onChangeDateTime" />
 <h4>handler onChangeDateTime Example <a href="#onChangeDateTime">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker6').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker6').datetimepicker({
   timepicker:false,
   onChangeDateTime:function(dp,$input){
     alert($input.val())
@@ -233,7 +233,7 @@ jQuery('#_datetimepicker6').datetimepicker({
 <hr id="mindate" />
 <h4>minDate and maxDate Example <a href="#mindate">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker7').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker7').datetimepicker({
  timepicker:false,
  formatDate:'Y/m/d',
  minDate:'-1970/01/02',//yesterday is minimum date(for today use 0 or -1970/01/01)
@@ -254,7 +254,7 @@ jQuery('#_datetimepicker7').datetimepicker({
 <hr id="mask" />
 <h4>Use mask input Example <a href="#mask">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker_mask').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker_mask').datetimepicker({
  timepicker:false,
  mask:true, // '9999/19/39 29:59' - digit is the maximum possible for a cell
 });</code></pre>
@@ -273,7 +273,7 @@ jQuery('#_datetimepicker_mask').datetimepicker({
 <h4>Set options runtime DateTimePicker <a href="#runtime_options">#</a></h4>
 <p>If select day is Saturday, the minimum set 11:00, otherwise 8:00</p>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">var logic = function( currentDateTime ){
+<pre><code class="language-javascript">var logic = function( currentDateTime ){
   // 'this' is jquery object datetimepicker
   if( currentDateTime.getDay()==6 ){
     this.setOptions({
@@ -312,7 +312,7 @@ jQuery('#_datetimepicker_runtime').datetimepicker({
 <h4>After generating a calendar called the event onGenerate <a href="#ongenerate">#</a></h4>
 <p>Invert settings minDate and maxDate</p>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker8').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker8').datetimepicker({
   onGenerate:function( ct ){
     jQuery(this).find('.xdsoft_date')
       .toggleClass('xdsoft_disabled');
@@ -339,7 +339,7 @@ jQuery('#_datetimepicker_ongenerate').datetimepicker({
 <hr id="weekends_disable" />
 <h4>disable all weekend <a href="#weekends_disable">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker9').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker9').datetimepicker({
   onGenerate:function( ct ){
     jQuery(this).find('.xdsoft_date.xdsoft_weekend')
       .addClass('xdsoft_disabled');
@@ -364,7 +364,7 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 <hr id="use_other_date_parser" />
 <h4>Use another date parser/formatter<a href="#use_other_date_parser">#</a></h4>
 <p>By default, datetimepicker uses <a href="https://github.com/kartik-v/php-date-formatter">php-date-formatter</a> for parsing and formatting the date and time displayed. You can replace the library by setting a custom DateFormatter. Simply supply an object that implements the <tt>parseDate</tt> and <tt>formatDate</tt> methods. This example uses the popular <a href="http://momentjs.com/">MomentJS</a> library:</p>
-<pre><code data-language="javascript">$.datetimepicker.setDateFormatter({
+<pre><code class="language-javascript">$.datetimepicker.setDateFormatter({
     parseDate: function (date, format) {
         var d = moment(date, format);
         return d.isValid() ? d.toDate() : false;
@@ -376,7 +376,7 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 });
 </code></pre>
 <p>After this, you can init datetimepicker with moment.js <a href="http://momentjs.com/docs/#/parsing/string-format/" target="_blanc" rel="nofollow">format</a></p>
-<pre><code data-language="javascript">jQuery('#datetimepicker').datetimepicker({
+<pre><code class="language-javascript">jQuery('#datetimepicker').datetimepicker({
   format:'DD.MM.YYYY h:mm a',
   formatTime:'h:mm a',
   formatDate:'DD.MM.YYYY'
@@ -384,7 +384,7 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
 <hr id="range" />
 <h4>Range between date<a href="#range">#</a></h4>
 <p><strong>javaScript</strong></p>
-<pre><code data-language="javascript">jQuery(function(){
+<pre><code class="language-javascript">jQuery(function(){
  jQuery('#date_timepicker_start').datetimepicker({
   format:'Y/m/d',
   onShow:function( ct ){
@@ -447,7 +447,7 @@ jQuery(function(){
 <td>null</td>
 <td>Current value datetimepicker. If it is set, ignored input.value</td>
 <td>
-<pre><code data-language="javascript">{value:'12.03.2013',
+<pre><code class="language-javascript">{value:'12.03.2013',
  format:'d.m.Y'}</code></pre>
 </td>
 </tr>
@@ -512,7 +512,7 @@ jQuery(function(){
   
 </td>
 <td>
-<pre><code data-language="javascript">$.datetimepicker.setLocale('ru');</code></pre>
+<pre><code class="language-javascript">$.datetimepicker.setLocale('ru');</code></pre>
 </td>
 </tr>
 <tr id="format">
@@ -520,7 +520,7 @@ jQuery(function(){
 <td>Y/m/d H:i</td>
 <td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>  Also there is a special type of <a href="#unixtime"><em>«unixtime»</em></a></td>
 <td>
-<pre><code data-language="javascript">{format:'H'}
+<pre><code class="language-javascript">{format:'H'}
 {format:'Y'}{format:'unixtime'}</code></pre>
 </td>
 </tr>
@@ -529,7 +529,7 @@ jQuery(function(){
 <td>Y/m/d</td>
 <td>Format date for minDate and maxDate</td>
 <td>
-<pre><code data-language="javascript">{formatDate:'d.m.Y'}</code></pre>
+<pre><code class="language-javascript">{formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
 <tr id="formatTime">
@@ -537,7 +537,7 @@ jQuery(function(){
 <td>H:i</td>
 <td> Similarly, formatDate . But for minTime and maxTime</td>
 <td>
-<pre><code data-language="javascript">{formatTime:'H'}</code></pre>
+<pre><code class="language-javascript">{formatTime:'H'}</code></pre>
 </td>
 </tr>
 <tr id="step">
@@ -545,7 +545,7 @@ jQuery(function(){
 <td>60</td>
 <td>Step time</td>
 <td>
-<pre><code data-language="javascript">{step:5}</code></pre>
+<pre><code class="language-javascript">{step:5}</code></pre>
 </td>
 </tr>
 <tr id="closeOnDateSelect">
@@ -553,7 +553,7 @@ jQuery(function(){
 <td>0</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{closeOnDateSelect:true}</code></pre>
+<pre><code class="language-javascript">{closeOnDateSelect:true}</code></pre>
 </td>
 </tr>
 <tr id="closeOnWithoutClick">
@@ -561,7 +561,7 @@ jQuery(function(){
 <td>true</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{ closeOnWithoutClick :false}</code></pre>
+<pre><code class="language-javascript">{ closeOnWithoutClick :false}</code></pre>
 </td>
 </tr>
 <tr id="validateOnBlur">
@@ -569,7 +569,7 @@ jQuery(function(){
 <td>true</td>
 <td>Verify datetime value from input, when losing focus. If value is not valid datetime, then to value inserts the current datetime</td>
 <td>
-<pre><code data-language="javascript">{ validateOnBlur:false}</code></pre>
+<pre><code class="language-javascript">{ validateOnBlur:false}</code></pre>
 </td>
 </tr>
 <tr id="timepicker">
@@ -577,7 +577,7 @@ jQuery(function(){
 <td>true</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{timepicker:false}</code></pre>
+<pre><code class="language-javascript">{timepicker:false}</code></pre>
 </td>
 </tr>
 <tr id="datepicker">
@@ -585,7 +585,7 @@ jQuery(function(){
 <td>true</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{datepicker:false}</code></pre>
+<pre><code class="language-javascript">{datepicker:false}</code></pre>
 </td>
 </tr>
 <tr id="weeks">
@@ -593,7 +593,7 @@ jQuery(function(){
 <td>false</td>
 <td>Show week number</td>
 <td>
-<pre><code data-language="javascript">{weeks:true}</code></pre>
+<pre><code class="language-javascript">{weeks:true}</code></pre>
 </td>
 </tr>
 <tr id="theme">
@@ -601,7 +601,7 @@ jQuery(function(){
 <td>'default'</td>
 <td>Setting a color scheme. Now only supported default and dark theme</td>
 <td>
-<pre><code data-language="javascript">{theme:'dark'}</code></pre>
+<pre><code class="language-javascript">{theme:'dark'}</code></pre>
 </td>
 </tr>
 <tr id="minDate">
@@ -609,7 +609,7 @@ jQuery(function(){
 <td>false</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{minDate:0} // today
+<pre><code class="language-javascript">{minDate:0} // today
 {minDate:'2013/12/03'}
 {minDate:'-1970/01/02'} // yesterday
 {minDate:'05.12.2013',formatDate:'d.m.Y'}</code></pre>
@@ -620,7 +620,7 @@ jQuery(function(){
 <td>false</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{maxDate:0}
+<pre><code class="language-javascript">{maxDate:0}
 {maxDate:'2013/12/03'}
 {maxDate:'+1970/01/02'} // tomorrow
 {maxDate:'05.12.2013',formatDate:'d.m.Y'}</code></pre>
@@ -631,7 +631,7 @@ jQuery(function(){
 <td>false</td>
 <td>calendar set date use starDate</td>
 <td>
-<pre><code data-language="javascript">{startDate:'1987/12/03'}
+<pre><code class="language-javascript">{startDate:'1987/12/03'}
 {startDate:new Date()}
 {startDate:'+1970/01/02'} // tomorrow
 {startDate:'08.12.1986',formatDate:'d.m.Y'}</code></pre>
@@ -643,7 +643,7 @@ jQuery(function(){
 <td>false</td>
 <td>if input value is empty, calendar set date use defaultDate</td>
 <td>
-<pre><code data-language="javascript">{defaultDate:'1987/12/03'}
+<pre><code class="language-javascript">{defaultDate:'1987/12/03'}
 {defaultDate:new Date()}
 {defaultDate:'+1970/01/02'} // tomorrow
 {defaultDate:'08.12.1986',formatDate:'d.m.Y'}</code></pre>
@@ -655,7 +655,7 @@ jQuery(function(){
 <td>false</td>
 <td>if input value is empty, timepicker set time use defaultTime</td>
 <td>
-<pre><code data-language="javascript">{defaultTime:'05:00'}
+<pre><code class="language-javascript">{defaultTime:'05:00'}
 {defaultTime:'33-12',formatTime:'i-H'}</code></pre>
 </td>
 </tr>  
@@ -665,7 +665,7 @@ jQuery(function(){
 <td>false</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{minTime:0,}// now
+<pre><code class="language-javascript">{minTime:0,}// now
 {minTime:new Date()}
 {minTime:'12:00'}
 {minTime:'13:45:34',formatTime:'H:i:s'}</code></pre>
@@ -676,7 +676,7 @@ jQuery(function(){
 <td>false</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{maxTime:0,}
+<pre><code class="language-javascript">{maxTime:0,}
 {maxTime:'12:00'}
 {maxTime:'13:45:34',formatTime:'H:i:s'}</code></pre>
 </td>
@@ -686,7 +686,7 @@ jQuery(function(){
 <td>[]</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">{allowTimes:[
+<pre><code class="language-javascript">{allowTimes:[
   '09:00',
   '11:00',
   '12:00',
@@ -752,7 +752,7 @@ jQuery(function(){
 <td>function(){}</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">onSelectDate:function(ct,$i){
+<pre><code class="language-javascript">onSelectDate:function(ct,$i){
   alert(ct.dateFormat('d/m/Y'))
 }</code></pre>
 </td>
@@ -791,7 +791,7 @@ jQuery(function(){
 <td><a href="#onClose">onClose</a></td>
 <td>function(current_time,$input){}</td>
 <td> </td>
-<td><pre><code data-language="javascript">onSelectDate:function(ct,$i){
+<td><pre><code class="language-javascript">onSelectDate:function(ct,$i){
   $i.datetimepicker('destroy');
 }</code></pre></td>
 </tr>
@@ -854,7 +854,7 @@ jQuery(function(){
 <td>round</td>
 <td>Round time in timepicker, possible values: round, ceil, floor</td>
 <td>
-<pre><code data-language="javascript">{roundTime:'floor'}</code></pre>
+<pre><code class="language-javascript">{roundTime:'floor'}</code></pre>
 </td>
 </tr>
 <tr id="dayOfWeekStart">
@@ -877,7 +877,7 @@ jQuery(function(){
 <td>[]</td>
 <td> </td>
 <td>
-<pre><code data-language="javascript">['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014']</code></pre>
+<pre><code class="language-javascript">['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014']</code></pre>
 </td>
 </tr>
 <tr id="disabledDates">
@@ -885,7 +885,7 @@ jQuery(function(){
 <td>[]</td>
 <td><p>Disbale all dates in list</p></td>
 <td>
-<pre><code data-language="javascript">{disabledDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
+<pre><code class="language-javascript">{disabledDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
 <tr id="allowDates">
@@ -893,7 +893,7 @@ jQuery(function(){
 <td>[]</td>
 <td><p>Allow all dates in list</p></td>
 <td>
-<pre><code data-language="javascript">{allowDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
+<pre><code class="language-javascript">{allowDates: ['01.01.2014','02.01.2014','03.01.2014','04.01.2014','05.01.2014','06.01.2014'], formatDate:'d.m.Y'}</code></pre>
 </td>
 </tr>
 <tr id="allowDateRe">
@@ -901,7 +901,7 @@ jQuery(function(){
 <td>[]</td>
 <td><p>Use Regex to check dates</p></td>
 <td>
-<pre><code data-language="javascript">{format:'Y-m-d',allowDateRe:'\d{4}-(03-31|06-30|09-30|12-31)' }</code></pre>
+<pre><code class="language-javascript">{format:'Y-m-d',allowDateRe:'\d{4}-(03-31|06-30|09-30|12-31)' }</code></pre>
 </td>
 </tr>
 <tr id="disabledWeekDays">
@@ -909,7 +909,7 @@ jQuery(function(){
 <td>[]</td>
 <td><p>Disable days listed by index</p></td>
 <td>
-<pre><code data-language="javascript">[0, 3, 4]</code></pre>
+<pre><code class="language-javascript">[0, 3, 4]</code></pre>
 </td>
 </tr>
 <tr id="id">
@@ -924,36 +924,48 @@ jQuery(function(){
 <td> </td>
 <td> </td>
 </tr>
+<tr id="ownerDocument">
+<td>ownerDocument</td>
+<td>document</td>
+<td>The ownerDocument object for the datetimepicker to properly attach events and calc position (iframe support).</td>
+<td> </td>
+</tr>
+<tr id="contentWindow">
+<td>contentWindow</td>
+<td>window</td>
+<td>The contentWindow object that contains the datetimepicker to properly attach events (iframe support).</td>
+<td> </td>
+</tr>
 </tbody>
 </table>
 <hr>
 <h2 id="methods">Methods</h2>
 <h3>show</h3>
 <p>Show Datetimepicker</p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('button.somebutton').on('click', function () {
     $('#input').datetimepicker('show');
 });</code></pre>
 <h3>hide</h3>
 <p>Hide Datetimepicker</p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $(window).on('resize', function () {
     $('#input').datetimepicker('hide');
 });</code></pre>
 <h3>toggle</h3>
 <p>Sgow/Hide Datetimepicker</p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('button.trigger').on('click', function () {
     $('#input').datetimepicker('toggle');
 });</code></pre>
 <h3>destroy</h3>
 <p>Destroy datetimepicker</p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('#input').datetimepicker('destroy');
 </code></pre>
 <h3>reset</h3>
 <p>Reset datetimepicker's value</p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('#input').val('12/01/2006');
 $('#input')
     .datetimepicker('show')
@@ -961,19 +973,19 @@ $('#input')
 </code></pre>
 <h3>validate</h3>
 <p>Validate datetimepicker's value </p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('#input').datetimepicker(validate)
 </code></pre>
 <h3>setOptions</h3>
 <p>Set datetimepicker's options </p>
-<pre><code data-language="javascript">$('#input').datetimepicker({format: 'd.m.Y'});
+<pre><code class="language-javascript">$('#input').datetimepicker({format: 'd.m.Y'});
 $('#input').datetimepicker('setOptions', {format: 'd/m/Y'});
 //or
 $('#input').datetimepicker({format: 'd/m/Y'});
 </code></pre>
 <h3>getValue</h3>
 <p>Get current datetimepicker's value (Date object) </p>
-<pre><code data-language="javascript">$('#input').datetimepicker();
+<pre><code class="language-javascript">$('#input').datetimepicker();
 $('button.somebutton').on('click', function () {
     var d = $('#input').datetimepicker('getValue');
     console.log(d.getFullYear());
