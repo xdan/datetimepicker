@@ -2249,15 +2249,8 @@ var datetimepickerFactory = function ($) {
 				}
 
 				if (options.mask === true) {
-					if (typeof moment != 'undefined') {
-						options.mask = options.format
-							.replace(/Y{4}/g, '9999')
-							.replace(/Y{2}/g, '99')
-							.replace(/M{2}/g, '19')
-							.replace(/D{2}/g, '39')
-							.replace(/H{2}/g, '29')
-							.replace(/m{2}/g, '59')
-							.replace(/s{2}/g, '59');
+					if (dateHelper.formatMask) {
+						options.mask = dateHelper.formatMask(options.format)
 					} else {
 						options.mask = options.format
 							.replace(/Y/g, '9999')
