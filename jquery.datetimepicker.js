@@ -633,6 +633,7 @@ var datetimepickerFactory = function ($) {
 	};
 
 	var dateHelper = null,
+		defaultDateHelper = null,
 		globalLocaleDefault = 'en',
 		globalLocale = 'en';
 
@@ -650,11 +651,48 @@ var datetimepickerFactory = function ($) {
 			};
 
 		if (typeof DateFormatter === 'function') {
-			dateHelper = new DateFormatter({
+			dateHelper = defaultDateHelper = new DateFormatter({
 				dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
 			});
 		}
 	};
+
+	var dateFormatters = {
+		moment: {
+			default_options:{
+				format: 'YYYY/MM/DD HH:mm',
+				formatDate: 'YYYY/MM/DD',
+				formatTime: 'HH:mm',
+			},
+			formatter: {
+				parseDate: function (date, format) {
+					if(isFormatStandard(format)){
+						return defaultDateHelper.parseDate(date, format);
+					} 
+					var d = moment(date, format);
+					return d.isValid() ? d.toDate() : false;
+				},
+
+				formatDate: function (date, format) {
+					if(isFormatStandard(format)){
+						return defaultDateHelper.formatDate(date, format);
+					} 
+					return moment(date).format(format);
+				},
+
+				formatMask: function(format){
+					return format
+						.replace(/Y{4}/g, '9999')
+						.replace(/Y{2}/g, '99')
+						.replace(/M{2}/g, '19')
+						.replace(/D{2}/g, '39')
+						.replace(/H{2}/g, '29')
+						.replace(/m{2}/g, '59')
+						.replace(/s{2}/g, '59');
+				},
+			}
+		}
+	}
 
 	// for locale settings
 	$.datetimepicker = {
@@ -668,9 +706,18 @@ var datetimepickerFactory = function ($) {
 		},
 
 		setDateFormatter: function(dateFormatter) {
-			dateHelper = dateFormatter;
+			if(typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)){
+				var df = dateFormatters[dateFormatter];
+				$.extend(default_options, df.default_options);
+				dateHelper = df.formatter; 
+			}
+			else {
+				dateHelper = dateFormatter;
+			}
 		},
+	};
 
+	var standardFormats = {
 		RFC_2822: 'D, d M Y H:i:s O',
 		ATOM: 'Y-m-d\TH:i:sP',
 		ISO_8601: 'Y-m-d\TH:i:sO',
@@ -680,7 +727,13 @@ var datetimepickerFactory = function ($) {
 		RFC_1123: 'D, d M Y H:i:s O',
 		RSS: 'D, d M Y H:i:s O',
 		W3C: 'Y-m-d\TH:i:sP'
-	};
+	}
+
+	var isFormatStandard = function(format){
+		return Object.values(standardFormats).indexOf(format) === -1 ? false : true;
+	}
+
+	$.extend($.datetimepicker, standardFormats);
 
 	// first init date formatter
 	initDateFormatter();
