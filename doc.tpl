@@ -372,6 +372,18 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
     
     formatDate: function (date, format) {
         return moment(date).format(format);
+    },
+
+    //Optional if using mask input
+    formatMask: function(format){
+        return format
+            .replace(/Y{4}/g, '9999')
+            .replace(/Y{2}/g, '99')
+            .replace(/M{2}/g, '19')
+            .replace(/D{2}/g, '39')
+            .replace(/H{2}/g, '29')
+            .replace(/m{2}/g, '59')
+            .replace(/s{2}/g, '59');
     }
 });
 </code></pre>
@@ -381,6 +393,8 @@ jQuery('#_datetimepicker_weekends_disable').datetimepicker({
   formatTime:'h:mm a',
   formatDate:'DD.MM.YYYY'
 });</code></pre>
+<p>Because of its popularity, moment.js has a pre-defined configuration that can be enabled with:</p>
+<pre><code class="language-javascript">$.datetimepicker.setDateFormatter('moment');</code></pre>
 <hr id="range" />
 <h4>Range between date<a href="#range">#</a></h4>
 <p><strong>javaScript</strong></p>
