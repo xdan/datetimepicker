@@ -1304,9 +1304,7 @@ var datetimepickerFactory = function ($) {
 						d.setDate(date.getDate());
 					}
 
-					if (options.yearOffset) {
-						d.setFullYear(d.getFullYear() + options.yearOffset);
-					}
+					d.setFullYear(d.getFullYear());
 
 					if (!norecursion && options.defaultTime) {
 						time = _this.strtotime(options.defaultTime);
@@ -1478,7 +1476,12 @@ var datetimepickerFactory = function ($) {
 				};
 
 				_this.str = function () {
-					return dateHelper.formatDate(_this.currentTime, options.format);
+					let format = options.format;
+					if (options.yearOffset) {
+						format = format.replace('Y', _this.currentTime.getFullYear() + options.yearOffset);
+						format = format.replace('y', String(_this.currentTime.getFullYear() + options.yearOffset).substring(2, 4));
+					}
+					return dateHelper.formatDate(_this.currentTime, format);
 				};
 				_this.currentTime = this.now();
 			};
@@ -1751,7 +1754,7 @@ var datetimepickerFactory = function ($) {
 						calendar.html(table);
 
 						month_picker.find('.xdsoft_label span').eq(0).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
-						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear());
+						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear() + options.yearOffset);
 
 						// generate timebox
 						time = '';
@@ -1817,8 +1820,8 @@ var datetimepickerFactory = function ($) {
 
 						opt = '';
 
-						for (i = parseInt(options.yearStart, 10) + options.yearOffset; i <= parseInt(options.yearEnd, 10) + options.yearOffset; i += 1) {
-							opt += '<div class="xdsoft_option ' + (_xdsoft_datetime.currentTime.getFullYear() === i ? 'xdsoft_current' : '') + '" data-value="' + i + '">' + i + '</div>';
+						for (i = parseInt(options.yearStart, 10); i <= parseInt(options.yearEnd, 10); i += 1) {
+							opt += '<div class="xdsoft_option ' + (_xdsoft_datetime.currentTime.getFullYear() === i ? 'xdsoft_current' : '') + '" data-value="' + i + '">' + (i + options.yearOffset) + '</div>';
 						}
 						yearselect.children().eq(0)
 							.html(opt);
@@ -2181,6 +2184,9 @@ var datetimepickerFactory = function ($) {
 					ct = options.value || ((input && input.val && input.val()) ? input.val() : '');
 					if (ct) {
 						ct = _xdsoft_datetime.strToDateTime(ct);
+						if (options.yearOffset) {
+							ct = new Date(ct.getFullYear() - options.yearOffset, ct.getMonth(), ct.getDate(), ct.getHours(), ct.getMinutes(), ct.getSeconds(), ct.getMilliseconds());
+						}
 					} else if (options.defaultDate) {
 						ct = _xdsoft_datetime.strToDateTime(options.defaultDate);
 						if (options.defaultTime) {
