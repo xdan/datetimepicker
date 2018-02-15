@@ -1476,7 +1476,7 @@ var datetimepickerFactory = function ($) {
 				};
 
 				_this.str = function () {
-					let format = options.format;
+					var format = options.format;
 					if (options.yearOffset) {
 						format = format.replace('Y', _this.currentTime.getFullYear() + options.yearOffset);
 						format = format.replace('y', String(_this.currentTime.getFullYear() + options.yearOffset).substring(2, 4));
