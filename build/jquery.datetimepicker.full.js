@@ -643,6 +643,7 @@ var datetimepickerFactory = function ($) {
 	};
 
 	var dateHelper = null,
+		defaultDateHelper = null,
 		globalLocaleDefault = 'en',
 		globalLocale = 'en';
 
@@ -660,11 +661,48 @@ var datetimepickerFactory = function ($) {
 			};
 
 		if (typeof DateFormatter === 'function') {
-			dateHelper = new DateFormatter({
+			dateHelper = defaultDateHelper = new DateFormatter({
 				dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
 			});
 		}
 	};
+
+	var dateFormatters = {
+		moment: {
+			default_options:{
+				format: 'YYYY/MM/DD HH:mm',
+				formatDate: 'YYYY/MM/DD',
+				formatTime: 'HH:mm',
+			},
+			formatter: {
+				parseDate: function (date, format) {
+					if(isFormatStandard(format)){
+						return defaultDateHelper.parseDate(date, format);
+					} 
+					var d = moment(date, format);
+					return d.isValid() ? d.toDate() : false;
+				},
+
+				formatDate: function (date, format) {
+					if(isFormatStandard(format)){
+						return defaultDateHelper.formatDate(date, format);
+					} 
+					return moment(date).format(format);
+				},
+
+				formatMask: function(format){
+					return format
+						.replace(/Y{4}/g, '9999')
+						.replace(/Y{2}/g, '99')
+						.replace(/M{2}/g, '19')
+						.replace(/D{2}/g, '39')
+						.replace(/H{2}/g, '29')
+						.replace(/m{2}/g, '59')
+						.replace(/s{2}/g, '59');
+				},
+			}
+		}
+	}
 
 	// for locale settings
 	$.datetimepicker = {
@@ -678,9 +716,18 @@ var datetimepickerFactory = function ($) {
 		},
 
 		setDateFormatter: function(dateFormatter) {
-			dateHelper = dateFormatter;
+			if(typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)){
+				var df = dateFormatters[dateFormatter];
+				$.extend(default_options, df.default_options);
+				dateHelper = df.formatter; 
+			}
+			else {
+				dateHelper = dateFormatter;
+			}
 		},
+	};
 
+	var standardFormats = {
 		RFC_2822: 'D, d M Y H:i:s O',
 		ATOM: 'Y-m-d\TH:i:sP',
 		ISO_8601: 'Y-m-d\TH:i:sO',
@@ -690,7 +737,13 @@ var datetimepickerFactory = function ($) {
 		RFC_1123: 'D, d M Y H:i:s O',
 		RSS: 'D, d M Y H:i:s O',
 		W3C: 'Y-m-d\TH:i:sP'
-	};
+	}
+
+	var isFormatStandard = function(format){
+		return Object.values(standardFormats).indexOf(format) === -1 ? false : true;
+	}
+
+	$.extend($.datetimepicker, standardFormats);
 
 	// first init date formatter
 	initDateFormatter();
@@ -1314,9 +1367,7 @@ var datetimepickerFactory = function ($) {
 						d.setDate(date.getDate());
 					}
 
-					if (options.yearOffset) {
-						d.setFullYear(d.getFullYear() + options.yearOffset);
-					}
+					d.setFullYear(d.getFullYear());
 
 					if (!norecursion && options.defaultTime) {
 						time = _this.strtotime(options.defaultTime);
@@ -1488,7 +1539,12 @@ var datetimepickerFactory = function ($) {
 				};
 
 				_this.str = function () {
-					return dateHelper.formatDate(_this.currentTime, options.format);
+					var format = options.format;
+					if (options.yearOffset) {
+						format = format.replace('Y', _this.currentTime.getFullYear() + options.yearOffset);
+						format = format.replace('y', String(_this.currentTime.getFullYear() + options.yearOffset).substring(2, 4));
+					}
+					return dateHelper.formatDate(_this.currentTime, format);
 				};
 				_this.currentTime = this.now();
 			};
@@ -1761,7 +1817,7 @@ var datetimepickerFactory = function ($) {
 						calendar.html(table);
 
 						month_picker.find('.xdsoft_label span').eq(0).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
-						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear());
+						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear() + options.yearOffset);
 
 						// generate timebox
 						time = '';
@@ -1827,8 +1883,8 @@ var datetimepickerFactory = function ($) {
 
 						opt = '';
 
-						for (i = parseInt(options.yearStart, 10) + options.yearOffset; i <= parseInt(options.yearEnd, 10) + options.yearOffset; i += 1) {
-							opt += '<div class="xdsoft_option ' + (_xdsoft_datetime.currentTime.getFullYear() === i ? 'xdsoft_current' : '') + '" data-value="' + i + '">' + i + '</div>';
+						for (i = parseInt(options.yearStart, 10); i <= parseInt(options.yearEnd, 10); i += 1) {
+							opt += '<div class="xdsoft_option ' + (_xdsoft_datetime.currentTime.getFullYear() === i ? 'xdsoft_current' : '') + '" data-value="' + i + '">' + (i + options.yearOffset) + '</div>';
 						}
 						yearselect.children().eq(0)
 							.html(opt);
@@ -2191,6 +2247,9 @@ var datetimepickerFactory = function ($) {
 					ct = options.value || ((input && input.val && input.val()) ? input.val() : '');
 					if (ct) {
 						ct = _xdsoft_datetime.strToDateTime(ct);
+						if (options.yearOffset) {
+							ct = new Date(ct.getFullYear() - options.yearOffset, ct.getMonth(), ct.getDate(), ct.getHours(), ct.getMinutes(), ct.getSeconds(), ct.getMilliseconds());
+						}
 					} else if (options.defaultDate) {
 						ct = _xdsoft_datetime.strToDateTime(options.defaultDate);
 						if (options.defaultTime) {
@@ -2259,15 +2318,8 @@ var datetimepickerFactory = function ($) {
 				}
 
 				if (options.mask === true) {
-					if (typeof moment != 'undefined') {
-						options.mask = options.format
-							.replace(/Y{4}/g, '9999')
-							.replace(/Y{2}/g, '99')
-							.replace(/M{2}/g, '19')
-							.replace(/D{2}/g, '39')
-							.replace(/H{2}/g, '29')
-							.replace(/m{2}/g, '59')
-							.replace(/s{2}/g, '59');
+					if (dateHelper.formatMask) {
+						options.mask = dateHelper.formatMask(options.format)
 					} else {
 						options.mask = options.format
 							.replace(/Y/g, '9999')
