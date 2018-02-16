@@ -853,12 +853,21 @@ var datetimepickerFactory = function ($) {
 
 				timeboxparent.on('mousewheel', function (event) {
 					var top = Math.abs(parseInt(timebox.css('marginTop'), 10));
+					var type=event.type,
+						oe=event.originalEvent,
+						dir=null;
+						//Compatibility problem fix
+					if(type==='DOMMouseScroll' || type==='mousewheel'){
+						//滚动距离
+						//在非firefox浏览器中，是wheelDelta,它总是返回120的倍数，如果为正表示向上，反之向下。
+						//而在firefox中，是detail,它总是返回3的倍数。如果为正表示向下，反之向上
+						dir = (oe.wheelDelta) ? oe.wheelDelta / 120 : -(oe.detail || 0) / 3;
+					}
+					top = top - ( dir * 20)
 
-					top = top - (event.deltaY * 20);
 					if (top < 0) {
 						top = 0;
 					}
-
 					timeboxparent.trigger('scroll_element.xdsoft_scroller', [top / (height - parentHeight)]);
 					event.stopPropagation();
 					return false;
