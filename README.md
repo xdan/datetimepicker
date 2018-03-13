@@ -63,7 +63,8 @@ You can regress to version 1.3.12
 
 Build:
 
-- `npm run build`
+First install npm requirements: `npm install -g uglifycss concat-cli`
+Then build the files: `npm run build`
 
 When build completed, you'll have the following files:
 - **build/jquery.datetimepicker.full.js** - browser file
