@@ -1060,9 +1060,8 @@ var datetimepickerFactory = function ($) {
 
 			var handleTouchMoved = function (event) {
 				var evt = event.originalEvent;
-				var position = evt.touches ? evt.touches[0] : evt;
-				this.touchStartPosition = this.touchStartPosition || position;
-				var touchPosition = position;
+				var touchPosition = evt.touches ? evt.touches[0] : evt;
+				this.touchStartPosition = this.touchStartPosition || touchPosition;
 				var xMovement = Math.abs(this.touchStartPosition.clientX - touchPosition.clientX);
 				var yMovement = Math.abs(this.touchStartPosition.clientY - touchPosition.clientY);
 				var distance = Math.sqrt(xMovement * xMovement + yMovement * yMovement);
