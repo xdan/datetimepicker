@@ -1,8 +1,10 @@
 # jQuery DateTimePicker
+[Demo and Documentation](https://xdsoft.net/jqplugins/datetimepicker/)
 
 [![Build Status](https://travis-ci.org/xdan/datetimepicker.svg?branch=master)](https://travis-ci.org/xdan/datetimepicker)
 [![npm version](https://badge.fury.io/js/jquery-datetimepicker.svg)](https://badge.fury.io/js/jquery-datetimepicker)
 [![npm](https://img.shields.io/npm/dm/jquery-datetimepicker.svg)](https://www.npmjs.com/package/jquery-datetimepicker)
+
 
 
 PLEASE. Help me update documentation.
