@@ -1,15 +1,24 @@
-# PLEASE. Help me update documentation.
+# jQuery DateTimePicker
+
+[![Build Status](https://travis-ci.org/xdan/datetimepicker.svg?branch=master)](https://travis-ci.org/xdan/datetimepicker)
+[![npm version](https://badge.fury.io/js/jquery-datetimepicker.svg)](https://badge.fury.io/js/jquery-datetimepicker)
+[![npm](https://img.shields.io/npm/dm/jquery-datetimepicker.svg)](https://www.npmjs.com/package/jquery-datetimepicker)
+
+
+PLEASE. Help me update documentation.
 [Doc.tpl](https://github.com/xdan/datetimepicker/blob/master/doc.tpl)
 This file will be automatically displayed on the site
 
 # Installation
 
-```
+```bash
 npm install jquery-datetimepicker
+```
 OR
+```bash
 yarn add jquery-datetimepicker
 ```
-
+or download [zip](https://github.com/xdan/datetimepicker/releases)
 # datetimepicker
 ==============
 
@@ -43,7 +52,7 @@ Options to highlight individual dates or periods
 
 ![ScreenShot](https://raw.github.com/Mingpao/datetimepicker/master/screen/6.png)
 
-[doc]: http://xdsoft.net/jqplugins/datetimepicker/
+[doc]: https://xdsoft.net/jqplugins/datetimepicker/
 
 ### JS Build help
 
