@@ -1059,11 +1059,12 @@ var datetimepickerFactory = function ($) {
 				});
 
 			var handleTouchMoved = function (event) {
-				this.touchStartPosition = this.touchStartPosition || event.originalEvent.touches[0]
-				var touchPosition = event.originalEvent.touches[0]
-				var xMovement = Math.abs(this.touchStartPosition.clientX - touchPosition.clientX)
-				var yMovement = Math.abs(this.touchStartPosition.clientY - touchPosition.clientY)
-				var distance = Math.sqrt(xMovement * xMovement + yMovement * yMovement)
+				var evt = event.originalEvent;
+				var touchPosition = evt.touches ? evt.touches[0] : evt;
+				this.touchStartPosition = this.touchStartPosition || touchPosition;
+				var xMovement = Math.abs(this.touchStartPosition.clientX - touchPosition.clientX);
+				var yMovement = Math.abs(this.touchStartPosition.clientY - touchPosition.clientY);
+				var distance = Math.sqrt(xMovement * xMovement + yMovement * yMovement);
 				if(distance > options.touchMovedThreshold) {
 					this.touchMoved = true;
 				}
@@ -1073,8 +1074,9 @@ var datetimepickerFactory = function ($) {
 				.find('.xdsoft_select')
 				.xdsoftScroller(options)
 				.on('touchstart mousedown.xdsoft', function (event) {
+					var evt = event.originalEvent;
 					this.touchMoved = false;
-					this.touchStartPosition = event.originalEvent.touches[0]
+					this.touchStartPosition = evt.touches ? evt.touches[0] : evt;
 					event.stopPropagation();
 					event.preventDefault();
 				})
