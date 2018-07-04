@@ -456,6 +456,14 @@ jQuery(function(){
 <td>Initializing plugin occurs only when the user interacts. Greatly accelerates plugin work with a large number of fields</td>
 <td> </td>
 </tr>
+<tr id="parentID">
+<td><a href="#parentID">parentID</a></td>
+<td>'body'</td>
+<td>Attach datetimepicker to this element, which can be either a selector or a DOM/JQuery element</td>
+<td>
+<pre><code class="language-javascript">{parentID:'#parent'}</code></pre>
+</td>
+</tr>
 <tr id="value">
 <td><a href="#value">value</a></td>
 <td>null</td>
