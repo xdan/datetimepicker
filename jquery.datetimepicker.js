@@ -895,7 +895,7 @@ var datetimepickerFactory = function ($) {
 				timeboxparent.on('mousewheel', function (event) {
 					var top = Math.abs(parseInt(timebox.css('marginTop'), 10));
 
-					top = top - (event.originalEvent.deltaY * 20);
+					top = top + (event.originalEvent.deltaY * 20);
 					if (top < 0) {
 						top = 0;
 					}
