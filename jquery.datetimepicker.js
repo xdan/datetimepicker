@@ -728,8 +728,7 @@ var datetimepickerFactory = function ($) {
 	}
 
 	var isFormatStandard = function(format){
-		return $.map(standardFormats, function (val) { return val })
-			.indexOf(format) === -1 ? false : true;
+		return Object.values(standardFormats).indexOf(format) === -1 ? false : true;
 	}
 
 	$.extend($.datetimepicker, standardFormats);
@@ -934,7 +933,8 @@ var datetimepickerFactory = function ($) {
 			KEY9 = 57,
 			_KEY0 = 96,
 			_KEY9 = 105,
-			CTRLKEY = 17,
+            CTRLKEY = 17,
+            CMDKEY = 91,
 			DEL = 46,
 			ENTER = 13,
 			ESC = 27,
@@ -950,7 +950,8 @@ var datetimepickerFactory = function ($) {
 			VKEY = 86,
 			ZKEY = 90,
 			YKEY = 89,
-			ctrlDown	=	false,
+            ctrlDown	=	false,
+            cmdDown = false,
 			options = ($.isPlainObject(opt) || !opt) ? $.extend(true, {}, default_options, opt) : $.extend(true, {}, default_options),
 
 			lazyInitTimer = 0,
@@ -2371,7 +2372,7 @@ var datetimepickerFactory = function ($) {
 						setCaretPos(input[0], 0);
 					}
 
-					input.off('paste.xdsoft').on('paste.xdsoft', function (event) {
+					input.on('paste.xdsoft', function (event) {
 					    // couple options here
 					    // 1. return false - tell them they can't paste
 					    // 2. insert over current characters - minimal validation
@@ -2389,8 +2390,7 @@ var datetimepickerFactory = function ($) {
 					    var valueBeforeCursor = val.substr(0, pos);
 					    var valueAfterPaste = val.substr(pos + pastedData.length);
 
-					    val = valueBeforeCursor + pastedData + valueAfterPaste;   
-				            val = val.substring(0, options.mask.length)
+					    val = valueBeforeCursor + pastedData + valueAfterPaste;           
 					    pos += pastedData.length;
 
 					    if (isValidValue(options.mask, val)) {
@@ -2446,8 +2446,12 @@ var datetimepickerFactory = function ($) {
 						  // hitting backspace in a selection, you can possibly go back any further - go forward
 						  pos += (key === BACKSPACE && !hasSel) ? -1 : 1;
 
-						}
-
+                        }
+                        
+                        if (event.metaKey) {    // cmd has been pressed
+                            pos = 0;
+                            hasSel = true;
+                        }
 
 						if (hasSel) {
 						  // pos might have moved so re-calc length
@@ -2569,16 +2573,27 @@ var datetimepickerFactory = function ($) {
 			}
 		};
 		$(options.ownerDocument)
-			.off('keydown.xdsoftctrl keyup.xdsoftctrl')
+            .off('keydown.xdsoftctrl keyup.xdsoftctrl')
+            .off('keydown.xdsoftcmd keyup.xdsoftcmd')
 			.on('keydown.xdsoftctrl', function (e) {
 				if (e.keyCode === CTRLKEY) {
 					ctrlDown = true;
-				}
+                }
 			})
 			.on('keyup.xdsoftctrl', function (e) {
 				if (e.keyCode === CTRLKEY) {
 					ctrlDown = false;
-				}
+                }
+            })
+            .on('keydown.xdsoftcmd', function (e) {
+                if (e.keyCode === CMDKEY) {
+                    cmdDown = true;
+                }
+			})
+			.on('keyup.xdsoftcmd', function (e) {
+                if (e.keyCode === CMDKEY) {
+                    cmdDown = false;
+                }
 			});
 
 		this.each(function () {
