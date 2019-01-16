@@ -636,7 +636,8 @@ var datetimepickerFactory = function ($) {
 		beforeShowDay: null,
 
 		enterLikeTab: true,
-		showApplyButton: false
+        showApplyButton: false,
+        insideParent: false,
 	};
 
 	var dateHelper = null,
@@ -1355,8 +1356,11 @@ var datetimepickerFactory = function ($) {
 				.append(calendar)
 				.append(applyButton);
 
-			$(options.parentID)
-				.append(datetimepicker);
+            if (options.insideParent) {
+                $(input).parent().append(datetimepicker);
+            } else {
+                $(options.parentID).append(datetimepicker);
+            }
 
 			XDSoft_datetime = function () {
 				var _this = this;
@@ -2182,7 +2186,7 @@ var datetimepickerFactory = function ($) {
 						}
 					});
 
-					if (dateInputHasFixedAncestor) {
+					if (dateInputHasFixedAncestor && !options.insideParent) {
 						position = 'fixed';
 
 						//If the picker won't fit entirely within the viewport then display it above the date input.
@@ -2222,12 +2226,16 @@ var datetimepickerFactory = function ($) {
 
 				datetimepickerCss = {
 					position: position,
-					left: left,
+					left: options.insideParent ? dateInputElem.offsetLeft : left,
 					top: '',  //Initialize to prevent previous values interfering with new ones.
 					bottom: ''  //Initialize to prevent previous values interfering with new ones.
 				};
 
-				datetimepickerCss[verticalAnchorEdge] = verticalPosition;
+				if (options.insideParent) {
+                    datetimepickerCss[verticalAnchorEdge] = dateInputElem.offsetTop + dateInputElem.offsetHeight;
+                } else {
+                    datetimepickerCss[verticalAnchorEdge] = verticalPosition;
+                }
 
 				datetimepicker.css(datetimepickerCss);
 			};
