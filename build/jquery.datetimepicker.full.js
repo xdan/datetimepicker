@@ -636,7 +636,8 @@ var datetimepickerFactory = function ($) {
 		beforeShowDay: null,
 
 		enterLikeTab: true,
-		showApplyButton: false
+        showApplyButton: false,
+        insideParent: false,
 	};
 
 	var dateHelper = null,
@@ -942,7 +943,8 @@ var datetimepickerFactory = function ($) {
 			KEY9 = 57,
 			_KEY0 = 96,
 			_KEY9 = 105,
-			CTRLKEY = 17,
+            CTRLKEY = 17,
+            CMDKEY = 91,
 			DEL = 46,
 			ENTER = 13,
 			ESC = 27,
@@ -958,7 +960,8 @@ var datetimepickerFactory = function ($) {
 			VKEY = 86,
 			ZKEY = 90,
 			YKEY = 89,
-			ctrlDown	=	false,
+            ctrlDown	=	false,
+            cmdDown = false,
 			options = ($.isPlainObject(opt) || !opt) ? $.extend(true, {}, default_options, opt) : $.extend(true, {}, default_options),
 
 			lazyInitTimer = 0,
@@ -1353,8 +1356,11 @@ var datetimepickerFactory = function ($) {
 				.append(calendar)
 				.append(applyButton);
 
-			$(options.parentID)
-				.append(datetimepicker);
+            if (options.insideParent) {
+                $(input).parent().append(datetimepicker);
+            } else {
+                $(options.parentID).append(datetimepicker);
+            }
 
 			XDSoft_datetime = function () {
 				var _this = this;
@@ -2180,7 +2186,7 @@ var datetimepickerFactory = function ($) {
 						}
 					});
 
-					if (dateInputHasFixedAncestor) {
+					if (dateInputHasFixedAncestor && !options.insideParent) {
 						position = 'fixed';
 
 						//If the picker won't fit entirely within the viewport then display it above the date input.
@@ -2220,12 +2226,16 @@ var datetimepickerFactory = function ($) {
 
 				datetimepickerCss = {
 					position: position,
-					left: left,
+					left: options.insideParent ? dateInputElem.offsetLeft : left,
 					top: '',  //Initialize to prevent previous values interfering with new ones.
 					bottom: ''  //Initialize to prevent previous values interfering with new ones.
 				};
 
-				datetimepickerCss[verticalAnchorEdge] = verticalPosition;
+				if (options.insideParent) {
+                    datetimepickerCss[verticalAnchorEdge] = dateInputElem.offsetTop + dateInputElem.offsetHeight;
+                } else {
+                    datetimepickerCss[verticalAnchorEdge] = verticalPosition;
+                }
 
 				datetimepicker.css(datetimepickerCss);
 			};
@@ -2453,8 +2463,12 @@ var datetimepickerFactory = function ($) {
 						  // hitting backspace in a selection, you can possibly go back any further - go forward
 						  pos += (key === BACKSPACE && !hasSel) ? -1 : 1;
 
-						}
-
+                        }
+                        
+                        if (event.metaKey) {    // cmd has been pressed
+                            pos = 0;
+                            hasSel = true;
+                        }
 
 						if (hasSel) {
 						  // pos might have moved so re-calc length
@@ -2576,16 +2590,27 @@ var datetimepickerFactory = function ($) {
 			}
 		};
 		$(options.ownerDocument)
-			.off('keydown.xdsoftctrl keyup.xdsoftctrl')
+            .off('keydown.xdsoftctrl keyup.xdsoftctrl')
+            .off('keydown.xdsoftcmd keyup.xdsoftcmd')
 			.on('keydown.xdsoftctrl', function (e) {
 				if (e.keyCode === CTRLKEY) {
 					ctrlDown = true;
-				}
+                }
 			})
 			.on('keyup.xdsoftctrl', function (e) {
 				if (e.keyCode === CTRLKEY) {
 					ctrlDown = false;
-				}
+                }
+            })
+            .on('keydown.xdsoftcmd', function (e) {
+                if (e.keyCode === CMDKEY) {
+                    cmdDown = true;
+                }
+			})
+			.on('keyup.xdsoftcmd', function (e) {
+                if (e.keyCode === CMDKEY) {
+                    cmdDown = false;
+                }
 			});
 
 		this.each(function () {
