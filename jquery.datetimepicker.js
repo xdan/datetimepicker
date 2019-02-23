@@ -10,7 +10,7 @@
 var datetimepickerFactory = function ($) {
 	'use strict';
 
-	var default_options  = {
+	var default_options = {
 		i18n: {
 			ar: { // Arabic
 				months: [
@@ -544,7 +544,7 @@ var datetimepickerFactory = function ($) {
 		formatTime:	'H:i',
 		formatDate:	'Y/m/d',
 
-		startDate:	false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
+		startDate: false, // new Date(), '1986/12/08', '-1970/01/05','-1970/01/05',
 		step: 60,
 		monthChangeSpinner: true,
 
@@ -589,7 +589,7 @@ var datetimepickerFactory = function ($) {
 		inverseButton: false,
 		hours12: false,
 		next: 'xdsoft_next',
-		prev : 'xdsoft_prev',
+		prev: 'xdsoft_prev',
 		dayOfWeekStart: 0,
 		parentID: 'body',
 		timeHeightInTimePicker: 25,
@@ -619,9 +619,9 @@ var datetimepickerFactory = function ($) {
 		weekends: [],
 		highlightedDates: [],
 		highlightedPeriods: [],
-		allowDates : [],
-		allowDateRe : null,
-		disabledDates : [],
+		allowDates: [],
+		allowDateRe: null,
+		disabledDates: [],
 		disabledWeekDays: [],
 		yearOffset: 0,
 		beforeShowDay: null,
@@ -664,21 +664,21 @@ var datetimepickerFactory = function ($) {
 			},
 			formatter: {
 				parseDate: function (date, format) {
-					if(isFormatStandard(format)){
+					if(isFormatStandard(format)) {
 						return defaultDateHelper.parseDate(date, format);
-					} 
+					}
 					var d = moment(date, format);
 					return d.isValid() ? d.toDate() : false;
 				},
 
 				formatDate: function (date, format) {
-					if(isFormatStandard(format)){
+					if(isFormatStandard(format)) {
 						return defaultDateHelper.formatDate(date, format);
-					} 
+					}
 					return moment(date).format(format);
 				},
 
-				formatMask: function(format){
+				formatMask: function(format) {
 					return format
 						.replace(/Y{4}/g, '9999')
 						.replace(/Y{2}/g, '99')
@@ -690,11 +690,11 @@ var datetimepickerFactory = function ($) {
 				},
 			}
 		}
-	}
+	};
 
 	// for locale settings
 	$.datetimepicker = {
-		setLocale: function(locale){
+		setLocale: function(locale) {
 			var newLocale = default_options.i18n[locale] ? locale : globalLocaleDefault;
 			if (globalLocale !== newLocale) {
 				globalLocale = newLocale;
@@ -707,7 +707,7 @@ var datetimepickerFactory = function ($) {
 			if(typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)){
 				var df = dateFormatters[dateFormatter];
 				$.extend(default_options, df.default_options);
-				dateHelper = df.formatter; 
+				dateHelper = df.formatter;
 			}
 			else {
 				dateHelper = dateFormatter;
@@ -725,12 +725,12 @@ var datetimepickerFactory = function ($) {
 		RFC_1123: 'D, d M Y H:i:s O',
 		RSS: 'D, d M Y H:i:s O',
 		W3C: 'Y-m-d\TH:i:sP'
-	}
+	};
 
-	var isFormatStandard = function(format){
+	var isFormatStandard = function(format) {
 		return $.map(standardFormats, function (val) { return val })
 			.indexOf(format) === -1 ? false : true;
-	}
+	};
 
 	$.extend($.datetimepicker, standardFormats);
 
@@ -777,7 +777,7 @@ var datetimepickerFactory = function ($) {
 					var out = {x: 0, y: 0},
 						touch;
 					if (e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend' || e.type === 'touchcancel') {
-						touch  = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+						touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 						out.x = touch.clientX;
 						out.y = touch.clientY;
 					} else if (e.type === 'mousedown' || e.type === 'mouseup' || e.type === 'mousemove' || e.type === 'mouseover' || e.type === 'mouseout' || e.type === 'mouseenter' || e.type === 'mouseleave') {
@@ -858,7 +858,7 @@ var datetimepickerFactory = function ($) {
 						}
 					})
 					.on('touchend touchcancel', function () {
-						touchStart =  false;
+						touchStart = false;
 						startTopScroll = 0;
 					});
 
@@ -950,7 +950,8 @@ var datetimepickerFactory = function ($) {
 			VKEY = 86,
 			ZKEY = 90,
 			YKEY = 89,
-			ctrlDown	=	false,
+			ctrlDown = false,
+			isClosed = false,
 			options = ($.isPlainObject(opt) || !opt) ? $.extend(true, {}, default_options, opt) : $.extend(true, {}, default_options),
 
 			lazyInitTimer = 0,
@@ -1067,7 +1068,7 @@ var datetimepickerFactory = function ($) {
 				if(distance > options.touchMovedThreshold) {
 					this.touchMoved = true;
 				}
-			}
+			};
 
 			month_picker
 				.find('.xdsoft_select')
@@ -1246,15 +1247,15 @@ var datetimepickerFactory = function ($) {
 					options.minDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.minDate), options.formatDate);
 				}
 
-				if (options.maxDate &&  /^[\+\-](.*)$/.test(options.maxDate)) {
+				if (options.maxDate && /^[\+\-](.*)$/.test(options.maxDate)) {
 					options.maxDate = dateHelper.formatDate(_xdsoft_datetime.strToDateTime(options.maxDate), options.formatDate);
 				}
 
-                if (options.minDateTime &&  /^\+(.*)$/.test(options.minDateTime)) {
+                if (options.minDateTime && /^\+(.*)$/.test(options.minDateTime)) {
                 	options.minDateTime = _xdsoft_datetime.strToDateTime(options.minDateTime).dateFormat(options.formatDate);
                 }
 
-                if (options.maxDateTime &&  /^\+(.*)$/.test(options.maxDateTime)) {
+                if (options.maxDateTime && /^\+(.*)$/.test(options.maxDateTime)) {
                 	options.maxDateTime = _xdsoft_datetime.strToDateTime(options.maxDateTime).dateFormat(options.formatDate);
                 }
 
@@ -1287,7 +1288,7 @@ var datetimepickerFactory = function ($) {
 								if (d) { // parseDate() may skip some invalid parts like date or time, so make it clear for user: show parsed date/time
 									$(this).val(dateHelper.formatDate(d, options.format));
 								} else {
-									var splittedHours   = +([$(this).val()[0], $(this).val()[1]].join('')),
+									var splittedHours = +([$(this).val()[0], $(this).val()[1]].join('')),
 										splittedMinutes = +([$(this).val()[2], $(this).val()[3]].join(''));
 
 									// parse the numbers as 0312 => 03:12
@@ -1496,7 +1497,7 @@ var datetimepickerFactory = function ($) {
 						tmpDate[2] = dateHelper.parseDate(tmpDate[2], options.formatDate);
 					}
 
-					if (tmpDate  && tmpDate[2]) {
+					if (tmpDate && tmpDate[2]) {
 						timeOffset = tmpDate[2].getTime() - (tmpDate[2].getTimezoneOffset()) * 60000;
 						currentTime = new Date((_this.now(true)).getTime() + parseInt(tmpDate[1] + '1', 10) * timeOffset);
 					} else {
@@ -1746,26 +1747,26 @@ var datetimepickerFactory = function ($) {
 									classes.push('xdsoft_disabled');
 								}
 							}
-							
+
 							if(options.allowDates && options.allowDates.length>0){
 								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
 							}
-							
+
 							var currentDay = ((start.getFullYear() * 12) + start.getMonth()) * 31 + start.getDate();
 							if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (maxDateTime !== false && currentDay > maxDateTimeDay) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
@@ -1979,7 +1980,7 @@ var datetimepickerFactory = function ($) {
 
 					input.val(_xdsoft_datetime.str());
 
-					if (options.onSelectDate &&	$.isFunction(options.onSelectDate)) {
+					if (options.onSelectDate && $.isFunction(options.onSelectDate)) {
 						options.onSelectDate.call(datetimepicker, _xdsoft_datetime.currentTime, datetimepicker.data('input'), xdevent);
 					}
 
@@ -2225,6 +2226,7 @@ var datetimepickerFactory = function ($) {
 			datetimepicker
 				.on('open.xdsoft', function (event) {
 					var onShow = true;
+					isClosed = false;
 					if (options.onShow && $.isFunction(options.onShow)) {
 						onShow = options.onShow.call(datetimepicker, _xdsoft_datetime.currentTime, datetimepicker.data('input'), event);
 					}
@@ -2245,6 +2247,12 @@ var datetimepickerFactory = function ($) {
 				})
 				.on('close.xdsoft', function (event) {
 					var onClose = true;
+					event.stopPropagation();
+
+					if (isClosed) {
+					    return;
+					}
+
 					month_picker
 						.find('.xdsoft_month,.xdsoft_year')
 						.find('.xdsoft_select')
@@ -2255,7 +2263,7 @@ var datetimepickerFactory = function ($) {
 					if (onClose !== false && !options.opened && !options.inline) {
 						datetimepicker.hide();
 					}
-					event.stopPropagation();
+					isClosed = true;
 				})
 				.on('toggle.xdsoft', function () {
 					if (datetimepicker.is(':visible')) {
@@ -2346,7 +2354,7 @@ var datetimepickerFactory = function ($) {
 						return false;
 					};
 
-				if(options.mask) {
+				if (options.mask) {
 					input.off('keydown.xdsoft');
 				}
 
@@ -2384,13 +2392,13 @@ var datetimepickerFactory = function ($) {
 					    var clipboardData = event.clipboardData || event.originalEvent.clipboardData || window.clipboardData,
 						pastedData = clipboardData.getData('text'),
 						val = this.value,
-						pos = this.selectionStart
+						pos = this.selectionStart;
 
 					    var valueBeforeCursor = val.substr(0, pos);
 					    var valueAfterPaste = val.substr(pos + pastedData.length);
 
-					    val = valueBeforeCursor + pastedData + valueAfterPaste;   
-				            val = val.substring(0, options.mask.length)
+					    val = valueBeforeCursor + pastedData + valueAfterPaste;
+                        val = val.substring(0, options.mask.length);
 					    pos += pastedData.length;
 
 					    if (isValidValue(options.mask, val)) {
@@ -2415,8 +2423,8 @@ var datetimepickerFactory = function ($) {
 						digit;
 
 					    // only alow these characters
-					    if (((key >=  KEY0 && key <=  KEY9)  ||
-						 (key >= _KEY0 && key <= _KEY9)) || 
+					    if (((key >= KEY0 && key <= KEY9) ||
+						 (key >= _KEY0 && key <= _KEY9)) ||
 						 (key === BACKSPACE || key === DEL)) {
 
 					      // get char to insert which is new character or placeholder ('_')
@@ -2643,12 +2651,12 @@ var datetimepickerFactory = function ($) {
 	}
 };
 ;(function (factory) {
-	if ( typeof define === 'function' && define.amd ) {
+	if (typeof define === 'function' && define.amd) {
 		// AMD. Register as an anonymous module.
 		define(['jquery', 'jquery-mousewheel'], factory);
 	} else if (typeof exports === 'object') {
 		// Node/CommonJS style for Browserify
-		module.exports = factory(require('jquery'));;
+		module.exports = factory(require('jquery'));
 	} else {
 		// Browser globals
 		factory(jQuery);
