@@ -11,7 +11,8 @@ module.exports = function(config) {
             'tests/tests/*.js'
         ],
         reporters: ['progress'],
-        port: 9876,
+        port: 2002,
+        hostname: '127.0.0.1',
         colors: true,
         logLevel: config.LOG_INFO,
         browsers: ['Firefox'],
