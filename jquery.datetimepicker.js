@@ -928,7 +928,7 @@ var datetimepickerFactory = function ($) {
 		});
 	};
 
-	$.fn.datetimepicker = function (opt, opt2) {
+	$.fn.xdsoft_datetimepicker = function (opt, opt2) {
 		var result = this,
 			KEY0 = 48,
 			KEY9 = 57,
@@ -2656,7 +2656,7 @@ var datetimepickerFactory = function ($) {
 		return result;
 	};
 
-	$.fn.datetimepicker.defaults = default_options;
+	$.fn.xdsoft_datetimepicker.defaults = default_options;
 
 	function HighlightedDate(date, desc, style) {
 		"use strict";
