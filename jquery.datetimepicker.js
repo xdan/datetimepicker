@@ -786,7 +786,30 @@ var datetimepickerFactory = function ($) {
 					}
 					return out;
 				},
+				getWheelDelta = function (e) {
+					var deltaY = 0;
+
+					if ('detail' in e) { deltaY = e.detail; }
+					if ('wheelDelta' in e) { deltaY = -e.wheelDelta / 120; }
+					if ('wheelDeltaY' in e) { deltaY = -e.wheelDeltaY / 120; }
+					if ('axis' in e && e.axis === e.HORIZONTAL_AXIS) { deltaY = 0; }
+
+					deltaY *= 10;
+
+					if ('deltaY' in e) { deltaY = e.deltaY; }
+
+					if (deltaY && e.deltaMode) {
+						if (e.deltaMode === 1) {
+							deltaY *= 40;
+						} else {
+							deltaY *= 800;
+						}
+					}
+
+					return deltaY;
+				},
 				timebox,
+				timeboxTop = 0,
 				parentHeight,
 				height,
 				scrollbar,
@@ -807,6 +830,7 @@ var datetimepickerFactory = function ($) {
 
 			if (!$(this).hasClass('xdsoft_scroller_box')) {
 				timebox = timeboxparent.children().eq(0);
+				timeboxTop = Math.abs(parseInt(timebox.css('marginTop'), 10));
 				parentHeight = timeboxparent[0].clientHeight;
 				height = timebox[0].offsetHeight;
 				scrollbar = $('<div class="xdsoft_scrollbar"></div>');
@@ -832,7 +856,7 @@ var datetimepickerFactory = function ($) {
 						}
 
 						startY = pointerEventToXY(event).y;
-						startTopScroll = parseInt(scroller.css('margin-top'), 10);
+						startTopScroll = parseInt(scroller.css('marginTop'), 10);
 						h1 = scrollbar[0].offsetHeight;
 
 						if (event.type === 'mousedown' || event.type === 'touchstart') {
@@ -868,12 +892,10 @@ var datetimepickerFactory = function ($) {
 							timeboxparent.trigger('resize_scroll.xdsoft_scroller', [percentage, true]);
 						}
 						percentage = percentage > 1 ? 1 : (percentage < 0 || isNaN(percentage)) ? 0 : percentage;
+						timeboxTop = parseFloat(Math.abs((timebox[0].offsetHeight - parentHeight) * percentage).toFixed(4));
 
-						scroller.css('margin-top', maximumOffset * percentage);
-
-						setTimeout(function () {
-							timebox.css('marginTop', -parseInt((timebox[0].offsetHeight - parentHeight) * percentage, 10));
-						}, 10);
+						scroller.css('marginTop', maximumOffset * percentage);
+						timebox.css('marginTop', -timeboxTop);
 					})
 					.on('resize_scroll.xdsoft_scroller', function (event, percentage, noTriggerScroll) {
 						var percent, sh;
@@ -888,19 +910,14 @@ var datetimepickerFactory = function ($) {
 							scroller.css('height', parseInt(sh > 10 ? sh : 10, 10));
 							maximumOffset = scrollbar[0].offsetHeight - scroller[0].offsetHeight;
 							if (noTriggerScroll !== true) {
-								timeboxparent.trigger('scroll_element.xdsoft_scroller', [percentage || Math.abs(parseInt(timebox.css('marginTop'), 10)) / (height - parentHeight)]);
+								timeboxparent.trigger('scroll_element.xdsoft_scroller', [percentage || timeboxTop / (height - parentHeight)]);
 							}
 						}
 					});
 
 				timeboxparent.on('mousewheel', function (event) {
-					var top = Math.abs(parseInt(timebox.css('marginTop'), 10));
-
-					top = top - (event.deltaY * 20);
-					if (top < 0) {
-						top = 0;
-					}
-
+					var deltaY = getWheelDelta(event.originalEvent);
+					var top = Math.max(0, timeboxTop - deltaY);
 					timeboxparent.trigger('scroll_element.xdsoft_scroller', [top / (height - parentHeight)]);
 					event.stopPropagation();
 					return false;
@@ -908,7 +925,7 @@ var datetimepickerFactory = function ($) {
 
 				timeboxparent.on('touchstart', function (event) {
 					start = pointerEventToXY(event);
-					startTop = Math.abs(parseInt(timebox.css('marginTop'), 10));
+					startTop = timeboxTop;
 				});
 
 				timeboxparent.on('touchmove', function (event) {
