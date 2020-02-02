@@ -540,7 +540,7 @@ jQuery(function(){
 <tr id="format">
 <td><a href="#format">format</a></td>
 <td>Y/m/d H:i</td>
-<td>Format datetime. <a href="http://php.net/manual/ru/function.date.php" target="_blank">More</a>  Also there is a special type of <a href="#unixtime"><em>«unixtime»</em></a></td>
+<td>Format datetime. <a href="https://www.php.net/manual/en/function.date.php" target="_blank">More</a>  Also there is a special type of <a href="#unixtime"><em>«unixtime»</em></a></td>
 <td>
 <pre><code class="language-javascript">{format:'H'}
 {format:'Y'}{format:'unixtime'}</code></pre>
