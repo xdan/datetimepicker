@@ -1667,7 +1667,7 @@ var datetimepickerFactory = function ($) {
 					clearTimeout(xchangeTimer);
 					xchangeTimer = setTimeout(function () {
 
-						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null || isNaN(_xdsoft_datetime.currentTime.getTime())) {
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
 
