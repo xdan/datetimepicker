@@ -1628,7 +1628,18 @@ var datetimepickerFactory = function ($) {
 						var pheight = timeboxparent[0].clientHeight,
 							height = timebox[0].offsetHeight,
 							top = Math.abs(parseInt(timebox.css('marginTop'), 10));
-						if ($this.hasClass(options.next) && (height - pheight) - options.timeHeightInTimePicker >= top) {
+						/**
+						 *  Fixes a bug which happens if:
+						 *  top is < the timeHeightInTimePicker, it will cause the up arrow to stop working
+						 *  same for the down arrow if it's not exactly on the pixel
+						 */
+						if (top < options.timeHeightInTimePicker) {
+							top = options.timeHeightInTimePicker;
+						} else if ($this.hasClass(options.next) && (height - pheight) < top) {
+							timebox.css('marginTop', '-' + height + 'px');
+						}
+
+						if ($this.hasClass(options.next) && (height - pheight) > top) {
 							timebox.css('marginTop', '-' + (top + options.timeHeightInTimePicker) + 'px');
 						} else if ($this.hasClass(options.prev) && top - options.timeHeightInTimePicker >= 0) {
 							timebox.css('marginTop', '-' + (top - options.timeHeightInTimePicker) + 'px');
