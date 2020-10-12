@@ -1319,8 +1319,8 @@ var datetimepickerFactory = function ($) {
 					input
 						.off('blur.xdsoft')
 						.on('blur.xdsoft', function () {
-							if (options.allowBlank && (!$.trim($(this).val()).length ||
-									(typeof options.mask === "string" && $.trim($(this).val()) === options.mask.replace(/[0-9]/g, '_')))) {
+							if (options.allowBlank && (!$(this).val().trim().length ||
+									(typeof options.mask === "string" && $(this).val().trim() === options.mask.replace(/[0-9]/g, '_')))) {
 								$(this).val(null);
 								datetimepicker.data('xdsoft_datetime').empty();
 							} else {
@@ -2454,7 +2454,7 @@ var datetimepickerFactory = function ($) {
 					    if (isValidValue(options.mask, val)) {
 						this.value = val;
 						setCaretPos(this, pos);
-					    } else if ($.trim(val) === '') {
+					    } else if (val.trim() === '') {
 						this.value = options.mask.replace(/[0-9]/g, '_');
 					    } else {
 						input.trigger('error_input.xdsoft');
@@ -2534,7 +2534,7 @@ var datetimepickerFactory = function ($) {
 						  val = valueBeforeCursor + insertChar + valueAfterNextChar
 						}
 
-						if ($.trim(val) === '') {
+						if (val.trim() === '') {
 						  // if empty, set to default
 						    val = defaultBlank
 						} else {
@@ -2555,7 +2555,7 @@ var datetimepickerFactory = function ($) {
 						if (isValidValue(options.mask, val)) {
 						    this.value = val;
 						    setCaretPos(this, pos);
-						} else if ($.trim(val) === '') {
+						} else if (val.trim() === '') {
 						    this.value = options.mask.replace(/[0-9]/g, '_');
 						} else {
 						    input.trigger('error_input.xdsoft');
