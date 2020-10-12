@@ -1141,15 +1141,15 @@ var datetimepickerFactory = function ($) {
 
 				options = $.extend(true, {}, options, _options);
 
-				if (_options.allowTimes && $.isArray(_options.allowTimes) && _options.allowTimes.length) {
+				if (_options.allowTimes && Array.isArray(_options.allowTimes) && _options.allowTimes.length) {
 					options.allowTimes = $.extend(true, [], _options.allowTimes);
 				}
 
-				if (_options.weekends && $.isArray(_options.weekends) && _options.weekends.length) {
+				if (_options.weekends && Array.isArray(_options.weekends) && _options.weekends.length) {
 					options.weekends = $.extend(true, [], _options.weekends);
 				}
 
-				if (_options.allowDates && $.isArray(_options.allowDates) && _options.allowDates.length) {
+				if (_options.allowDates && Array.isArray(_options.allowDates) && _options.allowDates.length) {
 					options.allowDates = $.extend(true, [], _options.allowDates);
 				}
 
@@ -1157,7 +1157,7 @@ var datetimepickerFactory = function ($) {
 					options.allowDateRe = new RegExp(_options.allowDateRe);
 				}
 
-				if (_options.highlightedDates && $.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
+				if (_options.highlightedDates && Array.isArray(_options.highlightedDates) && _options.highlightedDates.length) {
 					$.each(_options.highlightedDates, function (index, value) {
 						var splitData = $.map(value.split(','), $.trim),
 							exDesc,
@@ -1176,7 +1176,7 @@ var datetimepickerFactory = function ($) {
 					options.highlightedDates = $.extend(true, [], highlightedDates);
 				}
 
-				if (_options.highlightedPeriods && $.isArray(_options.highlightedPeriods) && _options.highlightedPeriods.length) {
+				if (_options.highlightedPeriods && Array.isArray(_options.highlightedPeriods) && _options.highlightedPeriods.length) {
 					highlightedDates = $.extend(true, [], options.highlightedDates);
 					$.each(_options.highlightedPeriods, function (index, value) {
 						var dateTest, // start date
@@ -1186,7 +1186,7 @@ var datetimepickerFactory = function ($) {
 							keyDate,
 							exDesc,
 							style;
-						if ($.isArray(value)) {
+						if (Array.isArray(value)) {
 							dateTest = value[0];
 							dateEnd = value[1];
 							desc = value[2];
@@ -1218,11 +1218,11 @@ var datetimepickerFactory = function ($) {
 					options.highlightedDates = $.extend(true, [], highlightedDates);
 				}
 
-				if (_options.disabledDates && $.isArray(_options.disabledDates) && _options.disabledDates.length) {
+				if (_options.disabledDates && Array.isArray(_options.disabledDates) && _options.disabledDates.length) {
 					options.disabledDates = $.extend(true, [], _options.disabledDates);
 				}
 
-				if (_options.disabledWeekDays && $.isArray(_options.disabledWeekDays) && _options.disabledWeekDays.length) {
+				if (_options.disabledWeekDays && Array.isArray(_options.disabledWeekDays) && _options.disabledWeekDays.length) {
 					options.disabledWeekDays = $.extend(true, [], _options.disabledWeekDays);
 				}
 
@@ -1904,7 +1904,7 @@ var datetimepickerFactory = function ($) {
 
 						line_time = function line_time(h, m) {
 							var now = _xdsoft_datetime.now(), current_time,
-								isALlowTimesInit = options.allowTimes && $.isArray(options.allowTimes) && options.allowTimes.length;
+								isALlowTimesInit = options.allowTimes && Array.isArray(options.allowTimes) && options.allowTimes.length;
 							now.setHours(h);
 							h = parseInt(now.getHours(), 10);
 							now.setMinutes(m);
@@ -1935,7 +1935,7 @@ var datetimepickerFactory = function ($) {
 							time += '<div class="xdsoft_time ' + classes.join(' ') + '" data-hour="' + h + '" data-minute="' + m + '">' + dateHelper.formatDate(now, options.formatTime) + '</div>';
 						};
 
-						if (!options.allowTimes || !$.isArray(options.allowTimes) || !options.allowTimes.length) {
+						if (!options.allowTimes || !Array.isArray(options.allowTimes) || !options.allowTimes.length) {
 							for (i = 0, j = 0; i < (options.hours12 ? 12 : 24); i += 1) {
 								for (j = 0; j < 60; j += options.step) {
 								        var currentMinutesOfDay = i * 60 + j;
