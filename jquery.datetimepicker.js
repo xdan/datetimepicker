@@ -2411,7 +2411,7 @@ var datetimepickerFactory = function ($) {
 					}
 				}
 
-				if ($.type(options.mask) === 'string') {
+				if (typeof options.mask === 'string') {
 					if (!isValidValue(options.mask, input.val())) {
 						input.val(options.mask.replace(/[0-9]/g, '_'));
 						setCaretPos(input[0], 0);
@@ -2644,7 +2644,7 @@ var datetimepickerFactory = function ($) {
 		this.each(function () {
 			var datetimepicker = $(this).data('xdsoft_datetimepicker'), $input;
 			if (datetimepicker) {
-				if ($.type(opt) === 'string') {
+				if (typeof opt === 'string') {
 					switch (opt) {
 						case 'show':
 							$(this).select().focus();
@@ -2681,7 +2681,7 @@ var datetimepickerFactory = function ($) {
 				}
 				return 0;
 			}
-			if ($.type(opt) !== 'string') {
+			if (typeof opt !== 'string') {
 				if (!options.lazyInit || options.open || options.inline) {
 					createDateTimePicker($(this));
 				} else {
