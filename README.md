@@ -5,9 +5,7 @@
 [![npm version](https://badge.fury.io/js/jquery-datetimepicker.svg)](https://badge.fury.io/js/jquery-datetimepicker)
 [![npm](https://img.shields.io/npm/dm/jquery-datetimepicker.svg)](https://www.npmjs.com/package/jquery-datetimepicker)
 
-
-
-PLEASE. Help me update documentation.
+PLEASE. Help me update the documentation.
 [Doc.tpl](https://github.com/xdan/datetimepicker/blob/master/doc.tpl)
 This file will be automatically displayed on the site
 
@@ -24,7 +22,7 @@ or download [zip](https://github.com/xdan/datetimepicker/releases)
 # datetimepicker
 ==============
 
-**!!! The latest version of the options 'lang' obsolete. The language setting is now global. !!!**
+**!!! In the latest version the 'lang' option is obsolete. The language setting is now global. !!!**
 
 Use this:
 ```javascript
@@ -66,7 +64,7 @@ Install:
 2. Run `npm install`. npm will look at `package.json` and automatically install the necessary dependencies. 
 3. Run `bower install`, which installs front-end packages defined in `bower.json`.
 
-Notice: If you use Bower v1.5.2, you will get error: `The "main" field cannot contain minified files`
+Notice: If you use Bower v1.5.2, you will get the error: `The "main" field cannot contain minified files`
 You can regress to version 1.3.12
 
 1. `npm uninstall bower -g`
@@ -77,7 +75,7 @@ Build:
 First install npm requirements: `npm install -g uglifycss concat-cli`
 Then build the files: `npm run build`
 
-When build completed, you'll have the following files:
+When the build completes, you'll have the following files:
 - **build/jquery.datetimepicker.full.js** - browser file
 - **build/jquery.datetimepicker.full.min.js** - browser minified file
 - **build/jquery.datetimepicker.min.js** - amd module style minified file
