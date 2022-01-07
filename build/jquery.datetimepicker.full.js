@@ -90,7 +90,7 @@ var datetimepickerFactory = function ($) {
 					'Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'
 				],
 				dayOfWeekShort: [
-					"Ндл", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт"
+					"Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"
 				],
 				dayOfWeek: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"]
 			},
@@ -541,6 +541,15 @@ var datetimepickerFactory = function ($) {
 					"კვ", "ორშ", "სამშ", "ოთხ", "ხუთ", "პარ", "შაბ"
 				],
 				dayOfWeek: ["კვირა", "ორშაბათი", "სამშაბათი", "ოთხშაბათი", "ხუთშაბათი", "პარასკევი", "შაბათი"]
+			},
+			kk: { // Kazakh
+				months: [
+					'Қаңтар', 'Ақпан', 'Наурыз', 'Сәуір', 'Мамыр', 'Маусым', 'Шілде', 'Тамыз', 'Қыркүйек', 'Қазан', 'Қараша', 'Желтоқсан'
+				],
+				dayOfWeekShort: [
+					"Жк", "Дс", "Сс", "Ср", "Бс", "Жм", "Сб"
+				],
+				dayOfWeek: ["Жексенбі", "Дүйсенбі", "Сейсенбі", "Сәрсенбі", "Бейсенбі", "Жұма", "Сенбі"]
 			}
 		},
 
@@ -677,7 +686,7 @@ var datetimepickerFactory = function ($) {
 				parseDate: function (date, format) {
 					if(isFormatStandard(format)){
 						return defaultDateHelper.parseDate(date, format);
-					} 
+					}
 					var d = moment(date, format);
 					return d.isValid() ? d.toDate() : false;
 				},
@@ -685,7 +694,7 @@ var datetimepickerFactory = function ($) {
 				formatDate: function (date, format) {
 					if(isFormatStandard(format)){
 						return defaultDateHelper.formatDate(date, format);
-					} 
+					}
 					return moment(date).format(format);
 				},
 
@@ -718,7 +727,7 @@ var datetimepickerFactory = function ($) {
 			if(typeof dateFormatter === 'string' && dateFormatters.hasOwnProperty(dateFormatter)){
 				var df = dateFormatters[dateFormatter];
 				$.extend(default_options, df.default_options);
-				dateHelper = df.formatter; 
+				dateHelper = df.formatter;
 			}
 			else {
 				dateHelper = dateFormatter;
@@ -806,7 +815,7 @@ var datetimepickerFactory = function ($) {
 
 					deltaY *= 10;
 
-					if ('deltaY' in e) { deltaY = e.deltaY; }
+					if ('deltaY' in e) { deltaY = -e.deltaY; }
 
 					if (deltaY && e.deltaMode) {
 						if (e.deltaMode === 1) {
@@ -1646,7 +1655,18 @@ var datetimepickerFactory = function ($) {
 						var pheight = timeboxparent[0].clientHeight,
 							height = timebox[0].offsetHeight,
 							top = Math.abs(parseInt(timebox.css('marginTop'), 10));
-						if ($this.hasClass(options.next) && (height - pheight) - options.timeHeightInTimePicker >= top) {
+						/**
+						 *  Fixes a bug which happens if:
+						 *  top is < the timeHeightInTimePicker, it will cause the up arrow to stop working
+						 *  same for the down arrow if it's not exactly on the pixel
+						 */
+						if (top < options.timeHeightInTimePicker) {
+							top = options.timeHeightInTimePicker;
+						} else if ($this.hasClass(options.next) && (height - pheight) < top) {
+							timebox.css('marginTop', '-' + height + 'px');
+						}
+
+						if ($this.hasClass(options.next) && (height - pheight) > top) {
 							timebox.css('marginTop', '-' + (top + options.timeHeightInTimePicker) + 'px');
 						} else if ($this.hasClass(options.prev) && top - options.timeHeightInTimePicker >= 0) {
 							timebox.css('marginTop', '-' + (top - options.timeHeightInTimePicker) + 'px');
@@ -1685,7 +1705,7 @@ var datetimepickerFactory = function ($) {
 					clearTimeout(xchangeTimer);
 					xchangeTimer = setTimeout(function () {
 
-						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null) {
+						if (_xdsoft_datetime.currentTime === undefined || _xdsoft_datetime.currentTime === null || isNaN(_xdsoft_datetime.currentTime.getTime())) {
 							_xdsoft_datetime.currentTime = _xdsoft_datetime.now();
 						}
 
@@ -1778,26 +1798,26 @@ var datetimepickerFactory = function ($) {
 									classes.push('xdsoft_disabled');
 								}
 							}
-							
+
 							if(options.allowDates && options.allowDates.length>0){
 								if(options.allowDates.indexOf(dateHelper.formatDate(start, options.formatDate)) === -1){
 									classes.push('xdsoft_disabled');
 								}
 							}
-							
+
 							var currentDay = ((start.getFullYear() * 12) + start.getMonth()) * 31 + start.getDate();
 							if ((maxDate !== false && start > maxDate) || (minDateTime !== false && start < minDateTime)  || (minDate !== false && start < minDate) || (maxDateTime !== false && currentDay > maxDateTimeDay) || (customDateSettings && customDateSettings[0] === false)) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (options.disabledDates.indexOf(dateHelper.formatDate(start, options.formatDate)) !== -1) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (options.disabledWeekDays.indexOf(day) !== -1) {
 								classes.push('xdsoft_disabled');
 							}
-							
+
 							if (input.is('[disabled]')) {
 								classes.push('xdsoft_disabled');
 							}
@@ -2425,7 +2445,7 @@ var datetimepickerFactory = function ($) {
 					    var valueBeforeCursor = val.substr(0, pos);
 					    var valueAfterPaste = val.substr(pos + pastedData.length);
 
-					    val = valueBeforeCursor + pastedData + valueAfterPaste;           
+					    val = valueBeforeCursor + pastedData + valueAfterPaste;
 					    pos += pastedData.length;
 
 					    if (isValidValue(options.mask, val)) {
@@ -2451,7 +2471,7 @@ var datetimepickerFactory = function ($) {
 
 					    // only alow these characters
 					    if (((key >=  KEY0 && key <=  KEY9)  ||
-						 (key >= _KEY0 && key <= _KEY9)) || 
+						 (key >= _KEY0 && key <= _KEY9)) ||
 						 (key === BACKSPACE || key === DEL)) {
 
 					      // get char to insert which is new character or placeholder ('_')
@@ -2482,7 +2502,7 @@ var datetimepickerFactory = function ($) {
 						  pos += (key === BACKSPACE && !hasSel) ? -1 : 1;
 
                         }
-                        
+
                         if (event.metaKey) {    // cmd has been pressed
                             pos = 0;
                             hasSel = true;
@@ -2494,7 +2514,7 @@ var datetimepickerFactory = function ($) {
 
 						  // if we have a selection length we will wipe out entire selection and replace with default template for that range
 						  var defaultBlank = options.mask.replace(/[0-9]/g, '_');
-						  var defaultBlankSelectionReplacement = defaultBlank.substr(pos, selLength); 
+						  var defaultBlankSelectionReplacement = defaultBlank.substr(pos, selLength);
 						  var selReplacementRemainder = defaultBlankSelectionReplacement.substr(1) // might be empty
 
 						  var valueBeforeSel = val.substr(0, pos);
