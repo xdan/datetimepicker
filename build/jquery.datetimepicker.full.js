@@ -818,7 +818,7 @@ var datetimepickerFactory = function ($) {
 
 					deltaY *= 10;
 
-					if ('deltaY' in e) { deltaY = e.deltaY; }
+					if ('deltaY' in e) { deltaY = -e.deltaY; }
 
 					if (deltaY && e.deltaMode) {
 						if (e.deltaMode === 1) {
