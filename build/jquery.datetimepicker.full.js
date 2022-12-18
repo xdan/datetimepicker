@@ -1878,8 +1878,8 @@ var datetimepickerFactory = function ($) {
 
 						calendar.html(table);
 
-						month_picker.find('.xdsoft_label span').eq(0).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
-						month_picker.find('.xdsoft_label span').eq(1).text(_xdsoft_datetime.currentTime.getFullYear() + options.yearOffset);
+						month_picker.find('.xdsoft_label span').eq(0).text(_xdsoft_datetime.currentTime.getFullYear() + options.yearOffset);
+						month_picker.find('.xdsoft_label span').eq(1).text(options.i18n[globalLocale].months[_xdsoft_datetime.currentTime.getMonth()]);
 
 						// generate timebox
 						time = '';
