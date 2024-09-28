@@ -2264,6 +2264,16 @@ var datetimepickerFactory = function ($) {
                 } else {
                     datetimepickerCss[verticalAnchorEdge] = verticalPosition;
                 }
+				/**
+				 *  Fixes a bug which happens if:
+				 *  clicking prev/next while viewing a 6 week month adjusts the height of the calendar to less
+				 *  for the prev/next month with 5 only weeks, in which case **when the popup is above the input** by the
+     				 *  time the mouseup event occurs the prev/next button is no longer underneath the mouse pointer, rather 
+	  			 *  whatever was behind the calendar popup, and if that whatever is also a disabled form element then
+       				 *  the mouseup event is swallowed up and the prev/next repeat becomes an infinite loop.
+	    			 *  One solution is set a fixed height, so that the UI doesn't jump around for better UX when above.
+				 */
+				calendar.css({'min-height':verticalAnchorEdge == 'bottom' ? '180px' : ''})
 
 				datetimepicker.css(datetimepickerCss);
 			};
