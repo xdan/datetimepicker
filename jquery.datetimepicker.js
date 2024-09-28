@@ -1609,7 +1609,7 @@ var datetimepickerFactory = function ($) {
 			});
 			month_picker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('touchend mousedown.xdsoft', function () {
+				.on('touchstart mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false;
@@ -1636,7 +1636,7 @@ var datetimepickerFactory = function ($) {
 
 			timepicker
 				.find('.xdsoft_prev,.xdsoft_next')
-				.on('touchend mousedown.xdsoft', function () {
+				.on('touchstart mousedown.xdsoft', function () {
 					var $this = $(this),
 						timer = 0,
 						stop = false,
