@@ -1,3 +1,7 @@
+> If you want to support this plugin, write to me at chupurnov@gmail.com
+I will give you rights to npm and github
+I don't use jQuery now, so I can't fully support it
+
 # jQuery DateTimePicker
 [Demo and Documentation](https://xdsoft.net/jqplugins/datetimepicker/)
 
