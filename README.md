@@ -1,6 +1,8 @@
-## Contributing & Maintenance
 
-If you would like to help maintain this plugin, please email me at [chupurnov@gmail.com](mailto:chupurnov@gmail.com). I can grant you access to the npm package and the GitHub repository.
+> [!IMPORTANT] 
+> **Contributing & Maintenance**
+> 
+> If you would like to help maintain this plugin, please email me at [chupurnov@gmail.com](mailto:chupurnov@gmail.com). I can grant you access to the npm package and the GitHub repository.
 
 Please note that I am no longer using jQuery, so I cannot offer full support for it.
 
