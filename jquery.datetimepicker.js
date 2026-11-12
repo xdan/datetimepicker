@@ -1998,6 +1998,10 @@ var datetimepickerFactory = function ($) {
 			timerclick = 0;
 			calendar
 				.on('touchend click.xdsoft', 'td', function (xdevent) {
+					if (input.is(':disabled')) {
+						return false;
+					}
+
 					xdevent.stopPropagation();  // Prevents closing of Pop-ups, Modals and Flyouts in Bootstrap
 					timerclick += 1;
 					var $this = $(this),
@@ -2042,6 +2046,10 @@ var datetimepickerFactory = function ($) {
 				})
 				.on('touchmove', 'div', handleTouchMoved)
 				.on('touchend click.xdsoft', 'div', function (xdevent) {
+					if (input.is(':disabled')) {
+						return false;
+					}
+
 					if (!this.touchMoved) {
 						xdevent.stopPropagation();
 						var $this = $(this),
